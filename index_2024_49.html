@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/node_modules/reveal.js/dist/reveal.css" />
+    <link rel="stylesheet" href="/node_modules/reveal.js/dist/theme/night.css" />
+    <style type="text/css">
+      /* .reveal section {
+        position: relative;
+      } */
+
+      /* Style the overlay link to cover the entire section */
+      .full-slide-link {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        text-indent: -9999px; /* Hides the link text visually */
+        background: rgba(0, 0, 0, 0); /* Makes the link transparent */
+        z-index: 1; /* Places the link above other content if necessary */
+      }
+      .bg-link {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        /* background-image: url('image.jpg');
+        background-size: cover;
+        background-position: center; */
+        z-index: -1;
+      }
+      /* .reveal .fragment.grow.visible {
+        transform: scale(3.1);
+        opacity: 0.2;
+      } */
+      .reveal .fragment.growx3 {
+        opacity: 1;
+        visibility: inherit;
+      }
+      .reveal .fragment.growx3.visible {
+          transform: scale(3);
+          opacity: 0.2;
+      }
+
+</style>
+  </head>
+<body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <div class="r-stack">
+            <img data-src="assets/slide_001/google_title.jpg" class="fragment growx3" data-fragment-index="0"/>
+            <a href="https://cloud.google.com/blog/products/ai-machine-learning/introducing-veo-and-imagen-3-on-vertex-ai" class="fragment" data-fragment-index="0"><img data-src="assets/slide_001/google_desc.png"/></a>
+          </div>
+        </section>
+        <!-- <section>
+          <a href="https://cloud.google.com/blog/products/ai-machine-learning/introducing-veo-and-imagen-3-on-vertex-ai" class="fragment current-visible" data-fragment-index="0"><img data-src="assets/slide_001/google_title.jpg"/></a>
+          <img data-src="assets/slide_001/google_title.jpg" class="fragment" style="opacity: 0.2;" data-fragment-index="1"/>
+          <a href="https://cloud.google.com/blog/products/ai-machine-learning/introducing-veo-and-imagen-3-on-vertex-ai"><img data-src="assets/slide_001/google_desc.png" class="fragment" data-fragment-index="1"/></a>
+        </section> -->
+        <div class="r-stack">
+          <a href="https://cloud.google.com/blog/products/ai-machine-learning/introducing-veo-and-imagen-3-on-vertex-ai" class="fragment current-visible" data-fragment-index="0"><img data-src="assets/slide_001/google_title.jpg"/></a>
+          <img data-src="assets/slide_001/google_title.jpg" class="fragment" style="opacity: 0.2;" data-fragment-index="1"/>
+          <a href="https://cloud.google.com/blog/products/ai-machine-learning/introducing-veo-and-imagen-3-on-vertex-ai"><img data-src="assets/slide_001/google_desc.png" class="fragment" data-fragment-index="1"/></a>
+        </div>
+        <section data-background-image="assets/slide_001/insight_ai_foundry.png" style="position: relative;" onclick="console.log('background clicked');"></section>
+          <!-- <a href="https://learn.microsoft.com/en-us/azure/ai-studio/what-is-ai-studio" class="r-fit-text"></a> -->
+        </section>
+        <!-- <section>
+          <a href="https://learn.microsoft.com/en-us/azure/ai-studio/what-is-ai-studio">
+            <img data-src="assets/slide_001/insight_ai_foundry.png" class="r-stretch">
+          </a>
+        </section> -->
+        <section data-background-image="assets/slide_001/insight_inference_back.png">
+          <a href="https://learn.microsoft.com/en-us/azure/ai-studio/reference/reference-model-inference-api?tabs=python" target="_blank" class="fragment current-visible">
+            <img data-src="assets/slide_001/insight_inference_header.png">
+          </a>
+        </section>
+        <section data-background-video="https://aivideo.hunyuan.tencent.com/movie/top.mp4">
+          <div class="r-stack">
+            <a href="https://aivideo.hunyuan.tencent.com/" class="fragment current-visible" target="_blank"><img data-src="assets/slide_001/tencent_index.png" /></a>
+            <a href="https://x.com/Xianbao_QIAN/status/1863856035850752404" class="fragment current-visible" target="_blank"><img data-src="assets/slide_001/tencent_twitter.png" /></a>
+            <a href="https://github.com/Tencent/HunyuanVideo" class="fragment current-visible" target="_blank"><img data-src="assets/slide_001/tencent_requirements.png" /></a>
+          </div>
+        </section>
+        <section>
+          <h4><a href="https://arxiv.org/pdf/2411.06037">SUFFICIENT CONTEXT: A NEW LENS ON RETRIEVAL AUGMENTED GENERATION SYSTEMS</a></h4>
+          <div class="r-stack">
+            <a href="https://arxiv.org/pdf/2411.06037" class="fragment fade-out" data-fragment-index="0"><img data-src="assets/slide_001/paper_title.png" /></a>
+            <a href="https://x.com/rohanpaul_ai/status/1863908674143678944" class="fragment current-visible" data-fragment-index="0"><img data-src="assets/slide_001/paper_highlights.png" /></a>
+          </div>
+        </section>
+        <section data-scrolling>
+          <a href="https://github.com/huggingface/smol-course" target="_blank"><img data-src="assets/slide_001/smol_title.png"></a>
+          <div class="r-stack scrolling-container">
+            <a href="https://github.com/huggingface/smol-course" class="fragment current-visible">
+              <img data-src="assets/slide_001/smol_index.png" class="r-stretch scrolling-container" />
+            </a>
+            <a href="https://github.com/huggingface/smol-course" class="fragment current-visible">
+              <!-- <img src="https://camo.githubusercontent.com/ad080ff22d6e58553688ae65332403cf8d3b9a9643226a6a5a64ec1066961ab9/68747470733a2f2f6170692e737461722d686973746f72792e636f6d2f7376673f7265706f733d68756767696e67666163652f736d6f6c2d636f7572736526747970653d44617465" alt="Star History Chart" data-canonical-src="https://api.star-history.com/svg?repos=huggingface/smol-course&amp;type=Date" /> -->
+               <img src="assets/slide_001/smol_history.svg" class="r-stretch scrolling" />
+            </a>
+          </div>
+        </section>
+        <section>
+          <div class="r-stack">
+            <a href="https://aws.amazon.com/blogs/aws/introducing-amazon-nova-frontier-intelligence-and-industry-leading-price-performance/" class="fragment fade-out" data-fragment-index="0" target="_blank"><img data-src="assets/slide_001/amazon_news.png" /></a>
+            <a href="https://x.com/_philschmid/status/1864016010464080260" class="fragment current-visible" data-fragment-index="0" target="_blank"><img data-src="assets/slide_001/amazon_twitter.png" /></a>
+            <a href="https://x.com/ArtificialAnlys/status/1864023052818030814" class="fragment current-visible" target="_blank"><img data-src="assets/slide_001/amazon_index.jpg" /></a>
+          </div>
+        </section>
+        <section>
+          <a href="https://ai.pydantic.dev/"><img data-src="assets/slide_001/pydantic.png"/></a>"
+        </section>
+      </div>
+    </div>
+    <!-- <script src="dist/reveal.js"></script> -->
+    <script src="node_modules/reveal.js/dist/reveal.js"></script>
+    <script src="scrolling-image.js"></script>
+    <script src="node_modules/reveal.js/plugin/markdown/markdown.esm.js"></script>
+    <script>
+        let deck = new Reveal();
+        deck.initialize({controls: false, progress: false, plugins: [RevealScrollingImage]});
+    </script>
+  </body>
+</html>
