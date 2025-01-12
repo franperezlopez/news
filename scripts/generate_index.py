@@ -8,12 +8,14 @@ from pathlib import Path
 # Create an inflect engine
 p = inflect.engine()
 
-def create_ml_news_data(date: datetime) -> tuple[str, str]:
+def create_ml_news_data(date: datetime) -> tuple[str, str, str]:
     year = date.year
     week_number = date.isocalendar()[1]  # Get the ISO week number
     week_with_suffix = p.ordinal(week_number)  # Get ordinal representation (e.g., "1st", "2nd")
 
-    return f"ML NEWS / {year} / {week_with_suffix} week", f"index_{year}_{week_number:02d}.html"
+    return (f"ML NEWS / {year} / {week_with_suffix} week", 
+            f"index_{year}_{week_number:02d}.html", 
+            f"slide_{year}_{week_number:02d}")
 
 def parse_date_argument() -> datetime:
     """Parses the command-line argument for the date or defaults to today."""
@@ -36,7 +38,7 @@ env = Environment(loader=FileSystemLoader(template_dir))
 template = env.get_template('index_weekly.j2')
 
 # Define the data to be used in the template
-title, filename = create_ml_news_data(date)
+title, slide_file, asset_folder = create_ml_news_data(date)
 data = {
     'title': title,
 }
@@ -45,7 +47,8 @@ data = {
 rendered_html = template.render(data)
 
 # Save the rendered HTML to an output file
-output_file = Path(os.path.dirname(__file__)).parent / filename
+root_folder = Path(os.path.dirname(__file__)).parent
+output_file = root_folder / slide_file
 if not output_file.exists():
     with open(output_file, 'w') as f:
         f.write(rendered_html)
@@ -53,3 +56,4 @@ if not output_file.exists():
 else:
     print(f"HTML file {output_file} already exists")
 
+(root_folder / "assets" / asset_folder).mkdir(exist_ok=True)
