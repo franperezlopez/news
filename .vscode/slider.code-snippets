@@ -1,0 +1,54 @@
+{
+	// Place your slider workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	"new section": {
+		"scope": "html",
+		"prefix": "sl-sect",
+		"body": [
+			"<section>",
+				"<div class=\"r-stack\">",
+			  		"<a href=\"$2\" class=\"fragment current-visible\" target=\"_blank\"><img src=\"$1\"/></a>",
+				"</div>",
+		  	"</section>"
+		  ],
+		"description": "New section"
+	},
+	"new link": {
+		"scope": "html",
+		"prefix": "sl-link",
+		"body": [
+			"<a href=\"$2\" class=\"fragment current-visible\" target=\"_blank\"><img src=\"$1\"/></a>",
+		  ],
+		"description": "New link"
+	},
+	"new section video": {
+		"scope": "html",
+		"prefix": "sl-sect-video",
+		"body": [
+			"<section data-background-video=\"$1\">",
+				"<div class=\"r-stack\">",
+			  		"<a href=\"$3\" class=\"fragment current-visible\" target=\"_blank\"><img src=\"$2\"/></a>",
+				"</div>",
+		  	"</section>"
+		  ],
+		"description": "New section"
+	},
+	"new youtube slide": {
+		"scope": "html",
+		"prefix": "sl-youtube",
+		"body": [
+		"<section>",
+			"<span class=\"fragment fade-out\" data-fragment-index=\"-1\">",
+				"<a href=\"$1\" target=\"_blank\">$2</a><br />",
+				"<a href=\"$1\" target=\"_blank\"><img src=\"$3\"/></a>",
+			"</span>",
+		"</section>"
+		  ],
+		"description": "New youtube slide"
+	}
+}
