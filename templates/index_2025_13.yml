@@ -1,0 +1,116 @@
+# yaml-language-server: $schema=dsl_schema.json
+
+document:
+  title: "ML NEWS / 2025 / 13th week"
+  week: 13
+  year: 2025
+  slides:
+    # PRODUCTS
+    - type: section
+      content:
+        - type: image
+          value: assets/slide_2025_13/openai_image_blog.png
+          url: https://openai.com/index/introducing-4o-image-generation/
+        - type: image
+          value: assets/slide_2025_13/openai_image_technical.png
+          url: https://cdn.openai.com/11998be9-5319-4302-bfbf-1167e093f1fb/Native_Image_Generation_System_Card.pdf
+          attributes:
+            class: half-size
+        - type: image
+          value: assets/slide_2025_13/openai_image_nayan.png
+          url: https://x.com/SaxenaNayan/status/1905334927526105492
+          attributes:
+            class: half-size
+        - type: image
+          value: assets/slide_2025_13/openai_image_joanne.png
+          url: https://reservoirsamples.substack.com/p/thoughts-on-setting-policy-for-new
+    - type: section
+      content:
+        - type: image
+          value: assets/slide_2025_13/openai_gpt4_update.png
+          url: https://x.com/OpenAIDevs/status/1905335104211185999
+    - type: section
+      background:
+        type: video
+        url: assets/slide_2025_13/google_gemini.mp4
+      content:
+        - type: image
+          value: assets/slide_2025_13/google_gemini_2_5_blog.png
+          url: https://blog.google/technology/google-deepmind/gemini-model-thinking-updates-march-2025/
+        - type: image
+          value: assets/slide_2025_13/google_gemini_logan.png
+          url: https://x.com/OfficialLoganK/status/1904580368432586975
+
+    - type: section
+      content:
+        - type: image
+          value: assets/slide_2025_13/anthropic_databricks.png
+          url: https://www.databricks.com/blog/anthropic-claude-37-sonnet-now-natively-available-databricks
+          attributes:
+            class: half-size
+    
+
+    # PAPERS
+    - type: section
+      content:
+        - type: image
+          value: assets/slide_2025_13/anthropic_llm.png
+          url: https://transformer-circuits.pub/2025/attribution-graphs/biology.html
+        - type: image
+          value: assets/slide_2025_13/anthropic_llm_twitter.png
+          url: https://x.com/AnthropicAI/status/1905303835892990278
+        - type: image
+          value: assets/slide_2025_13/anthropic_llm_schmidt.png
+          url: https://x.com/_philschmid/status/1905901652621558098
+          attributes:
+            class: half-size
+    - type: section
+      content:
+        - type: image
+          value: assets/slide_2025_13/openai_mcp_support.png
+          url: https://x.com/OpenAIDevs/status/1904957755829481737
+        - type: image
+          value: assets/slide_2025_13/mcp_alex.png
+          url: https://x.com/alexalbert__/status/1904965223448006805
+        - type: image
+          value: assets/slide_2025_13/mcp_schmidth.png
+          url: https://x.com/_philschmid/status/1905936521078751626
+        - type: image
+          value: assets/slide_2025_13/mcp_copilot_studio.png
+          url: https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/introducing-model-context-protocol-mcp-in-copilot-studio-simplified-integration-with-ai-apps-and-agents/
+        - type: image
+          value: assets/slide_2025_13/mcp_playwright.png
+          url: https://x.com/playwrightweb/status/1904265499422409047
+          attributes:
+            class: half-size
+    - type: section
+      content:
+        - type: container
+          content:
+            - type: link
+              value: "LLM Embeddings Explained: A Visual and Intuitive Guide"
+              url: https://huggingface.co/spaces/hesamation/primer-llm-embedding?section=what_are_embeddings
+            - type: image
+              value: assets/slide_2025_13/embeddings_hesam.png
+              url: https://huggingface.co/spaces/hesamation/primer-llm-embedding?section=what_are_embeddings
+              attributes:
+                class: pct75
+    
+    - type: section
+      content:
+        - type: image
+          value: assets/slide_2025_13/qwen_omni_twitter.png
+          url: https://x.com/Alibaba_Qwen/status/1904944927093760006
+        - type: image
+          value: assets/slide_2025_13/qwen_omni_hf.png
+          url: https://huggingface.co/Qwen/Qwen2.5-Omni-7B
+    
+    - type: section
+      content:
+        - type: image
+          value: assets/slide_2025_13/deepseek_v3_update_twitter.png
+          url: https://x.com/deepseek_ai/status/1904526863604883661
+        
+
+    # OTHER
+    
