@@ -46,14 +46,13 @@ img.third-size {
     height: auto;
 }
 
-img.third-size {
-    width: 33%;
-    height: auto;
-}
-
 img.quarter-size {
     width: 25%;
     height: auto;
+}
+
+span.fragment.current-visible a {
+    display: block;
 }
 
 .scrolling {
