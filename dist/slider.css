@@ -51,7 +51,7 @@ img.quarter-size {
     height: auto;
 }
 
-span.fragment.current-visible a {
+span.fragment.current-visible a, span.fragment p, span.fragment a {
     display: block;
 }
 
