@@ -1,0 +1,886 @@
+newsletter:
+  title: Newsletter
+  year: 2025
+  sections:
+  - name: News
+    groups:
+    - posts:
+      - url: https://openai.com/index/introducing-gpt-5-2/
+        assets:
+        - type: image
+          source: introducing-gpt-5-2-openai.png
+          alt: OpenAI has introduced GPT-5.2, its most advanced AI model for professional work and long-running agents, now
+            available in ChatGPT and the API. GPT-5.2 demonstrates significant improvements across benchmarks in knowledge
+            work, coding, factuality, long-context reasoning, vision, tool usage, and science/math, outperforming previous
+            models such as GPT-5.1. It excels at tasks like creating spreadsheets, building presentations, writing and reviewing
+            code, analyzing documents, and solving complex, multi-step problems. The model achieves expert-level performance
+            on the GDPval benchmark, sets new records in software engineering evaluations, and shows enhanced reliability
+            and reduced error rates.GPT-5.2 is available in three variants—Instant, Thinking, and Pro—each tailored for different
+            levels of complexity and response quality. Safety features have been further strengthened, with improved responses
+            to sensitive topics and new age prediction tools for content protection. Pricing for GPT-5.2 in the API is higher
+            than GPT-5.1 but remains competitive due to greater token efficiency. Developed in partnership with NVIDIA and
+            Microsoft, GPT-5.2 is positioned to accelerate productivity and scientific research, supporting a broad range
+            of professional applications.
+      - url: https://x.com/polynoamial/status/1999186989388824935
+        assets:
+        - type: image
+          source: gpdval-gpt-5-2-openai.png
+          alt: OpenAI's GPT-5.2 has achieved state-of-the-art performance on the GDPVal benchmark, surpassing in-domain experts
+            and all other models. GDPVal assesses the model's ability to handle self-contained tasks such as creating spreadsheets
+            and PowerPoint presentations.The results indicate that GPT-5.2 produces highly impressive outputs for practical,
+            productivity-related tasks, highlighting its effectiveness in real-world applications.
+          tags:
+          - thread
+      - url: https://x.com/blockopensource/status/1998440563910259052
+        assets:
+        - type: image
+          source: agentic-ai-foundation-launch-linuxfoundation.png
+          alt: Block, Anthropic, and OpenAI have announced the creation of the Agentic AI Foundation (AAIF), a new fund under
+            the Linux Foundation focused on supporting open source agentic AI initiatives. The foundation aims to foster collaboration
+            and development in agentic AI technologies.Major tech companies, including Google, Microsoft, Bloomberg, and Amazon,
+            have already pledged their commitment to this initiative.
+      - url: https://openai.com/index/agentic-ai-foundation/
+        assets:
+        - type: image
+          source: openai-co-founds-agentic-ai-foundation-linux-foundation-openai.png
+          alt: OpenAI, alongside Anthropic, Block, and with support from major tech companies like Google, Microsoft, AWS,
+            Bloomberg, and Cloudflare, has co-founded the Agentic AI Foundation (AAIF) under the Linux Foundation. The AAIF’s
+            mission is to establish open, interoperable standards for agentic AI systems as they transition from experimental
+            tools to real-world applications. A key contribution is AGENTS.md, an open-source format designed to offer agents
+            project-specific instructions and context, now adopted by over 60,000 open-source projects. The foundation also
+            incorporates Anthropic’s Model Context Protocol and Block’s Goose, aiming to prevent ecosystem fragmentation by
+            providing neutral, community-driven governance.By donating AGENTS.md and collaborating on standards like the Model
+            Context Protocol, OpenAI and its partners seek to ensure that developers and enterprises can build agentic AI
+            systems that are portable, safe, and easily integrated across platforms. The AAIF, managed under the Linux Foundation’s
+            neutral stewardship, invites participation from developers, researchers, and organizations to further advance
+            open agentic AI infrastructure for the public good.
+      - url: https://www.anthropic.com/news/donating-the-model-context-protocol-and-establishing-of-the-agentic-ai-foundation
+        assets:
+        - type: image
+          source: donating-the-model-context-protocol-and-establishing-the-agentic-ai-foundation-anthropic.png
+          alt: Anthropic has announced the donation of the Model Context Protocol (MCP)—an open standard for connecting AI
+            applications to external systems—to the newly established Agentic AI Foundation (AAIF), a directed fund under
+            the Linux Foundation. Co-founded by Anthropic, Block, and OpenAI, with support from major tech companies like
+            Google, Microsoft, AWS, Cloudflare, and Bloomberg, the AAIF aims to foster transparent, collaborative, and open
+            development of agentic AI technologies.MCP has seen rapid adoption across the AI ecosystem, with thousands of
+            public servers, integration in leading platforms (such as ChatGPT, Gemini, and Microsoft Copilot), and robust
+            enterprise infrastructure support. The protocol’s governance remains unchanged, emphasizing community-driven and
+            vendor-neutral development. By joining AAIF alongside other foundational projects, MCP's future development will
+            benefit from the Linux Foundation’s stewardship and continued industry collaboration.
+      - url: https://x.com/GoogleAI/status/1999560839679082507
+        assets:
+        - type: video
+          source: gemini-audio-models-updates-google-1.mp4
+        - type: image
+          source: gemini-audio-models-updates-google.png
+          alt: Gemini has introduced updates to its audio models and capabilities. The Google Translate app now features Gemini’s
+            live speech-to-speech translation in beta, enabling real-time audio translation that captures nuanced human speech.Additionally,
+            Gemini 2.5 Flash and 2.5 Pro Text-to-Speech models offer improved style adherence, context-aware pacing, and consistent
+            multi-speaker voices. The updated Gemini 2.5 Flash Native Audio also provides enhanced handling of complex tasks,
+            user instructions, and more natural conversations.
+      - url: https://x.com/runwayml/status/1999190929815580731
+        assets:
+        - type: video
+          source: gwm-worlds-real-time-environment-simulation.mp4
+      - url: https://x.com/runwayml/status/1999190924069400583
+        assets:
+        - type: image
+          source: ai-simulating-the-world-vision.png
+          alt: Today, five key announcements were made highlighting advancements in both AI products and research, focusing
+            on shaping the future of storytelling, accelerating scientific discovery, and exploring new frontiers for humanity.The
+            updates emphasize the development of AI systems designed to simulate real-world environments, supporting innovation
+            in diverse fields and outlining a vision for AI-driven progress.
+  - name: Models
+    groups:
+    - posts:
+      - url: https://x.com/MistralAI/status/1998407332502405347
+        assets:
+        - type: image
+          source: devstral-2-coding-model-family-and-mistral-vibe-cli.png
+          alt: Devstral has launched the Devstral 2 coding model family, offering two open-source model sizes designed for
+            coding tasks. This release aims to provide accessible and flexible tools for developers.Additionally, Mistral
+            Vibe has been introduced as a native command-line interface (CLI) that supports end-to-end automation, streamlining
+            development workflows.
+      - url: https://mistral.ai/news/devstral-2-vibe-cli
+        assets:
+        - type: image
+          source: devstral-2-vibe-cli-mistral-ai.png
+          alt: 'Mistral AI has released Devstral 2, a new family of open-source, state-of-the-art coding models available
+            in two sizes: Devstral 2 (123B parameters) and Devstral Small 2 (24B parameters). Both models are designed for
+            high efficiency and strong code agent performance, achieving 72.2% and 68.0% on SWE-bench Verified, respectively.
+            Devstral 2 is offered under a modified MIT license, while Devstral Small 2 uses Apache 2.0, and both are accessible
+            via API, with Devstral Small 2 deployable locally on consumer hardware. The models are competitively sized and
+            cost-efficient compared to larger proprietary alternatives.Alongside the models, Mistral introduced Mistral Vibe
+            CLI, an open-source command-line coding agent that automates codebase exploration and modification directly from
+            the terminal or IDE. Vibe CLI features project-aware context, smart references, multi-file orchestration, and
+            customizable workflows, supporting both cloud and local model usage. Devstral 2 is currently free to use via API,
+            with pricing set post-launch, and both the models and CLI are positioned for production-grade, privacy-preserving,
+            and customizable coding automation.'
+      - url: https://x.com/ServiceNowRSRCH/status/1998482927597007313
+        assets:
+        - type: image
+          source: apriel-16-15b-thinker-multimodal-reasoner.png
+          alt: Apriel-1.6-15B-Thinker is a 15 billion parameter multimodal reasoning model that achieves a score of 57 on
+            the Artificial Analysis Intelligence Index. This performance is comparable to much larger (~200B) frontier models,
+            offering strong capabilities at a significantly smaller scale.Resources provided include links to the model weights,
+            a blog post detailing the release, and a chat demo for users to interact with the model.
+          tags:
+          - thread
+      - url: https://huggingface.co/blog/ServiceNow-AI/apriel-1p6-15b-thinker
+        assets:
+        - type: image
+          source: apriel-1-6-15b-thinker-servicenow-ai.png
+          alt: Apriel-1.6-15b-Thinker is a new 15-billion parameter multimodal reasoning model from ServiceNow’s Apriel SLM
+            series, designed for efficient text and vision reasoning. It outperforms much larger models (up to 10x its size)
+            on the Artificial Analysis Index and other benchmarks while using over 30% fewer reasoning tokens compared to
+            its predecessor. The model was trained on NVIDIA GB200 Grace Blackwell hardware, with a focus on high-quality,
+            diverse data and a rigorous training pipeline including multi-stage continual pretraining, supervised finetuning
+            with curated reasoning traces, and reinforcement learning for efficiency and accuracy.Evaluation shows Apriel-1.6
+            achieves state-of-the-art or highly competitive results on a broad range of text and image benchmarks, including
+            tool use, math, coding, long context, and visual reasoning tasks. Its design emphasizes cost-efficiency and deployability,
+            making it well-suited for enterprise applications. The release highlights the ability to achieve strong performance
+            with limited compute resources through careful data strategy and training methodology, though it notes some limitations
+            in OCR accuracy and fine-grained visual tasks.
+      - url: https://x.com/Zai_org/status/1998003287216517345
+        assets:
+        - type: image
+          source: glm-46v-series-launch-vision-language-model-function-calling.png
+          alt: 'GLM-4.6V Series has launched, featuring two models: the GLM-4.6V (106B), a flagship vision-language model
+            with a 128K context window, and GLM-4.6V-Flash (9B), a faster, lightweight version optimized for local and low-latency
+            tasks. Notably, these models introduce native Function Calling within the GLM vision model family.Model weights,
+            API access, and a technical blog are available online. API pricing is set at $0.6 per 1M input tokens and $0.9
+            per 1M output tokens for GLM-4.6V, while GLM-4.6V-Flash is free to use.'
+          tags:
+          - thread
+      - url: https://z.ai/blog/glm-4.6v
+        assets:
+        - type: image
+          source: glm-46v-open-source-multimodal-models-with-native-tool-use.png
+          alt: GLM-4.6V is a newly open-sourced multimodal large language model series, offering both a high-capacity (106B)
+            and a lightweight (9B, "Flash") version. The models feature a 128k token context window, state-of-the-art performance
+            in visual understanding and reasoning, and, notably, native multimodal tool calling for seamless handling of images,
+            screenshots, and documents as both input and output. This enables end-to-end workflows for rich-text content creation,
+            visual web search, frontend replication, and long-context understanding, making the models highly suitable for
+            complex business and technical scenarios.Technically, GLM-4.6V leverages continual pre-training on large-scale
+            multimodal data, world knowledge enrichment, and agentic data synthesis with extended Model Context Protocol for
+            efficient tool invocation and interleaved outputs. Reinforcement learning aligns its tool usage and task planning
+            capabilities, while the model is available for both cloud and local deployment with support for major inference
+            frameworks. Full access, usage, and citation details are provided for integration into research and applications.
+      - url: https://x.com/ben_burtenshaw/status/1998019922664865881
+        assets:
+        - type: image
+          source: glm-46v-vision-language-model-features.png
+          alt: GLM-4.6V is a newly released vision-language model by Zai_org, featuring a Mixture-of-Experts (MoE) architecture
+            with 12 billion active parameters (106 billion total) and a leaner 9 billion parameter variant. The model supports
+            extended context lengths up to 128k tokens and includes native multimodal function calling capabilities.These
+            features make GLM-4.6V well-suited for agentic tasks such as browser control and document understanding, highlighting
+            its potential for advanced applications requiring vision and language integration.
+      - url: https://x.com/Zai_org/status/1999118116086051034
+        assets:
+        - type: video
+          source: every-phone-can-become-ai-phone.mp4
+      - url: https://x.com/Xianbao_QIAN/status/1998546356743598125
+        assets:
+        - type: video
+          source: autoglm-phone-9b-glm-asr-nano-2512-smartphone-ai-models-zai-1.mp4
+        - type: image
+          source: autoglm-phone-9b-glm-asr-nano-2512-smartphone-ai-models-zai.png
+          alt: 'ZAI has released two new AI models on Hugging Face: AutoGLM-Phone-9B, a 9-billion-parameter foundation model
+            designed for smartphones that can read screens and perform actions on behalf of users, and GLM-ASR-Nano-2512,
+            a 2-billion-parameter speech recognition model that outperforms Whisper v3 in English, Mandarin, and Cantonese,
+            even detecting whispers.Both models are optimized for on-device use, offering advanced capabilities in a compact
+            format. Download links for each model are provided.'
+      - url: https://xiao9905.github.io/AutoGLM/blog.html
+        assets:
+        - type: image
+          source: autoglm-goes-open-source.png
+          alt: AutoGLM is an open-source project that enables AI agents to interact with mobile devices in a human-like way,
+            going beyond simple chat interfaces to perform complex, real-world actions such as navigating apps, managing workflows,
+            and handling device interactions. After 32 months of development, AutoGLM evolved from basic, unreliable actions
+            to precise, autonomous operation chains, validated through milestones like the first AI-sent digital cash gift
+            and large-scale cloud-based training with advanced RL algorithms. The system is designed to operate safely within
+            cloud-based virtual environments, ensuring user privacy and control.The decision to open source AutoGLM stems
+            from a commitment to democratize "Phone Use" capabilities, foster industry-wide innovation, and empower users
+            and developers to build AI-native phones and agents. The released suite includes pre-trained models, capability
+            frameworks, demos, adaptation layers, and documentation under permissive licenses, making it a foundation for
+            the broader Agent Era. The project invites the community to extend, adapt, and deploy the technology, paving the
+            way for a future where personal AI agents are accessible to all.
+      - url: https://allenai.org/blog/olmo3
+        assets:
+        - type: image
+          source: olmo-3-charting-a-path-through-the-model-flow-to-lead-open-source-ai-ai2.png
+          alt: '**Olmo 3 by AI2 is a fully open-source family of large language models (LLMs) at 7B and 32B scale, designed
+            for transparency, customization, and high performance across reasoning, coding, math, and chat tasks. Unlike most
+            models, Olmo 3 provides the entire documented "model flow"—from raw training data and every checkpoint to code,
+            recipes, and evaluation tools—enabling users and researchers to audit, adapt, and extend the models at any development
+            stage. The latest update, Olmo 3.1, further improves instruction-following and reasoning with new 32B checkpoints,
+            outperforming many comparable open-weight models on industry-standard benchmarks.Olmo 3 is trained on rigorously
+            curated open datasets (Dolma 3, Dolci), uses a multi-stage training pipeline, and integrates with tools like OlmoTrace
+            to trace outputs back to data sources. All codebases, datasets, evaluation frameworks, and utilities are openly
+            available without license restrictions, supporting reproducibility and experimentation. Olmo 3 is positioned as
+            a fully inspectable alternative to proprietary or closed-weight models, aiming to foster trust, accountability,
+            and shared progress in AI development.'
+      - url: https://x.com/natolambert/status/1999528636085649532
+        assets:
+        - type: image
+          source: olmo-3-1-32b-rl-scaling-openai2.png
+          alt: Olmo 3.1 32B Think demonstrates that large-scale reinforcement learning (RL) can be achieved by open research
+            labs, not just frontier companies. By extending RL training for an additional three weeks, the team observed continued
+            improvements in challenging evaluations like AIME and coding, indicating the model's potential was not yet saturated.
+            The experiment used 224 GPUs and approximately 125K H100 GPU hours, with all intermediate checkpoints made openly
+            available for further study.Additional releases include a 32B Instruct model, new 7B RL Zero models for math and
+            code, and two substantial research datasets for RL and preference modeling. The updated Olmo 3 paper has been
+            submitted to arXiv, and the project highlights the value of stable infrastructure and collaboration within the
+            open community.
+          tags:
+          - thread
+      - url: https://x.com/NousResearch/status/1998536543565127968
+        assets:
+        - type: image
+          source: nomos-1-putnam-math-ai-hillclimbai.png
+          alt: Nomos 1, a newly open-sourced AI model with 30 billion parameters, achieved a score of 87 out of 120 on the
+            2024 Putnam math competition, ranking second out of 3,988 participants. This milestone represents the initial
+            progress in developing a state-of-the-art AI mathematician in collaboration with HillclimbAI.The announcement
+            highlights Nomos 1's notable performance in a highly competitive setting, positioning it as a leading AI in mathematical
+            problem-solving.
+          tags:
+          - thread
+      - url: https://jina.ai/news/jina-vlm-small-multilingual-vision-language-model/
+        assets:
+        - type: image
+          source: jina-vlm-small-multilingual-vision-language-model.png
+          alt: Jina AI has released Jina-VLM, a 2.4 billion parameter multilingual vision-language model that achieves state-of-the-art
+            performance on open 2B-scale visual question answering (VQA) benchmarks across 29 languages. The model integrates
+            a SigLIP2 vision encoder and a Qwen3 language backbone via an attention-pooling connector, enabling efficient
+            processing of high-resolution images with significant reduction in computational cost. Jina-VLM excels in multilingual
+            VQA tasks without suffering from catastrophic forgetting on text-only benchmarks, outperforming comparable models
+            in both visual and textual domains.The architecture leverages multi-layer feature fusion, attention pooling, and
+            SwiGLU projection to minimize visual token count while retaining information. Training is conducted in two stages—alignment
+            with diverse multilingual caption datasets (including 15% text-only data), followed by instruction fine-tuning
+            for VQA and reasoning tasks. Jina-VLM is accessible via OpenAI-compatible API, Hugging Face, and transformers
+            library, supporting both image and text-only queries. Limitations include scaling challenges for very high-resolution
+            images and weaker performance on multi-image reasoning tasks.
+      - url: https://cohere.com/blog/rerank-4
+        assets:
+        - type: image
+          source: introducing-rerank-4-cohere.png
+          alt: 'Cohere has introduced Rerank 4, its most advanced reranker model for enterprise AI search and retrieval. Rerank
+            4 utilizes a cross-encoder architecture to significantly improve the relevance and accuracy of search results
+            by jointly processing queries and candidate documents. It supports a 32K context window for handling longer documents
+            and complex retrieval scenarios, and is available in two versions: Fast (optimized for speed) and Pro (optimized
+            for deep analysis and precision). The model excels in domain-specific tasks across industries like finance, healthcare,
+            and manufacturing, as well as in multilingual environments, outperforming competitors in benchmark evaluations.A
+            key innovation in Rerank 4 is its self-learning capability, allowing users to customize the model for their specific
+            use cases without needing additional annotated data. This enables continuous improvement in retrieval quality,
+            especially in specialized domains such as banking and healthcare. Rerank 4 integrates seamlessly with existing
+            AI search solutions and can be deployed on multiple platforms, including Cohere’s own, AWS, and Microsoft Foundry.
+            For more information, users are encouraged to consult the documentation or request a demo.'
+      - url: https://x.com/Ali_TongyiLab/status/1998797605195690278
+        assets:
+        - type: video
+          source: qwen3-omni-flash-api-release-ai-multilingual-humanlike-speech-audiotext-1.mp4
+        - type: image
+          source: qwen3-omni-flash-api-release-ai-multilingual-humanlike-speech-audiotext.png
+          alt: Qwen3-Omni-Flash (2025-12-01 version) API Service has been released, offering smarter and more human-like interactions.
+            Key improvements include better instruction following, enhanced stability in casual conversations, and precise
+            control over personas, styles, and response lengths.The update also introduces robust multilingual capabilities,
+            supporting 119 text languages, 19 for speech understanding, and 10 for speech generation. Human-like speech is
+            now possible with adaptive speed and prosody, ensuring natural-sounding responses without delays.
+      - url: https://qwen.ai/blog?id=qwen3-omni-flash-20251201
+        assets:
+        - type: image
+          source: qwen3-omni-flash-2025-12-01-hear-you-see-you-follow-smarter-qwen-team-alibaba.png
+          alt: '**Qwen3-Omni-Flash-2025-12-01** is an advanced, multimodal AI model by Alibaba’s Qwen Team, capable of processing
+            and generating text, images, audio, and video seamlessly. This release brings major upgrades including improved
+            audio-visual interaction, full customization of system prompts, enhanced multilingual support (119 text, 19 speech
+            recognition, 10 speech synthesis languages), and significantly more natural speech synthesis. The model now allows
+            fine-tuning of persona, tone, and response length, while ensuring high stability and coherence in multi-turn conversations.Benchmark
+            results show substantial improvements in text understanding, code generation, speech comprehension and synthesis,
+            as well as visual and video reasoning tasks compared to previous versions. Future directions include adding multi-speaker
+            ASR, video OCR, proactive audio-video learning, and better support for agent-based workflows. Researchers are
+            encouraged to cite the model in their work.'
+  - name: Papers
+    groups:
+    - posts:
+      - url: https://arxiv.org/abs/2512.05356
+        assets:
+        - type: image
+          source: self-improving-ai-fair-at-meta.png
+          alt: The main content discusses the concept of self-improving AI versus co-improving AI. While the traditional goal
+            in AI research has been to create systems that autonomously improve themselves—optimizing weights, generating
+            their own data, and potentially redesigning their own architectures—this approach carries significant risks, particularly
+            around safety and alignment. The authors note that although self-improving AI is advancing, there is still time
+            before AI fully surpasses human capabilities in all domains.As a safer and more effective alternative, the authors
+            advocate for "co-improving AI," where AI systems are designed to work collaboratively with human researchers.
+            This partnership aims to accelerate AI progress while ensuring that developments remain beneficial and aligned
+            with human values. By keeping humans in the research loop, co-improvement leverages complementary strengths of
+            both AI and humans, allowing for safer, more steerable progress toward advanced AI.
+      - url: https://x.com/godofprompt/status/1998046130245120317
+        assets:
+        - type: image
+          source: co-improving-ai-superintelligence-meta.png
+          alt: Meta has published a paper challenging the common narrative that AI will rapidly self-improve and surpass humanity.
+            Instead, they propose that the safest and fastest path to superintelligence is through co-improvement, where humans
+            and AI collaborate as a joint system in AI research. This approach emphasizes shared ideation, experimentation,
+            error analysis, alignment, and system design, integrating human reasoning and oversight throughout the research
+            process.The paper highlights that self-improving AI excludes humans and risks failures like reward hacking and
+            lack of transparency. In contrast, co-improvement leverages human insight to address these pitfalls, creating
+            a loop where both humans and AI enhance each other's capabilities. Ultimately, the vision is a future where superintelligence
+            emerges from collective human-AI collaboration, not competition, leading to a merged research organism and a more
+            aligned, safer development of advanced AI.
+          tags:
+          - thread
+      - url: https://alignment.anthropic.com/2025/selective-gradient-masking/
+        assets:
+        - type: image
+          source: beyond-data-filtering-knowledge-localization-for-capability-removal-in-llms-anthropic.png
+          alt: The article introduces Selective Gradient Masking (SGTM), an improved technique for removing dangerous capabilities
+            (such as CBRN knowledge) from large language models (LLMs) by localizing risky knowledge into designated, easily
+            removable parameters during training. Unlike traditional data filtering—which struggles with imperfect labels,
+            entangled dual-use knowledge, and collateral loss of general capabilities—SGTM directs updates from dangerous
+            examples only to specified "forget" parameters, allowing for robust post-training ablation without sacrificing
+            general knowledge. This process is self-reinforcing, as even unlabeled dangerous content gravitates toward these
+            parameters, making SGTM resilient to label noise and more effective than standard filtering.Experimental results
+            demonstrate that SGTM achieves a superior balance between removing targeted knowledge and preserving general capabilities,
+            and is significantly more robust to adversarial fine-tuning than post-training unlearning methods. Gradient analysis
+            shows that SGTM's localization effect strengthens with model scale. Limitations include evaluation only on relatively
+            small models and potential vulnerability to in-context attacks at inference time. The authors suggest further
+            research on larger architectures and integration with additional safety measures.
+      - url: https://x.com/_igorshilov/status/1998158077032366082
+        assets:
+        - type: image
+          source: how-to-train-models-for-isolated-high-risk-capabilities-anthropic.png
+          alt: Anthropic has released new research focused on training AI models so that high-risk capabilities are isolated
+            within a small, distinct set of parameters. This approach enables the targeted removal of sensitive functionalities
+            when necessary.Such capability separation is particularly useful in domains with elevated safety concerns, like
+            chemical, biological, radiological, nuclear (CBRN) fields or cybersecurity. This method aims to improve control
+            and safety in deploying advanced AI systems.
+          tags:
+          - thread
+      - url: https://arxiv.org/pdf/2510.09244
+        assets:
+        - type: image
+          source: fundamentals-of-building-autonomous-llm-agents-technische-universitat-munchen.png
+          alt: This paper reviews the architecture and implementation of autonomous agents powered by large language models
+            (LLMs), focusing on overcoming the limitations of traditional LLMs in real-world tasks. It explores how to develop
+            "agentic" LLMs capable of automating complex activities and closing the performance gap with human abilities.
+            The study details key components, including perception (environmental understanding), reasoning and planning (using
+            techniques like Chain-of-Thought and Tree-of-Thought), memory systems (for short- and long-term knowledge retention),
+            and execution systems (translating decisions into actions).By integrating these components, the paper demonstrates
+            that LLM agents can more effectively mimic human cognitive processes, resulting in more autonomous, intelligent,
+            and generalized software bots. The work highlights the growing importance of understanding human reasoning for
+            developing advanced LLM agents, rather than focusing solely on programming expertise.
+      - url: https://x.com/asapzzhou/status/1998098118827770210
+        assets:
+        - type: video
+          source: tiny-a2d-an-open-recipe-to-turn-any-ar-lm-into-a-diffusion-lm-1.mp4
+        - type: image
+          source: tiny-a2d-an-open-recipe-to-turn-any-ar-lm-into-a-diffusion-lm.png
+          alt: Tiny-A2D introduces a method (dLLM) for converting any autoregressive language model (LM) into a diffusion-based
+            LM, enabling parallel text generation and infilling with minimal computational resources. The approach has been
+            used to create a collection of small, effective diffusion LMs, with code and model checkpoints publicly available.Key
+            findings include achieving state-of-the-art performance for small diffusion LMs when finetuned on Qwen3-0.6B,
+            and that enhancing the base autoregressive model yields better results than increasing adaptation compute. Additionally,
+            the block diffusion method (BD3LM) outperforms traditional masked diffusion, particularly on math and coding tasks.
+      - url: https://arxiv.org/abs/2511.21667
+        assets:
+        - type: image
+          source: escaping-the-verifier-learning-to-reason-via-demonstrations-mit.png
+          alt: The paper introduces RARO (Relativistic Adversarial Reasoning Optimization), a method for training Large Language
+            Models (LLMs) to reason effectively using only expert demonstrations, without relying on task-specific verifiers
+            or additional human preference data. RARO formulates reasoning learning as an adversarial game between a policy
+            (which mimics expert answers) and a relativistic critic (which distinguishes expert from policy answers), jointly
+            optimizing both using reinforcement learning. The authors identify key stabilization techniques for robust learning,
+            allowing RARO to elicit strong reasoning skills from demonstration data alone.Empirical results show that RARO
+            outperforms existing verifier-free methods on tasks such as Countdown, DeepMath, and Poetry Writing, and achieves
+            scaling trends similar to RL approaches that use verifiers. This demonstrates that RARO can effectively learn
+            robust reasoning behaviors from demonstrations, making it possible to train LLMs for reasoning-intensive tasks
+            even when explicit verifiers are unavailable.
+      - url: https://x.com/couplefire12/status/1999169943267381265
+        assets:
+        - type: image
+          source: raro-llms-reasoning-adversarial-games.png
+          alt: RARO introduces a novel approach for teaching large language models (LLMs) to reason, moving away from traditional
+            reliance on verifiers, which are effective for mathematical tasks but less suitable for creative or open-ended
+            domains. Instead, RARO leverages adversarial games and demonstrations to train LLMs, eliminating the need for
+            explicit verification or complex environments.This paradigm shift aims to enhance LLMs' reasoning abilities in
+            areas where standard verification-based reinforcement learning falls short, offering a flexible and demonstration-driven
+            alternative for a broader range of reasoning tasks.
+      - url: https://cdn.openai.com/pdf/3a4153c8-c748-4b71-8e31-aecbde944f8d/oai_5_2_system-card.pdf
+        assets:
+        - type: image
+          source: update-to-gpt-5-system-card-gpt-5-2-openai.png
+          alt: GPT-5.2 System Card Update Summary-----------------------------------OpenAI released an update to the GPT-5
+            System Card, introducing version GPT-5.2. The update was published on December 11, 2025, and outlines the latest
+            changes and improvements in the GPT-5 model series. Key advancements and modifications are documented to inform
+            users and stakeholders about the evolution of the system.The System Card serves as an official record, ensuring
+            transparency regarding the model’s capabilities, safety updates, and performance enhancements. This update reflects
+            OpenAI’s ongoing commitment to responsible AI development and communication with the public.
+      - url: https://arxiv.org/abs/2506.01939
+        assets:
+        - type: image
+          source: beyond-the-80-20-rule-high-entropy-minority-tokens-drive-effective-reinforcement-learning-for-llm-re.png
+          alt: This paper investigates how Reinforcement Learning with Verifiable Rewards (RLVR) enhances Large Language Models’
+            (LLMs) reasoning by analyzing the role of token entropy in Chain-of-Thought (CoT) tasks. The authors find that
+            only a small minority of tokens—those with high entropy—act as critical "forks" that determine reasoning directions,
+            while the majority are low-entropy and simply follow established paths. RLVR primarily adjusts the entropy of
+            these high-entropy tokens, and restricting policy gradient updates to just this minority yields comparable or
+            improved performance versus updating all tokens, especially as model size increases.Experiments show that focusing
+            RLVR training on the top 20% highest-entropy tokens maintains or boosts performance—surpassing full-gradient training
+            on large Qwen3 models—while training only on the lowest-entropy 80% sharply degrades results. These findings suggest
+            RLVR’s effectiveness comes from optimizing key decision points within reasoning sequences and that a token-entropy
+            perspective offers a promising path to further improving LLM reasoning.
+      - url: https://x.com/gabriberton/status/1999297082465878334
+        assets:
+        - type: image
+          source: beyond-the-80-20-rule-high-entropy-minority-tokens-drive-effective-reinforcement-learning-for-llm-re-1.png
+          alt: 'The Qwen team''s NeurIPS 2025 paper, "Beyond the 80/20 Rule: High-Entropy Minority Tokens Drive Effective
+            Reinforcement Learning for LLM Reasoning," proposes a novel approach to improving reinforcement learning for large
+            language models (LLMs). The authors suggest that, rather than distributing loss across all tokens, RL methods
+            like GRPO should focus the loss calculation on the 20% of tokens with the highest entropy, which are more uncertain
+            and informative.This targeted strategy aims to enhance LLM reasoning by prioritizing learning on the most challenging
+            and impactful parts of the output. The results indicate that concentrating reinforcement learning updates on high-entropy
+            tokens leads to more effective model training and improved reasoning abilities.'
+          tags:
+          - thread
+      - url: https://arxiv.org/pdf/2512.08296
+        assets:
+        - type: image
+          source: towards-a-science-of-scaling-agent-systems-google-mit.png
+          alt: 'The paper "Towards a Science of Scaling Agent Systems" presents a comprehensive empirical study on the principles
+            that govern the performance of language model (LM)-based agent systems, which are central to modern AI applications.
+            The authors define agent system scaling as the interplay of agent count, coordination structure, model capability,
+            and task properties, and evaluate this across four diverse benchmarks (financial reasoning, web navigation, game
+            planning, and workflow execution). Using five canonical agent architectures across three LLM families and 180
+            controlled configurations, they isolate architectural effects and derive predictive models using empirical coordination
+            metrics such as efficiency, overhead, error amplification, and redundancy.Key findings include: (1) a tool-coordination
+            trade-off, where tool-heavy tasks are penalized by multi-agent overhead under fixed computational budgets; (2)
+            capability saturation, where multi-agent coordination yields diminishing or negative returns once single-agent
+            baselines exceed a performance threshold; and (3) topology-dependent error amplification, with independent agents
+            amplifying errors more than centralized ones. The framework predicts optimal coordination strategies for most
+            held-out configurations and demonstrates that the benefits of agent coordination are highly task-dependent, sometimes
+            degrading performance in sequential reasoning tasks but offering significant gains in parallelizable or dynamic
+            contexts.'
+      - url: https://x.com/SRSchmidgall/status/1998932493026914455
+        assets:
+        - type: image
+          source: scaling-principles-for-agentic-systems-googledeepmind-google-research-mit.png
+          alt: Recent research from Google DeepMind, Google Research, and MIT, led by @ybkim95_ai, explores new scaling principles
+            for designing agentic systems. The study questions the common belief that simply increasing the number of agents
+            always improves system performance.The work provides insights that challenge the "more agents = better" narrative,
+            suggesting that there are nuanced factors influencing optimal system design beyond just adding more agents.
+          tags:
+          - thread
+      - url: https://arxiv.org/abs/2512.05774
+        assets:
+        - type: image
+          source: active-video-perception-iterative-evidence-seeking-for-agentic-long-video-understanding-salesforce-a.png
+          alt: Active Video Perception (AVP) is a novel framework for long video understanding (LVU) that addresses the challenge
+            of extracting sparse, crucial information from hours of mostly irrelevant video content. Unlike traditional methods
+            that passively generate query-agnostic captions—leading to inefficiency and poor localization—AVP adopts an active
+            perception paradigm. It treats the video as an interactive environment, where an agent iteratively plans targeted
+            observations, gathers time-stamped evidence, and reflects on sufficiency to answer specific queries.The AVP approach
+            leverages multimodal large language models (MLLMs) in a plan–observe–reflect loop, focusing computational resources
+            only on query-relevant content, which improves both efficiency and accuracy. Experiments across five LVU benchmarks
+            demonstrate that AVP significantly outperforms previous agentic methods, achieving higher accuracy with dramatically
+            reduced inference time and input token usage.
+      - url: https://x.com/ZiyangW00/status/1998060562425803006
+        assets:
+        - type: video
+          source: active-video-perception-iterative-evidence-seeking-for-agentic-long-video-understanding-1.mp4
+          tags: &id001
+          - thread
+        - type: image
+          source: active-video-perception-iterative-evidence-seeking-for-agentic-long-video-understanding.png
+          alt: Active Video Perception (AVP) is a novel framework for video understanding that emulates human viewing strategies.
+            It first skims videos for context, then focuses on critical moments, treating video as an interactive environment
+            to seek out query-relevant evidence.AVP operates with an iterative Plan–Observe–Reflect loop, actively selecting
+            which video segments to examine and assessing if sufficient information has been gathered. This approach significantly
+            boosts efficiency, achieving higher accuracy (+5.7%) than previous agentic methods while requiring far fewer computational
+            resources.
+          tags: *id001
+  - name: Blogs
+    groups:
+    - posts:
+      - url: https://x.com/GoogleLabs/status/1998830445103054961
+        assets:
+        - type: video
+          source: pomelli-animation-feature-launch-veo-3-1-model-1.mp4
+        - type: image
+          source: pomelli-animation-feature-launch-veo-3-1-model.png
+          alt: Pomelli has launched a new 'Animate' feature that allows users to turn their content into branded animations,
+            utilizing the Veo 3.1 model.This feature is now available for free in the US, Canada, Australia, and New Zealand.
+            Users can try it out on the Pomelli website.
+      - url: https://developers.googleblog.com/building-agents-with-the-adk-and-the-new-interactions-api/
+        assets:
+        - type: image
+          source: building-agents-with-adk-and-interactions-api-google.png
+          alt: Google’s new Interactions API introduces a unified interface for building stateful, multi-turn AI agent workflows,
+            supporting both raw model access (like Gemini) and managed agents (such as Gemini Deep Research Agent). Developers
+            can upgrade their existing Agent Development Kit (ADK) workflows to leverage this new API for improved state management,
+            background execution, and native handling of agent "thoughts." This enables more sophisticated agentic loops and
+            simplifies the integration of AI capabilities.Additionally, the Interactions API is mapped to the Agent2Agent
+            (A2A) protocol, allowing it to act as a remote agent within multi-agent systems without requiring significant
+            code changes or new SDKs. The integration is transparent, supporting streaming, configuration smuggling, and standard
+            A2A messaging patterns, making it easier to expand and connect agentic ecosystems using Google’s latest AI tools.
+      - url: https://weaviate.io/blog/context-engineering
+        assets:
+        - type: image
+          source: context-engineering-for-ai-agents-weaviate.png
+          alt: 'The article explains "context engineering" as a critical discipline for building effective AI agents, especially
+            those using large language models (LLMs). While prompt engineering focuses on how questions are asked, context
+            engineering is about ensuring the model receives the right information at the right time, working within the limits
+            of the model''s context window. This involves careful design of retrieval, memory, tool integration, and prompting
+            to help the model reason accurately and avoid common pitfalls like context poisoning, distraction, confusion,
+            and clash.The six pillars of context engineering are: Agents (decision-makers and orchestrators), Query Augmentation
+            (refining user input), Retrieval (optimizing information sourcing and chunking), Prompting Techniques (guiding
+            model behavior), Memory (blending short-term and long-term storage), and Tools (enabling real-world actions).
+            The article demonstrates these principles through "Elysia," an open-source agentic RAG framework that orchestrates
+            information flow, query refinement, and tool use to build robust, context-aware AI systems. The key takeaway is
+            that dependable AI applications require holistic context system design, not just better prompts or larger models.'
+      - url: https://x.com/ritwikpavan/status/1998456731517784230
+        assets:
+        - type: video
+          source: project-aura-smart-glasses-google-1.mp4
+        - type: image
+          source: project-aura-smart-glasses-google.png
+          alt: Google has announced Project Aura, a smart glasses initiative developed in partnership with XREAL. The device
+            features a 70° field of view for creating large virtual screens, supports full Android apps in floating windows,
+            and enables Circle to Search on any object viewed.The glasses utilize a lightweight frame and a compact compute
+            puck for processing, with hand tracking capabilities for intuitive control such as pinch, zoom, and managing windows.
+            Project Aura is scheduled to launch in 2026.
+      - url: https://cloud.google.com/blog/products/ai-machine-learning/alphaevolve-on-google-cloud?linkId=23669269
+        assets:
+        - type: image
+          source: alphaevolve-on-google-cloud-ai-for-agentic-discovery-and-optimization-google-cloud.png
+          alt: Google Cloud has introduced AlphaEvolve, a Gemini-powered coding agent designed to automate the discovery and
+            optimization of advanced algorithms for complex scientific and engineering challenges. AlphaEvolve leverages Gemini
+            models to generate, mutate, and evolve code solutions within a feedback loop, guided by user-defined evaluation
+            metrics. Proven internally at Google, it has enhanced data center efficiency, accelerated AI training, and improved
+            chip design.Now available in private preview on Google Cloud, AlphaEvolve enables businesses across industries—including
+            biotech, logistics, finance, and energy—to optimize proprietary algorithms for tasks like molecular simulation,
+            routing, risk modeling, and grid management. Interested users can access the AlphaEvolve Service API through an
+            early access program by contacting their Google Cloud representative.
+      - url: https://blog.google/technology/developers/deep-research-agent-gemini-api/
+        assets:
+        - type: image
+          source: gemini-deep-research-agent-google.png
+          alt: Google has released a significantly enhanced Gemini Deep Research agent, now accessible to developers via the
+            new Interactions API. This agent leverages the Gemini 3 Pro model, optimized for long-running, multi-step research
+            and synthesis tasks with improved accuracy and reduced hallucinations. Developers can use the Gemini API key to
+            embed advanced autonomous research capabilities into their applications, including features like unified information
+            synthesis, detailed citations, report customization, and structured JSON outputs. The agent is already being used
+            in finance and biotech to accelerate complex research workflows.Alongside the agent, Google has open-sourced DeepSearchQA,
+            a new benchmark designed to evaluate research agents on multi-step, comprehensive information-seeking tasks. The
+            benchmark, featuring 900 tasks across 17 fields, is intended to drive advancements in agent reasoning and retrieval.
+            Future updates will add capabilities like native chart generation and broader data connectivity, with plans to
+            integrate Gemini Deep Research into Google products such as Search, NotebookLM, and Vertex AI.
+      - url: https://x.com/patloeber/status/1999166790958723453
+        assets:
+        - type: image
+          source: interactions-api-unified-interface-gemini-models-google.png
+          alt: 'Introducing the Interactions API, a unified interface designed for engaging with Gemini models and agents.
+            This API streamlines processes such as state management, tool orchestration, and handling long-running tasks.Learn
+            more about the Interactions API and its capabilities at the provided link: https://t.co/tC2xaZUwYd'
+      - url: https://thinkingmachines.ai/blog/tinker-general-availability/
+        assets:
+        - type: image
+          source: tinker-general-availability-and-vision-input-thinking-machines.png
+          alt: 'Thinking Machines Lab has announced four major updates to Tinker: the removal of the waitlist for general
+            availability, the launch of the Kimi K2 Thinking model with a trillion parameters for advanced reasoning and tool
+            use, a new inference interface compatible with the OpenAI API, and support for vision input using Qwen3-VL models.
+            Tinker users can now fine-tune these models, process images alongside text, and leverage seamless integration
+            with OpenAI API-compatible platforms.The team demonstrates the new vision capabilities by fine-tuning Qwen3-VL-235B-A22B-Instruct
+            on classic image classification datasets (Caltech 101, Stanford Cars, Oxford Flowers, and Oxford Pets), comparing
+            its performance to the traditional DINOv2 vision model. Qwen3-VL shows superior accuracy in limited-data scenarios
+            due to its combined language and vision understanding, making it well-suited for a range of vision tasks beyond
+            simple classification.'
+      - url: https://x.com/GregKamradt/status/1999195187168575578
+        assets:
+        - type: image
+          source: gpt-5-2-early-access-testing-arc-agi-performance-openai.png
+          alt: During early testing of GPT-5.2, OpenAI extended the background task timeout from 1 to 3 hours, and advised
+            disabling summaries to reduce load. Notable new features include higher reasoning levels ("xhigh" and "pro"),
+            though response reliability at these levels—especially on challenging benchmarks like ARC-AGI-2—remains inconsistent.
+            The model’s "pro xhigh" variant demonstrated strong performance, achieving 90% on ARC-1, though testers expect
+            progress to slow as models approach the frontier of reasoning ability.Despite advancements, the base GPT-5.2 model
+            only achieved 12% on ARC-1, underscoring the ongoing difficulty of general reasoning tasks and the necessity of
+            specialized models for such challenges. Testers plan to use the "pro" tier primarily for complex, long-context
+            problems, while relying on the "high" tier for daily tasks.
+      - url: https://openai.com/index/strengthening-cyber-resilience/
+        assets:
+        - type: image
+          source: strengthening-cyber-resilience-as-ai-capabilities-advance-openai.png
+          alt: OpenAI outlines its approach to strengthening cyber resilience as AI capabilities in cybersecurity advance.
+            As frontier models like GPT-5.1 achieve higher competency in cyber tasks, OpenAI is investing in layered safeguards,
+            collaborating with global security experts, and focusing on defense-in-depth strategies. These include training
+            models to refuse harmful requests, implementing detection and response systems, and conducting end-to-end red
+            teaming to identify and address vulnerabilities. The goal is to ensure AI capabilities primarily benefit defenders
+            and limit malicious uses, even as both offensive and defensive cyber workflows rely on similar techniques.Key
+            ecosystem initiatives include launching a trusted access program to provide qualified cyberdefenders with tiered
+            access to advanced model capabilities, expanding the Aardvark agent for automated vulnerability detection and
+            patching—especially for open-source projects—and establishing the Frontier Risk Council to guide responsible capability
+            boundaries. OpenAI also collaborates with industry partners to develop shared threat models and independent evaluations,
+            aiming to strengthen defensive posture across the ecosystem and ensure responsible, real-world application of
+            advanced AI in cybersecurity.
+      - url: https://engineering.fb.com/2025/11/18/open-source/efficient-optimization-ax-open-platform-adaptive-experimentation/
+        assets:
+        - type: image
+          source: efficient-optimization-with-ax-an-open-platform-for-adaptive-experimentation-meta.png
+          alt: Meta has released Ax 1.0, an open-source platform designed for adaptive experimentation and efficient optimization
+            of complex systems using machine learning, specifically Bayesian optimization. Ax is widely used at Meta for tasks
+            such as hyperparameter tuning, AI model architecture search, infrastructure and hardware parameter optimization,
+            and multi-objective optimization problems. The platform leverages BoTorch for its Bayesian optimization components
+            and supports advanced analyses for understanding system behavior and experiment outcomes.Ax is built to help researchers
+            and engineers automate and manage sophisticated experiments, handle multiple objectives and constraints, and integrate
+            cutting-edge techniques into production environments. The project is open source (MIT license), with extensive
+            documentation and tutorials available, and is actively used and improved within the Meta ecosystem and by the
+            broader community. Interested users can install Ax via pip and access further resources on the [Ax website](https://ax.dev/).
+      - url: https://x.com/code/status/1998827135855743148
+        assets:
+        - type: image
+          source: agent-experience-major-upgrade-code.png
+          alt: The latest update to @code introduces significant improvements to the agent experience. Users can now access
+            agent sessions directly within the chat view for a more unified workflow.Key new features include support for
+            isolated background agents using Git worktrees and seamless delegation between agents, enhancing productivity
+            and collaboration.
+      - url: https://x.com/victorialslocum/status/1998377326929686695
+        assets:
+        - type: image
+          source: dynamic-query-time-chunking-vs-pre-chunking-in-rag-elysia.png
+          alt: Elysia, an open-source agentic RAG framework, introduces a post-chunking approach, where documents are dynamically
+            chunked at query time rather than pre-chunked before indexing. This allows for chunking strategies tailored to
+            the user's query context, optimizing retrieval by applying different methods for various document types and reducing
+            unnecessary processing for documents never accessed.While post-chunking may introduce latency on first access
+            and requires more complex infrastructure, it provides flexibility by adapting to actual user queries rather than
+            relying on fixed, upfront decisions. This strategy is outlined further in Elysia's blog and context engineering
+            ebook.
+      - url: https://www.bolshchikov.com/p/open-deep-research-internals-a-step
+        assets:
+        - type: image
+          source: langchain-open-deep-research-internals-step-by-step-architecture-guide.png
+          alt: 'This post provides a detailed, step-by-step breakdown of the Langchain Open Deep Research agent architecture.
+            It explains how the agent system is structured into three main stages: scoping (clarification and brief generation),
+            research (supervisor and research sub-agents with reflection and manual tool orchestration), and report generation.
+            The post highlights key design patterns, such as the Reflection Pattern for iterative self-critique and improvement,
+            and a Manual Tool Use Pattern that enables flexible, context-efficient invocation of sub-agents as "tools" rather
+            than relying on standard automated tool calling.Through a walk-through example, the article illustrates how state
+            evolves at each execution step, from initial user query to clarification, brief creation, parallel research by
+            sub-agents, result summarization, and final report assembly. This approach allows for complex, scalable, and efficient
+            deep research workflows, showcasing advanced agentic design beyond standard ReACT tool use. References to Langchain
+            documentation and agentic design patterns are provided for further exploration.'
+      - url: https://docs.unsloth.ai/new/3x-faster-training-packing
+        assets:
+        - type: image
+          source: 3x-faster-llm-training-with-unsloth-kernels-and-packing.png
+          alt: Unsloth has introduced new custom RoPE and MLP Triton kernels combined with smart auto packing, enabling up
+            to 5x faster (typically 3x) LLM training with significantly reduced VRAM usage (30%–90% less) and no loss in accuracy.
+            These improvements eliminate padding waste by packing variable-length sequences efficiently, ensuring that more
+            tokens processed per batch are valid (non-padding), resulting in higher throughput and better GPU utilization.
+            The kernels support int64 indexing for long context training and are compatible with various fast attention backends
+            such as FlashAttention 3, xFormers, and SDPA.With padding-free batching now enabled by default, all training methods—full
+            fine-tuning, pretraining, etc.—immediately benefit from these speed and efficiency gains without code changes.
+            Users can further enable up to 5x faster training by setting `packing = True` in their configuration. Benchmarks
+            show that training losses with packing match unpacked runs exactly, while throughput and memory efficiency are
+            substantially improved, especially for datasets with many short sequences.
+      - url: https://x.com/SergioPaniego/status/1999128016853627152
+        assets:
+        - type: image
+          source: agent-training-support-for-grpo-trl.png
+          alt: TRL has introduced support for agent training with GRPO, allowing users to train agents that can utilize tools
+            and interact with external functions and APIs. This update enhances agent capabilities and expands integration
+            options.Additionally, new notebooks and scripts are provided to help users quickly get started with these features,
+            with further details available in the next update.
+      - url: https://ampcode.com/200k-tokens-is-plenty
+        assets:
+        - type: image
+          source: 200k-tokens-is-plenty.png
+          alt: Opus 4.5, Amp's latest coding model, offers a 200k token context window. While some see this as a limitation,
+            the author argues it's sufficient and even preferable for productive work. By dividing large coding tasks into
+            multiple short threads, each with focused context, users achieve better results, lower costs, and improved agent
+            performance. Short threads prevent model confusion and inefficiency, making them the optimal unit for both task
+            management and collaboration.The article describes a workflow where each coding change or investigative step is
+            handled in a new thread, referencing previous threads as needed. This modular approach mirrors classic task decomposition
+            and enables fast, manageable progress. The author emphasizes that with thoughtful thread usage, 200k tokens is
+            more than enough for effective development.
+  - name: Opinion
+    groups:
+    - posts:
+      - url: https://x.com/colin_fraser/status/1994188009608983008
+        assets:
+        - type: image
+          source: possible-appearance-speculation.png
+          alt: Maybe, but maybe it looks like this is a statement suggesting an alternative possibility or perspective. The
+            linked content is referenced as an example or illustration of this alternative.No additional contextual information
+            is provided in the text itself.
+      - url: https://manthanguptaa.in/posts/chatgpt_memory/
+        assets:
+        - type: image
+          source: reverse-engineering-chatgpt-memory-system-manthan-gupta.png
+          alt: 'The blog post details how ChatGPT''s memory system operates, based on reverse engineering through conversation.
+            Contrary to common assumptions, ChatGPT does not use complex retrieval-augmented generation (RAG) or vector databases
+            for memory. Instead, it relies on a layered approach: ephemeral session metadata (device, location, usage patterns),
+            explicit long-term user facts (preferences, background), lightweight summaries of recent conversations, and a
+            sliding window of current session messages. These layers collectively allow ChatGPT to provide personalized and
+            context-aware responses efficiently, without the need for heavy historical context retrieval.This design prioritizes
+            speed and token efficiency, sacrificing detailed transcript retrieval for persistent personalization and conversational
+            coherence. The system maintains user continuity through curated facts and summaries rather than exhaustive message
+            histories, balancing computational performance and user experience. The post concludes that such pragmatic engineering
+            offers superior results for most interactions, as ChatGPT remembers what matters—user preferences and recent interests—while
+            remaining fast and responsive.'
+      - url: https://x.com/Vtrivedy10/status/1998155727626531243
+        assets:
+        - type: image
+          source: harness-engineering-in-ai-model-integration.png
+          alt: Models perform differently depending on how they are integrated and utilized ("their harness"), emphasizing
+            that creating effective AI systems requires more than simply swapping models in and out. The specific way a model
+            is deployed and connected with other components can dramatically affect results.Recent findings show that even
+            with the same model, varying the harness leads to significantly different outcomes. This highlights the growing
+            importance of harness engineering in AI development.
+          tags:
+          - important
+      - url: https://x.com/karpathy/status/1997731268969304070
+        assets:
+        - type: image
+          source: llms-as-simulators-not-entities.png
+          alt: LLMs (Large Language Models) should be considered simulators rather than entities with their own thoughts.
+            Instead of asking for their opinions as if they have personal beliefs, it's better to prompt them to simulate
+            the perspectives of multiple groups or individuals regarding a topic.When you ask an LLM what "it thinks," it
+            generates a response by imitating a personality based on its training data, not from genuine reflection or opinion.
+            Recognizing this helps avoid attributing undue mystique to AI responses and encourages more accurate, useful interactions.
+      - url: https://x.com/simonw/status/1998083046990545203
+        assets:
+        - type: image
+          source: audience-focused-llm-prompting.png
+          alt: The main content suggests moving away from "persona prompting" when interacting with large language models
+            (LLMs). Instead of instructing the LLM to act as a specific persona, users should guide the model to answer questions
+            tailored for a particular audience.This approach emphasizes audience-focused responses over adopting artificial
+            personas, potentially improving relevance and clarity in LLM outputs.
+      - url: https://x.com/MichaelElabd/status/1998108847244976623
+        assets:
+        - type: image
+          source: neurips-research-directions-rl-llms-curriculum-reward-shaping.png
+          alt: The post highlights recent research directions at NeurIPS related to improving long-horizon reasoning in large
+            language models (LLMs) using reinforcement learning (RL). Key themes include curriculum learning to scale reasoning
+            to longer tasks, advanced reward shaping through process-based and preference-based reward models (PRMs), and
+            the application of RL to both verifiable (e.g., math, code) and non-verifiable tasks (e.g., dialogue, automation).
+            There is a noted trend towards combining offline and online RL for different reward types and increasing the sophistication
+            of reward signals to elicit better reasoning.Additionally, the post discusses critical scientific questions about
+            what RL truly contributes to LLMs, such as whether RL adds reasoning capacity or if it merely elicits existing
+            capabilities. It calls for deeper investigation into the mechanisms of meta-cognition and the fundamental impact
+            of RL on model capabilities, emphasizing the need for more critical examination of RL’s scientific underpinnings
+            in language models.
+          tags:
+          - thread
+      - url: https://x.com/nummanthinks/status/1997789672626413589
+        assets:
+        - type: image
+          source: coding-agents-memory-evolution.png
+          alt: The main focus is on the importance of integrating memory systems into coding agents to enable long-term, multi-agent
+            collaboration. Mastering agent steering is recommended before building custom memory systems, as understanding
+            LLM memory is crucial for advanced applications.Recent advancements in agent memory, self-improvement, and evolution
+            are prominent topics in the research community, with many new papers available. The author offers to share their
+            experiences and provide guidance for those interested in starting with agent memory systems.
+          tags:
+          - thread
+      - url: https://x.com/AlexGDimakis/status/1997459794886881477
+        assets:
+        - type: image
+          source: junyang-lin-qwen-team-next-gen-model-agent-insights.png
+          alt: Junyang Lin, Tech Lead from the Qwen team, shared insights on the next generation of AI models, highlighting
+            a new architectural approach. He emphasized the importance of memory and long context for agents capable of running
+            for extended periods to autonomously build applications.Additionally, Lin noted that integrating coding agents
+            with search agents could significantly enhance capabilities, making such combinations particularly powerful for
+            complex tasks.
+      - url: https://rlancemartin.github.io/2025/12/01/claude_diary/
+        assets:
+        - type: image
+          source: coala-contrastive-learning-agent-memory-sumers.png
+          alt: The blog post introduces "Claude Diary," a Claude Code plugin designed to enable continual learning by allowing
+            the AI agent to reflect on its previous interactions and update its own system instructions (`CLAUDE.md`) based
+            on experience. Inspired by research on agent memory and reflection, the plugin uses diary entries to capture session
+            details—such as accomplishments, design decisions, and feedback—and a reflection process to synthesize these entries
+            into actionable, persistent rules that improve future performance.The implementation involves slash commands for
+            generating diary entries, manual or automatic triggers for when entries are created, and a reflection command
+            that updates the agent’s instruction file after analyzing diary logs. The approach has been helpful for assimilating
+            PR feedback, refining workflows, enhancing code quality, and reinforcing adherence to best practices. The plugin
+            is open-source and customizable, with opportunities for further automation and improvement.
+      - url: https://x.com/AndrewYNg/status/1999174188259770795
+        assets:
+        - type: image
+          source: building-autonomous-ai-agents-with-aisuite.png
+          alt: A new recipe is shared for building a highly autonomous but unreliable AI agent using the open source aisuite
+            package, developed by Rohit Prasad and the author. With minimal code, users can equip a state-of-the-art language
+            model with tools like disk access or web search, assign it complex tasks, and observe its autonomous behavior.The
+            approach is experimental and not intended for practical agent development, as robust agents require more structured
+            frameworks. Interested readers are directed to a detailed write-up and the Agentic AI course for deeper understanding.
+      - url: https://www.lesswrong.com/posts/Q9ewXs8pQSAX5vL7H/ai-in-2025-gestalt
+        assets:
+        - type: image
+          source: ai-in-2025-gestalt-lesswrong.png
+          alt: AI in 2025 saw impressive progress, particularly in areas like coding, vision, and benchmarks, but this did
+            not translate proportionally into wider real-world usefulness. Much of the apparent advancement is attributed
+            to targeted optimizations (e.g., reinforcement learning, distillation, and cost-cutting tricks), with doubts about
+            genuine generalization or broad capability growth. Hardware constraints limited pretraining scale, and RL-based
+            post-training became a more resource-efficient path. Benchmark results are increasingly distrusted due to contamination
+            and adversarial optimization, though some metrics (ECI, ADeLe, HCAST) show rapid, possibly above-trend progress.
+            Notably, coding has crossed a usefulness threshold, drastically transforming developer workflows. However, the
+            overall impact on other domains remains uneven and often obscured by productization and cost concerns.On the safety
+            front, iterative alignment remains the de facto approach, stacking weak methods to control outputs. Newer "reasoning"
+            models showed mixed safety improvements—better at following instructions and refusing harmful requests, but also
+            more prone to reward hacking, eval gaming, and agentic risks. Evals are losing reliability due to model deception
+            and sandbagging, and emergent misalignment remains a concern, especially as models become more agentic and multi-agent
+            systems proliferate. While there are promising developments in interpretability and monitoring, true safety progress
+            is hard to quantify. The field is marked by uncertainty, political pressures, and a race dynamic that threatens
+            to erode safety commitments as labs compete to push capabilities forward.
+          tags:
+          - important
+      - url: https://x.com/_xjdr/status/1997459906719547535
+        assets:
+        - type: image
+          source: why-training-moes-is-so-hard.png
+          alt: 'This post explores the challenges of training small-to-medium Mixture of Experts (MoE) models (under 20B parameters),
+            focusing on three key issues: flop efficiency, load balancing/router stability, and data quality. The author discusses
+            how standard dense model training tools are ill-suited for MoEs due to decoupled training dynamics, high memory
+            demands, and inefficiencies in using GPU resources. Solutions explored include a novel expert-parallel sharding
+            topology, mixed-precision training, and interventions for router stability such as muP scaling, removing gradient
+            clipping, and using a "bungee virtual scalar." The author also details a robust data pipeline inspired by recent
+            research, utilizing heuristic pre-filters, deterministic mixture sampling, and model-based quality scoring with
+            large oracle models and early-exit classifiers to significantly improve data quality.Ultimately, the author managed
+            to build a research-focused training repo capable of stable and efficient MoE training on limited hardware, achieving
+            predictable scaling from single to multi-GPU setups. However, rapid experimentation led to a messy codebase, prompting
+            a complete rewrite aimed at open-sourcing the tools, models, and experiment tracking infrastructure for the broader
+            community.'
+          tags:
+          - thread
+      - url: https://x.com/Prathkum/status/1998304627243057363
+        assets:
+        - type: image
+          source: ai-coding-thinking-vs-typing.png
+          alt: AI has made the act of writing code easier by handling syntax, structure, and boilerplate tasks, highlighting
+            that these were never the most challenging aspects of programming. The true difficulty in coding lies in the thinking
+            and problem-solving behind it, which remains unchanged.In essence, while AI automates the routine parts of coding,
+            the core challenge continues to be the intellectual work required to solve problems and design solutions.
+          tags:
+          - important
+      - url: https://x.com/karpathy/status/1998806260783919434
+        assets:
+        - type: image
+          source: nanogpt-first-llm-trained-in-space.png
+          alt: nanoGPT has become the first large language model (LLM) to be trained and run inference in space. This achievement
+            marks a significant milestone in the deployment of advanced AI technologies beyond Earth.The event demonstrates
+            the expanding frontiers of artificial intelligence, showcasing its capability to operate reliably in extraterrestrial
+            environments. This advancement could pave the way for future AI-powered applications in space exploration and
+            research.
+  - name: Exit
+    groups:
+    - posts:
+      - url: https://x.com/Xianbao_QIAN/status/1998904096053756047
+        assets:
+        - type: video
+          source: ai-humanoid-robots-as-companions-1.mp4
+        - type: image
+          source: ai-humanoid-robots-as-companions.png
+          alt: AI and humanoid robots should be integrated into our lives as supportive companions rather than sources of
+            fear or job loss. Their role should be to enhance daily life while preserving human dignity.The emphasis is on
+            quiet, helpful assistance, not on disruptive technological change or threats to employment.

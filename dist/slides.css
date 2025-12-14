@@ -1,0 +1,1195 @@
+/* ==========================================================================
+   ML NEWS Slide Viewer - Cinematic Editorial Theme
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-elevated: #1a1a1a;
+  --bg-overlay: rgba(10, 10, 10, 0.95);
+
+  --text-primary: #f5f5f0;
+  --text-secondary: #8a8a85;
+  --text-muted: #5a5a55;
+
+  --accent: #e5a158;
+  --accent-dim: rgba(229, 161, 88, 0.4);
+  --accent-glow: rgba(229, 161, 88, 0.15);
+
+  --edge-flash: rgba(255, 255, 255, 0.5);
+  --section-border: rgba(255, 255, 255, 0.08);
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Durations */
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-section: 280ms;
+
+  /* Spacing */
+  --tab-bar-height: 56px;
+  --progress-height: 3px;
+  --nav-arrow-size: 48px;
+
+  /* Typography */
+  --font-ui: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Instrument Serif', Georgia, serif;
+
+  /* Tag chips */
+  --chip-bg: transparent;
+  --chip-bg-selected: rgba(255, 255, 255, 0.1);
+  --chip-border: rgba(255, 255, 255, 0.12);
+  --chip-border-selected: rgba(255, 255, 255, 0.2);
+  --chip-border-new: var(--accent-dim);
+  --chip-shadow-present: 0 0 0 2px var(--accent-dim), 0 0 12px var(--accent-glow), 0 0 20px rgba(229, 161, 88, 0.15);
+  --chip-radius: 16px;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: pan-x pan-y;
+}
+
+/* ==========================================================================
+   Top Trigger Zone
+   ========================================================================== */
+
+#top-trigger {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  z-index: 890;
+  pointer-events: auto;
+}
+
+/* ==========================================================================
+   Tab Bar
+   ========================================================================== */
+
+#tab-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  background: linear-gradient(180deg, var(--bg-overlay) 0%, rgba(10, 10, 10, 0.85) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transform: translateY(0);
+  opacity: 1;
+  transition:
+    transform var(--duration-slow) var(--ease-out),
+    opacity var(--duration-slow) var(--ease-out);
+}
+
+#tab-bar.collapsed {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+#tab-bar.dimmed {
+  opacity: 0.5;
+}
+
+.tab-bar-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--tab-bar-height);
+  padding: 0 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.tabs {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  gap: 16px;
+  max-width: 800px;
+}
+
+.tab {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer !important; /* Force cursor on entire button */
+  transition:
+    color var(--duration-fast) ease,
+    background var(--duration-fast) ease;
+}
+
+.tab:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab.active {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.tab-name {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer; /* Ensure cursor shows on text too */
+}
+
+.tab-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer; /* Ensure cursor shows on badge too */
+  transition:
+    background var(--duration-fast) ease,
+    color var(--duration-fast) ease;
+}
+
+.tab.active .tab-badge {
+  background: var(--accent-dim);
+  color: var(--accent);
+}
+
+/* Slide Counter */
+.slide-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 0 12px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.slide-counter #current-slide {
+  min-width: 20px;
+  text-align: right;
+}
+
+.slide-counter #total-slides {
+  min-width: 20px;
+  text-align: left;
+}
+
+.counter-separator {
+  opacity: 0.6;
+}
+
+/* Mode Toggle */
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) ease,
+    background var(--duration-fast) ease,
+    border-color var(--duration-fast) ease;
+}
+
+.mode-toggle:hover {
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.mode-toggle.active {
+  color: var(--accent);
+  background: var(--accent-glow);
+  border-color: var(--accent-dim);
+}
+
+.star-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.mode-toggle.active .star-icon {
+  fill: var(--accent);
+}
+
+/* ==========================================================================
+   Segmented Mode Toggle (All/Personalized)
+   ========================================================================== */
+
+.segmented-toggle {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.segmented-toggle button {
+  padding: 6px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) ease,
+    background var(--duration-fast) ease;
+}
+
+.segmented-toggle button:hover {
+  color: var(--text-primary);
+}
+
+.segmented-toggle button.active {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Filter Button */
+.filter-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    color var(--duration-fast) ease,
+    background var(--duration-fast) ease,
+    border-color var(--duration-fast) ease;
+}
+
+.filter-button:hover {
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.filter-button.active {
+  color: var(--accent);
+  background: var(--accent-glow);
+  border-color: var(--accent-dim);
+}
+
+.filter-button svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Tab bar controls container */
+.tab-bar-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   Tag Panel
+   ========================================================================== */
+
+#tag-panel {
+  position: fixed;
+  top: var(--tab-bar-height);
+  left: 0;
+  right: 0;
+  z-index: 899;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--section-border);
+  padding: 16px 20px;
+  max-height: 200px;
+  overflow-y: auto;
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--duration-normal) var(--ease-out),
+    opacity var(--duration-normal) var(--ease-out);
+}
+
+#tag-panel.visible {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tag-panel-content {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ==========================================================================
+   Tag Chips
+   ========================================================================== */
+
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: var(--chip-bg);
+  border: 1px solid var(--chip-border);
+  border-radius: var(--chip-radius);
+  color: var(--text-secondary);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition:
+    background var(--duration-fast) ease,
+    border-color var(--duration-fast) ease,
+    color var(--duration-fast) ease,
+    box-shadow var(--duration-fast) ease;
+}
+
+.tag-chip:hover {
+  border-color: rgba(255, 255, 255, 0.17);
+  color: var(--text-primary);
+}
+
+/* Selected state */
+.tag-chip.selected {
+  background: var(--chip-bg-selected);
+  border-color: var(--chip-border-selected);
+  color: var(--text-primary);
+}
+
+/* New this week state (dashed border) */
+.tag-chip.new {
+  border-style: dashed;
+  border-color: var(--chip-border-new);
+}
+
+.tag-chip.new.selected {
+  border-style: dashed;
+  border-color: var(--chip-border-new);
+}
+
+/* Present in current slide state (shadow/elevation) */
+.tag-chip.present {
+  box-shadow: var(--chip-shadow-present);
+}
+
+/* Combined: selected + new */
+.tag-chip.selected.new {
+  background: var(--chip-bg-selected);
+  border-style: dashed;
+  border-color: var(--chip-border-new);
+}
+
+/* Combined: selected + present */
+.tag-chip.selected.present {
+  background: var(--chip-bg-selected);
+  border-color: var(--chip-border-selected);
+  box-shadow: var(--chip-shadow-present);
+}
+
+/* Combined: new + present */
+.tag-chip.new.present {
+  border-style: dashed;
+  border-width: 2px;
+  border-color: rgba(229, 161, 88, 0.5);
+  box-shadow: var(--chip-shadow-present);
+}
+
+/* Combined: selected + new + present */
+.tag-chip.selected.new.present {
+  background: var(--chip-bg-selected);
+  border-style: dashed;
+  border-width: 2px;
+  border-color: rgba(229, 161, 88, 0.5);
+  box-shadow: var(--chip-shadow-present);
+}
+
+/* Focus state for accessibility */
+.tag-chip:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Progress Bar
+   ========================================================================== */
+
+.progress-bar {
+  position: relative;
+  height: var(--progress-height);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
+  transition: width var(--duration-normal) var(--ease-out);
+}
+
+.progress-sections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  pointer-events: none;
+}
+
+.progress-section {
+  position: relative;
+  height: 100%;
+  border-right: 1px solid var(--section-border);
+}
+
+.progress-section:last-child {
+  border-right: none;
+}
+
+/* ==========================================================================
+   Slide Container
+   ========================================================================== */
+
+.slide-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background: var(--bg-primary);
+}
+
+.slide-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Slide */
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(100%);
+  cursor: default;
+  /* Default transition for within-post navigation */
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    filter var(--duration-fast) var(--ease-out),
+    contrast var(--duration-fast) var(--ease-out);
+}
+
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) translateY(0);
+  z-index: 10;
+}
+
+.slide.prev {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-100%);
+}
+
+.slide.next {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(100%);
+}
+
+/* ==========================================================================
+   Transition Types - Visual Grammar per UI Spec
+   ========================================================================== */
+
+/* Within Post: Simple horizontal slide, no visual emphasis */
+.slide.transition-within-post {
+  transition:
+    opacity var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+  /* No brightness or filter changes - keep it "flat" */
+}
+
+/* Between Posts: 95% dim with micro-settle */
+.slide.transition-posts {
+  transition:
+    opacity var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out),
+    filter var(--duration-normal) var(--ease-out);
+}
+
+.slide.transition-posts.transitioning-out {
+  filter: brightness(0.95);
+}
+
+.slide.transition-posts.active {
+  filter: brightness(1);
+}
+
+/* Micro-settle: Subtle ease-out hold at end of post transition */
+.slide.micro-settle {
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Between Groups: Same as posts + edge flash + sheen handled in JS */
+.slide.transition-groups {
+  transition:
+    opacity var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out),
+    filter var(--duration-normal) var(--ease-out);
+}
+
+.slide.transition-groups.transitioning-out {
+  filter: brightness(0.95);
+}
+
+/* Section via Horizontal: Keep horizontal motion + axis hint */
+.slide.transition-section-horizontal {
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 220ms var(--ease-out),
+    filter 220ms var(--ease-out);
+}
+
+.slide.transition-section-horizontal.transitioning-out {
+  filter: brightness(0.95);
+}
+
+/* Axis hint: Micro-drift to foreshadow section boundary */
+.slide.axis-hint-up {
+  animation: axisHintUp 220ms var(--ease-out) forwards;
+}
+
+.slide.axis-hint-down {
+  animation: axisHintDown 220ms var(--ease-out) forwards;
+}
+
+@keyframes axisHintUp {
+  0% {
+    transform: translateX(100%) translateY(0);
+  }
+  70% {
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    transform: translateX(0) translateY(-2px);
+  }
+}
+
+@keyframes axisHintDown {
+  0% {
+    transform: translateX(-100%) translateY(0);
+  }
+  70% {
+    transform: translateX(0) translateY(0);
+  }
+  100% {
+    transform: translateX(0) translateY(2px);
+  }
+}
+
+/* Section transition (vertical) - slowest with ease-in-out + depth swap */
+.slide.transition-section {
+  transition:
+    opacity var(--duration-section) var(--ease-in-out),
+    transform var(--duration-section) var(--ease-in-out),
+    filter var(--duration-section) var(--ease-in-out);
+}
+
+/* Depth swap: Incoming slide starts with slightly lower contrast */
+.slide.depth-swap {
+  animation: depthSwap var(--duration-section) var(--ease-in-out) forwards;
+}
+
+@keyframes depthSwap {
+  0% {
+    filter: contrast(0.98) brightness(0.98);
+  }
+  100% {
+    filter: contrast(1) brightness(1);
+  }
+}
+
+.slide.section-exit-up {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.slide.section-exit-down {
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.slide.section-enter-from-top {
+  transform: translateY(-100%);
+}
+
+.slide.section-enter-from-bottom {
+  transform: translateY(100%);
+}
+
+/* Backward navigation - slightly different easing */
+.slide.direction-backward {
+  transition-timing-function: var(--ease-in-out);
+}
+
+/* Video background layer - stays visible during image transitions */
+.slide.video-background {
+  z-index: 5 !important;  /* Force lower z-index even when active */
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) !important;  /* Keep centered */
+}
+
+.slide.video-background video {
+  opacity: 1;
+  filter: none;
+  transition: opacity 300ms ease, filter 300ms ease;
+}
+
+/* Slide Media */
+.slide img {
+  max-width: 100%;
+  max-height: 100%;
+  /* scale-down: scales down if needed, but never scales up beyond natural size */
+  object-fit: scale-down;
+  cursor: pointer;
+}
+
+.slide video {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  /* cover: fills the entire view while maintaining aspect ratio */
+  object-fit: cover;
+  cursor: pointer;
+}
+
+/* Asset placeholder for loading/error */
+.slide-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.slide-placeholder svg {
+  width: 48px;
+  height: 48px;
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   Edge Flash Effects
+   ========================================================================== */
+
+.edge-flash {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--edge-flash);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 800;
+}
+
+.edge-flash.left {
+  left: 0;
+}
+
+.edge-flash.right {
+  right: 0;
+}
+
+.edge-flash.flash {
+  animation: edgeFlash 200ms ease-out forwards;
+}
+
+@keyframes edgeFlash {
+  0% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Directional Sheen Effects (for group transitions)
+   ========================================================================== */
+
+.sheen {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  pointer-events: none;
+  z-index: 799;
+  opacity: 0;
+}
+
+.sheen.left {
+  left: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
+}
+
+.sheen.right {
+  right: 0;
+  background: linear-gradient(-90deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
+}
+
+.sheen.flash {
+  animation: sheenFlash 120ms ease-out forwards;
+}
+
+@keyframes sheenFlash {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.5);
+  }
+  30% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1.2);
+  }
+}
+
+/* ==========================================================================
+   Navigation Arrows
+   ========================================================================== */
+
+.nav-arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: var(--nav-arrow-size);
+  height: var(--nav-arrow-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0;
+  transition:
+    opacity var(--duration-normal) ease,
+    color var(--duration-fast) ease,
+    background var(--duration-fast) ease;
+  z-index: 100;
+}
+
+.nav-arrow.prev {
+  left: 20px;
+}
+
+.nav-arrow.next {
+  right: 20px;
+}
+
+.nav-arrow svg {
+  width: 24px;
+  height: 24px;
+}
+
+.nav-arrow:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Show arrows on hover/touch */
+.slide-container:hover ~ .nav-arrow,
+.nav-arrow:hover {
+  opacity: 1;
+}
+
+/* Hide arrows on mobile by default */
+@media (max-width: 768px) {
+  .nav-arrow {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Onboarding
+   ========================================================================== */
+
+.onboarding {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 10, 10, 0.7);
+  z-index: 2000;
+  animation: fadeIn 300ms ease-out;
+}
+
+.onboarding.hidden {
+  display: none;
+}
+
+.onboarding.fading-out {
+  animation: fadeOut 500ms ease-out forwards;
+}
+
+.onboarding-hints {
+  text-align: center;
+}
+
+.hint {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: hintReveal 400ms var(--ease-out) forwards;
+}
+
+.hint:nth-child(1) { animation-delay: 200ms; }
+.hint:nth-child(2) { animation-delay: 400ms; }
+.hint:nth-child(3) { animation-delay: 600ms; }
+
+.hint .arrow {
+  display: inline-block;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@keyframes hintReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* ==========================================================================
+   Error State
+   ========================================================================== */
+
+.error-state {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  z-index: 1500;
+}
+
+.error-state.hidden {
+  display: none;
+}
+
+.error-content {
+  text-align: center;
+  padding: 40px;
+}
+
+.error-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-style: italic;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.error-message {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Loading State
+   ========================================================================== */
+
+.loading-state {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-primary);
+  z-index: 1500;
+}
+
+.loading-state.hidden {
+  display: none;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 800ms linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --tab-bar-height: 48px;
+    --nav-arrow-size: 40px;
+  }
+
+  .tab-bar-content {
+    padding: 0 12px;
+  }
+
+  .tabs {
+    gap: 2px;
+  }
+
+  .tab {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  /* Tag panel responsive */
+  #tag-panel {
+    padding: 12px 16px;
+    max-height: 180px;
+  }
+
+  .tag-chip {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .tag-cloud {
+    gap: 6px;
+  }
+
+  /* Segmented toggle responsive */
+  .segmented-toggle button {
+    padding: 5px 10px;
+    font-size: 10px;
+  }
+
+  .filter-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .filter-button svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .tab-bar-controls {
+    gap: 8px;
+  }
+
+  .tab-name {
+    letter-spacing: 0.03em;
+  }
+
+  .tab-badge {
+    min-width: 18px;
+    height: 16px;
+    font-size: 10px;
+  }
+
+  .mode-toggle {
+    width: 36px;
+    height: 36px;
+  }
+
+  .star-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .hint {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tab-name {
+    display: none;
+  }
+
+  .tab {
+    padding: 6px 8px;
+  }
+
+  .tab-badge {
+    min-width: 24px;
+    height: 20px;
+    font-size: 11px;
+  }
+}
+
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Focus States (Accessibility)
+   ========================================================================== */
+
+/* Focus styles - only show for nav arrows (keyboard navigation) */
+.nav-arrow:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Tabs: Remove all focus outlines since keyboard nav uses arrow keys */
+.tab:active,
+.tab:focus,
+.tab:focus-visible {
+  outline: none;
+}
+
+/* Mode toggle: Remove focus outline (clicked with mouse, not keyboard nav) */
+.mode-toggle:active,
+.mode-toggle:focus,
+.mode-toggle:focus-visible {
+  outline: none;
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+  #tab-bar,
+  .nav-arrow,
+  .onboarding,
+  .loading-state,
+  .nav-arrow {
+    display: none !important;
+  }
+
+  .slide-container {
+    position: static;
+  }
+
+  .slide {
+    position: static;
+    page-break-after: always;
+  }
+}
