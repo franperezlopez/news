@@ -127,9 +127,6 @@ const state = {
   tabBarHovered: false,  // Track if mouse is over tab bar
   isAnimating: false,
 
-  // Video activation ranges: Array of { videoIndex, startIndex, endIndex }
-  // Each video's range is from its index to the last asset in its post
-  videoActivationRanges: [],
   // Currently active video (playing in foreground or background)
   activeVideoIndex: null,
 
@@ -313,12 +310,18 @@ function buildSlideIndex() {
 
     const sectionName = section.name.toLowerCase();
 
-    section.groups?.forEach((group, groupIndex) => {
-      group.posts?.forEach((post, postIndex) => {
-        const postStartIndex = globalIndex;
-        const postAssetCount = post.assets?.length || 0;
+    // Process section.items[] which contains both posts and groups
+    section.items?.forEach((item, itemIndex) => {
+      // Determine if this is a post or a group
+      const isGroup = item.items !== undefined;  // Groups have "items" property
+      const isPost = item.assets !== undefined;  // Posts have "assets" property
 
-        post.assets?.forEach((asset, assetIndex) => {
+      if (isPost) {
+        // Non-bundled post at section level
+        const postStartIndex = globalIndex;
+        const postAssetCount = item.assets?.length || 0;
+
+        item.assets?.forEach((asset, assetIndex) => {
           // Handle source path - strip 'assets/' prefix if present since files
           // are directly in the base directory
           let sourcePath = asset.source;
@@ -330,9 +333,10 @@ function buildSlideIndex() {
             sectionIndex,
             sectionName: section.name,
             sectionKey: sectionName,
-            groupIndex,
-            postIndex,
-            postUrl: post.url,
+            groupIndex: null,  // Not in a group
+            postIndex: itemIndex,
+            postId: item.id,
+            postUrl: asset.url || item.url,  // Use asset.url if available, fallback to post.url
             assetIndex,
             asset: {
               ...asset,
@@ -347,34 +351,82 @@ function buildSlideIndex() {
 
           globalIndex++;
         });
-      });
+      } else if (isGroup) {
+        // Bundled group
+        const groupIndex = itemIndex;
+
+        item.items?.forEach((post, postIndex) => {
+          const postStartIndex = globalIndex;
+          const postAssetCount = post.assets?.length || 0;
+
+          post.assets?.forEach((asset, assetIndex) => {
+            // Handle source path - strip 'assets/' prefix if present since files
+            // are directly in the base directory
+            let sourcePath = asset.source;
+            if (sourcePath.startsWith('assets/')) {
+              sourcePath = sourcePath.slice(7); // Remove 'assets/' prefix
+            }
+
+            slides.push({
+              sectionIndex,
+              sectionName: section.name,
+              sectionKey: sectionName,
+              groupIndex,
+              postIndex,
+              postId: post.id,
+              postUrl: asset.url || post.url,  // Use asset.url if available, fallback to post.url
+              assetIndex,
+              asset: {
+                ...asset,
+                source: CONFIG.assetBasePath + sourcePath
+              },
+              globalIndex: globalIndex,
+              // Store post boundaries for video activation range
+              postStartIndex: postStartIndex,
+              postEndIndex: postStartIndex + postAssetCount - 1,
+              isHighlight: asset.tags?.includes('highlight') ?? false
+            });
+
+            globalIndex++;
+          });
+        });
+      }
     });
   });
 
-  state.allSlides = slides;
-  // updateVisibleSlides also rebuilds video activation ranges
-  updateVisibleSlides();
-}
-
-/**
- * Build video activation ranges based on the spec:
- * Each video's activation range is from its slide index to the last asset in its post.
- */
-function buildVideoActivationRanges() {
-  state.videoActivationRanges = [];
-
-  state.allSlides.forEach((slide, index) => {
-    if (slide.asset.type === 'video') {
-      state.videoActivationRanges.push({
-        videoIndex: index,
-        startIndex: index,
-        endIndex: slide.postEndIndex
-      });
-    }
+  // Add exit slide at the end
+  const exitSectionIndex = CONFIG.sectionMap['exit'];
+  slides.push({
+    sectionIndex: exitSectionIndex,
+    sectionName: 'Exit',
+    sectionKey: 'exit',
+    groupIndex: null,
+    postIndex: 0,
+    postId: 'exit',
+    postUrl: null,
+    assetIndex: 0,
+    asset: {
+      type: 'html',
+      html: `
+        <div class="exit-slide-content">
+          <div class="exit-slide-inner">
+            <img src="assets/qr.png" alt="QR Code" class="exit-qr-code" />
+            <div class="exit-message">
+              <p class="exit-label">📚 <a href="index_all.html"><strong>view all previous issues</strong></a></p>
+              <p class="exit-tagline">✨ see you next week!</p>
+            </div>
+          </div>
+        </div>
+      `
+    },
+    globalIndex: globalIndex,
+    postStartIndex: globalIndex,
+    postEndIndex: globalIndex,
+    isHighlight: false
   });
 
-  // Sort by startIndex for efficient lookup
-  state.videoActivationRanges.sort((a, b) => a.startIndex - b.startIndex);
+  state.allSlides = slides;
+  updateVisibleSlides();
 }
 
 function updateVisibleSlides() {
@@ -399,43 +451,111 @@ function updateVisibleSlides() {
     // All mode or personalized with no tags selected - show everything
     state.visibleSlides = [...state.allSlides];
   }
+}
 
-  // Rebuild video activation ranges for current visible slides
-  rebuildVideoActivationRangesForVisibleSlides();
+// ==========================================================================
+// Video Management - Simplified
+// ==========================================================================
+
+/**
+ * Check if a video is the last video in its group.
+ */
+function isLastVideoInGroup(videoSlide, videoIndex) {
+  // Standalone posts (not in a group) don't have this concept
+  if (videoSlide.groupIndex === null) {
+    return false;
+  }
+
+  // Look ahead for any more videos in the same group
+  for (let i = videoIndex + 1; i < state.visibleSlides.length; i++) {
+    const slide = state.visibleSlides[i];
+
+    // Left the group
+    if (slide.sectionIndex !== videoSlide.sectionIndex ||
+        slide.groupIndex !== videoSlide.groupIndex) {
+      break;
+    }
+
+    // Found another video in the group
+    if (slide.asset.type === 'video') {
+      return false;
+    }
+  }
+
+  return true; // No more videos found in this group
 }
 
 /**
- * Rebuild video activation ranges based on current visible slides.
- * Needed when switching between highlight/detailed modes.
+ * Find the last slide index in a group.
  */
-function rebuildVideoActivationRangesForVisibleSlides() {
-  state.videoActivationRanges = [];
+function findGroupEndIndex(slide, startIndex) {
+  let endIndex = startIndex;
 
-  state.visibleSlides.forEach((slide, visibleIndex) => {
+  for (let i = startIndex + 1; i < state.visibleSlides.length; i++) {
+    const nextSlide = state.visibleSlides[i];
+
+    if (nextSlide.sectionIndex === slide.sectionIndex &&
+        nextSlide.groupIndex === slide.groupIndex) {
+      endIndex = i;
+    } else {
+      break;
+    }
+  }
+
+  return endIndex;
+}
+
+/**
+ * Calculate the activation range for a video slide.
+ * Returns the end index where this video should stop being active.
+ *
+ * Rules:
+ * - Videos extend to the end of their post
+ * - If a video is the LAST video in a group, it extends to the END of the group
+ */
+function calculateVideoEndIndex(videoSlide, videoIndex) {
+  // Default: end of the video's post
+  let endIndex = videoSlide.postEndIndex;
+
+  // If this is the last video in a group, extend to end of group
+  if (isLastVideoInGroup(videoSlide, videoIndex)) {
+    endIndex = findGroupEndIndex(videoSlide, videoIndex);
+  }
+
+  return endIndex;
+}
+
+/**
+ * Find which video should be active for a given slide index.
+ * Returns the video's slide index, or null if no video should be active.
+ */
+function findActiveVideoForSlide(slideIndex) {
+  const currentSlide = state.visibleSlides[slideIndex];
+  if (!currentSlide) return null;
+
+  // If current slide is itself a video, return it
+  if (currentSlide.asset.type === 'video') {
+    return slideIndex;
+  }
+
+  // Look backwards for the most recent video
+  for (let i = slideIndex - 1; i >= 0; i--) {
+    const slide = state.visibleSlides[i];
+
     if (slide.asset.type === 'video') {
-      // Find the end of this post within visible slides
-      let endIndex = visibleIndex;
-      for (let i = visibleIndex + 1; i < state.visibleSlides.length; i++) {
-        const nextSlide = state.visibleSlides[i];
-        if (nextSlide.sectionIndex === slide.sectionIndex &&
-            nextSlide.groupIndex === slide.groupIndex &&
-            nextSlide.postIndex === slide.postIndex) {
-          endIndex = i;
-        } else {
-          break;
-        }
+      // Check if current slide is within this video's range
+      const videoEndIndex = calculateVideoEndIndex(slide, i);
+
+      if (slideIndex >= i && slideIndex <= videoEndIndex) {
+        return i; // This video covers the current slide
       }
 
-      state.videoActivationRanges.push({
-        videoIndex: visibleIndex,
-        startIndex: visibleIndex,
-        endIndex: endIndex
-      });
+      // Video found but doesn't cover current slide - no video is active
+      return null;
     }
-  });
+  }
 
-  // Sort by startIndex for efficient lookup
-  state.videoActivationRanges.sort((a, b) => a.startIndex - b.startIndex);
+  return null; // No video found
 }
 
 // ==========================================================================
@@ -561,6 +681,18 @@ function toggleTagPanel() {
     if (state.mode === 'personalized') {
       applyTagFilter();
     }
+
+    // Resume normal tab bar auto-hide behavior
+    if (!state.tabBarHovered) {
+      clearTimeout(state.tabBarTimeout);
+      state.tabBarTimeout = setTimeout(() => {
+        hideTabBar();
+      }, CONFIG.tabBarAutoHideDelay);
+    }
+  } else {
+    // Panel is opening - ensure tab bar is visible and cancel any pending hide
+    clearTimeout(state.tabBarTimeout);
+    showTabBar(false);
   }
 }
 
@@ -663,28 +795,39 @@ function restoreState() {
 
 function findSlideFromHash(hash) {
   const parts = hash.split('/');
-  if (parts.length !== 4) return -1;
+  if (parts.length !== 2) return -1;
 
-  const [sectionKey, groupStr, postStr, assetStr] = parts;
-  const groupIndex = parseInt(groupStr, 10);
-  const postIndex = parseInt(postStr, 10);
-  const assetIndex = parseInt(assetStr, 10);
+  const [sectionKey, slideNumStr] = parts;
+  const slideNumInSection = parseInt(slideNumStr, 10);
 
-  if (isNaN(groupIndex) || isNaN(postIndex) || isNaN(assetIndex)) return -1;
+  if (isNaN(slideNumInSection)) return -1;
 
-  return state.visibleSlides.findIndex(slide =>
-    slide.sectionKey === sectionKey &&
-    slide.groupIndex === groupIndex &&
-    slide.postIndex === postIndex &&
-    slide.assetIndex === assetIndex
-  );
+  // Find the slide by counting slides within the section
+  let countInSection = 0;
+  return state.visibleSlides.findIndex(slide => {
+    if (slide.sectionKey === sectionKey) {
+      if (countInSection === slideNumInSection) {
+        return true;
+      }
+      countInSection++;
+    }
+    return false;
+  });
 }
 
 function updateURLHash() {
   const slide = state.visibleSlides[state.currentSlideIndex];
   if (!slide) return;
 
-  const hash = `${slide.sectionKey}/${slide.groupIndex}/${slide.postIndex}/${slide.assetIndex}`;
+  // Calculate slide number within its section (0-indexed)
+  let slideNumInSection = 0;
+  for (let i = 0; i < state.currentSlideIndex; i++) {
+    if (state.visibleSlides[i].sectionKey === slide.sectionKey) {
+      slideNumInSection++;
+    }
+  }
+
+  const hash = `${slide.sectionKey}/${slideNumInSection}`;
   history.replaceState(null, '', `#${hash}`);
 }
 
@@ -718,7 +861,12 @@ function createSlideElement(slide, index) {
   div.className = 'slide';
   div.dataset.index = index;
 
-  if (slide.asset.type === 'video') {
+  if (slide.asset.type === 'html') {
+    // Custom HTML content (can come from YAML or programmatically created)
+    const container = document.createElement('div');
+    container.innerHTML = slide.asset.html;
+    div.appendChild(container);
+  } else if (slide.asset.type === 'video') {
     const video = document.createElement('video');
     video.src = slide.asset.source;
     video.loop = true;
@@ -1133,67 +1281,46 @@ function updateActiveSlide() {
     }
   });
 
-  // Initialize video states based on activation ranges
+  // Initialize video states
   updateVideoStates(state.currentSlideIndex);
-}
-
-// ==========================================================================
-// Video Activation Range System
-// ==========================================================================
-
-/**
- * Find which video's activation range contains the given slide index.
- * Returns the video range object or null if no video is active.
- * If multiple videos overlap, returns the latest one (per spec: only one video plays).
- */
-function findActiveVideoRange(slideIndex) {
-  let activeRange = null;
-
-  for (const range of state.videoActivationRanges) {
-    if (slideIndex >= range.startIndex && slideIndex <= range.endIndex) {
-      // Later videos take precedence
-      activeRange = range;
-    }
-  }
-
-  return activeRange;
 }
 
 /**
  * Update video states based on current slide index.
- * Handles foreground/background states and stops videos outside activation range.
+ * Handles foreground/background states and stops videos outside their range.
  */
 function updateVideoStates(targetIndex) {
-  const activeRange = findActiveVideoRange(targetIndex);
-  const newActiveVideoIndex = activeRange?.videoIndex ?? null;
+  const newActiveVideoIndex = findActiveVideoForSlide(targetIndex);
   const previousActiveVideoIndex = state.activeVideoIndex;
 
-  // Handle stopping previous video if needed
+  // Stop previous video if it's different from the new one
   if (previousActiveVideoIndex !== null && previousActiveVideoIndex !== newActiveVideoIndex) {
     stopVideo(previousActiveVideoIndex);
   }
 
-  // Update active video tracking
+  // Update tracking
   state.activeVideoIndex = newActiveVideoIndex;
 
-  if (activeRange) {
-    const videoSlideEl = dom.slideTrack.querySelector(`[data-index="${activeRange.videoIndex}"]`);
+  // Start/continue the active video
+  if (newActiveVideoIndex !== null) {
+    const videoSlideEl = dom.slideTrack.querySelector(`[data-index="${newActiveVideoIndex}"]`);
     const video = videoSlideEl?.querySelector('video');
 
-    if (targetIndex === activeRange.videoIndex) {
-      // Video is in foreground - show as active slide
-      videoSlideEl?.classList.remove('video-background');
-      if (video && video.paused) {
-        video.muted = false;
-        video.play().catch(() => {});
-      }
-    } else {
-      // Video is in background - keep playing but layer behind current slide
-      videoSlideEl?.classList.add('video-background');
-      videoSlideEl?.classList.add('active'); // Keep visible
-      if (video && video.paused) {
-        video.muted = false;
-        video.play().catch(() => {});
+    if (video) {
+      if (targetIndex === newActiveVideoIndex) {
+        // Video is in foreground - show as active slide
+        videoSlideEl.classList.remove('video-background');
+        if (video.paused) {
+          video.muted = false;
+          video.play().catch(() => {});
+        }
+      } else {
+        // Video is in background - keep playing but layer behind current slide
+        videoSlideEl.classList.add('video-background', 'active');
+        if (video.paused) {
+          video.muted = false;
+          video.play().catch(() => {});
+        }
       }
     }
   }
@@ -1218,14 +1345,6 @@ function stopVideo(slideIndex) {
       video.currentTime = 0;
     }
   }
-}
-
-/**
- * Check if we're returning to a video slide that's already playing in background.
- * Returns true if we should continue playback without restarting.
- */
-function isReturningToActiveVideo(targetIndex) {
-  return state.activeVideoIndex === targetIndex;
 }
 
 function flashEdge(direction) {
@@ -1352,8 +1471,8 @@ function showTabBar(dimmed = false) {
 
   dom.tabBar.classList.remove('collapsed');
 
-  // Never dim if mouse is hovering over tab bar
-  if (state.tabBarHovered) {
+  // Never dim if mouse is hovering over tab bar or tag panel is open
+  if (state.tabBarHovered || state.tagPanelVisible) {
     dom.tabBar.classList.remove('dimmed');
   } else {
     dom.tabBar.classList.toggle('dimmed', dimmed);
@@ -1361,11 +1480,11 @@ function showTabBar(dimmed = false) {
 
   state.tabBarVisible = true;
 
-  // Only auto-hide if not being hovered
-  if (!state.tabBarHovered) {
+  // Only auto-hide if not being hovered and tag panel is not open
+  if (!state.tabBarHovered && !state.tagPanelVisible) {
     const delay = dimmed ? CONFIG.tabBarDimmedDuration : CONFIG.tabBarAutoHideDelay;
     state.tabBarTimeout = setTimeout(() => {
-      if (!state.tabBarHovered) {
+      if (!state.tabBarHovered && !state.tagPanelVisible) {
         hideTabBar();
       }
     }, delay);
@@ -1373,8 +1492,8 @@ function showTabBar(dimmed = false) {
 }
 
 function hideTabBar() {
-  // Don't hide if mouse is over the tab bar
-  if (state.tabBarHovered) return;
+  // Don't hide if mouse is over the tab bar or tag panel is open
+  if (state.tabBarHovered || state.tagPanelVisible) return;
 
   dom.tabBar.classList.add('collapsed');
   dom.tabBar.classList.remove('dimmed');
@@ -1398,6 +1517,12 @@ function handleTabBarMouseEnter() {
 
 function handleTabBarMouseLeave() {
   state.tabBarHovered = false;
+
+  // Don't auto-hide if tag panel is open - keep both visible together
+  if (state.tagPanelVisible) {
+    return;
+  }
+
   // Dim then hide immediately when mouse leaves
   dom.tabBar.classList.add('dimmed');
   state.tabBarTimeout = setTimeout(() => {
@@ -1462,7 +1587,8 @@ function bindEvents() {
     if (state.tagPanelVisible) {
       const isClickInsidePanel = dom.tagPanel.contains(e.target);
       const isClickOnFilterButton = dom.filterButton.contains(e.target);
-      if (!isClickInsidePanel && !isClickOnFilterButton) {
+      const isClickOnTabBar = dom.tabBar.contains(e.target);
+      if (!isClickInsidePanel && !isClickOnFilterButton && !isClickOnTabBar) {
         closeTagPanel();
       }
     }

@@ -736,8 +736,8 @@ html, body {
   max-height: 100%;
   width: 100%;
   height: 100%;
-  /* cover: fills the entire view while maintaining aspect ratio */
-  object-fit: cover;
+  /* contain: fits entire video in view without losing any part, maintains aspect ratio */
+  object-fit: contain;
   cursor: pointer;
 }
 
@@ -756,6 +756,60 @@ html, body {
   width: 48px;
   height: 48px;
   opacity: 0.5;
+}
+
+/* Exit Slide Styling */
+.exit-slide-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+}
+
+.exit-slide-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  text-align: center;
+}
+
+.exit-qr-code {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.exit-message {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.exit-label {
+  font-size: 16px;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.exit-label a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--duration-fast) ease;
+}
+
+.exit-label a:hover {
+  color: rgba(229, 161, 88, 0.8);
+  text-decoration: underline;
+}
+
+.exit-tagline {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
 }
 
 /* ==========================================================================

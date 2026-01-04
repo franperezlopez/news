@@ -13,7 +13,7 @@ newsletter:
           source: chatgpt-images-launch-openai-1.mp4
           url: https://x.com/OpenAI/status/2000990989629161873
         - type: image
-          source: chatgpt-images-launch-openai.png
+          source: chatgpt-images-launch-openai.webp
           url: https://x.com/OpenAI/status/2000990989629161873
           alt: ChatGPT has launched a new image generation model called ChatGPT Images, featuring improved instruction following,
             precise editing capabilities, enhanced detail preservation, and a speed increase of four times compared to previous
@@ -22,7 +22,7 @@ newsletter:
         url: https://openai.com/index/new-chatgpt-images-is-here/
         assets:
         - type: image
-          source: chatgpt-images-update-openai.png
+          source: chatgpt-images-update-openai.webp
           url: https://openai.com/index/new-chatgpt-images-is-here/
           alt: OpenAI has announced the release of the new ChatGPT Images, powered by their latest image generation model,
             GPT Image 1.5. This update introduces enhanced capabilities for precise image editing, creative transformations,
@@ -43,7 +43,7 @@ newsletter:
         url: https://x.com/OpenAIDevs/status/2001723687373017313
         assets:
         - type: image
-          source: gpt-5-2-codex-launch-openai.png
+          source: gpt-5-2-codex-launch-openai.webp
           url: https://x.com/OpenAIDevs/status/2001723687373017313
           alt: GPT-5.2-Codex is introduced as an advanced coding model designed for complex, real-world software engineering
             tasks. It features native compaction, enhanced long-context comprehension, and improved tool-calling capabilities,
@@ -53,7 +53,7 @@ newsletter:
         url: https://openai.com/index/introducing-gpt-5-2-codex/
         assets:
         - type: image
-          source: introducing-gpt-5-2-codex-openai.png
+          source: introducing-gpt-5-2-codex-openai.webp
           url: https://openai.com/index/introducing-gpt-5-2-codex/
           alt: OpenAI has announced the release of GPT-5.2-Codex, its most advanced agentic coding model, designed for complex
             real-world software engineering and defensive cybersecurity tasks. GPT-5.2-Codex builds upon previous models with
@@ -79,7 +79,7 @@ newsletter:
         url: https://claude.com/connectors
         assets:
         - type: image
-          source: claude-connectors-directory-anthropic.png
+          source: claude-connectors-directory-anthropic.webp
           url: https://claude.com/connectors
           alt: Claude offers a wide range of connectors that allow users to integrate the AI assistant with popular apps,
             databases, and business tools across industries such as life sciences, financial services, sales and marketing,
@@ -95,7 +95,7 @@ newsletter:
         url: https://agentskills.io/home
         assets:
         - type: image
-          source: agent-skills-overview-anthropic.png
+          source: agent-skills-overview-anthropic.webp
           url: https://agentskills.io/home
           alt: Agent Skills is an open format designed to enhance AI agents by enabling them to load new capabilities and
             domain expertise on demand. Skills are packaged as folders containing instructions, scripts, and resources, allowing
@@ -111,7 +111,7 @@ newsletter:
         url: https://x.com/gdb/status/2002120466203615649
         assets:
         - type: image
-          source: codex-supports-skills-standard.png
+          source: codex-supports-skills-standard.webp
           url: https://x.com/gdb/status/2002120466203615649
           alt: Codex has introduced support for "skills" in accordance with the https://t.co/b7hv3woe7S standard. This enhancement
             allows Codex to integrate and utilize skills as defined by the referenced specification, potentially expanding
@@ -124,7 +124,7 @@ newsletter:
       url: https://blog.google/products/gemini/gemini-3-flash/
       assets:
       - type: image
-        source: gemini-3-flash-frontier-intelligence-built-for-speed-google.png
+        source: gemini-3-flash-frontier-intelligence-built-for-speed-google.webp
         url: https://blog.google/products/gemini/gemini-3-flash/
         alt: Google has announced Gemini 3 Flash, a new AI model designed for speed, efficiency, and cost-effectiveness. Building
           on Gemini 3’s advanced reasoning and multimodal capabilities, Gemini 3 Flash offers Pro-grade intelligence at significantly
@@ -146,7 +146,7 @@ newsletter:
         url: https://deepmind.google/blog/gemma-scope-2-helping-the-ai-safety-community-deepen-understanding-of-complex-language-model-behavior/
         assets:
         - type: image
-          source: gemma-scope-2-helping-the-ai-safety-community-deepen-understanding-of-complex-language-model-behavio.png
+          source: gemma-scope-2-helping-the-ai-safety-community-deepen-understanding-of-complex-language-model-behavio.webp
           url: https://deepmind.google/blog/gemma-scope-2-helping-the-ai-safety-community-deepen-understanding-of-complex-language-model-behavior/
           alt: Google DeepMind has announced **Gemma Scope 2**, an open-source suite of interpretability tools designed for
             the Gemma 3 family of Large Language Models (LLMs), ranging from 270M to 27B parameters. These tools enable researchers
@@ -163,7 +163,7 @@ newsletter:
         url: https://blog.google/technology/developers/functiongemma/
         assets:
         - type: image
-          source: functiongemma-bringing-bespoke-function-calling-to-the-edge-google.png
+          source: functiongemma-bringing-bespoke-function-calling-to-the-edge-google.webp
           url: https://blog.google/technology/developers/functiongemma/
           alt: Google has announced FunctionGemma, a specialized version of the Gemma 3 270M model fine-tuned specifically
             for function calling. This lightweight model is designed to run efficiently on edge devices, enabling local, private,
@@ -180,7 +180,7 @@ newsletter:
         url: https://x.com/googleaidevs/status/2001703478436184540
         assets:
         - type: image
-          source: functiongemma-function-calling-gemma.png
+          source: functiongemma-function-calling-gemma.webp
           url: https://x.com/googleaidevs/status/2001703478436184540
           alt: Announcing FunctionGemma, a new version of the Gemma 3 270M model fine-tuned specifically for function calling.
             This release enables efficient, bespoke function calling capabilities at the edge.FunctionGemma serves as a foundation
@@ -200,7 +200,7 @@ newsletter:
         url: https://mistral.ai/news/mistral-ocr-3
         assets:
         - type: image
-          source: introducing-mistral-ocr-3-mistral-ai.png
+          source: introducing-mistral-ocr-3-mistral-ai.webp
           url: https://mistral.ai/news/mistral-ocr-3
           alt: Mistral AI has launched Mistral OCR 3, a next-generation optical character recognition (OCR) model focused
             on high accuracy and efficiency for document processing. It outperforms its predecessor, Mistral OCR 2, with a
@@ -220,7 +220,7 @@ newsletter:
         url: https://x.com/allen_ai/status/2001397348216324324
         assets:
         - type: image
-          source: olmo-3-1-32b-api-access.png
+          source: olmo-3-1-32b-api-access.webp
           url: https://x.com/allen_ai/status/2001397348216324324
           alt: Olmo 3.1 32B Think, a model designed for advanced reasoning, is now accessible via API on OpenRouterAI and
             is free to use until December 22.Additionally, Olmo 3.1 32B Instruct, the main chat model featuring tool use capabilities,
@@ -229,7 +229,7 @@ newsletter:
         url: https://x.com/allen_ai/status/2001351082916630586
         assets:
         - type: image
-          source: sage-agentic-system-long-video-reasoning.png
+          source: sage-agentic-system-long-video-reasoning.webp
           url: https://x.com/allen_ai/status/2001351082916630586
           alt: SAGE is an advanced agentic system designed for long video reasoning, particularly on entertainment content
             such as sports and vlogs. It intelligently determines when to skim, zoom in, and directly answer questions about
@@ -239,7 +239,7 @@ newsletter:
         url: https://x.com/allen_ai/status/2000616646042399047
         assets:
         - type: image
-          source: bolmo-byte-level-language-models-announcement.png
+          source: bolmo-byte-level-language-models-announcement.webp
           url: https://x.com/allen_ai/status/2000616646042399047
           alt: Bolmo is a newly developed family of byte-level language models, created by converting the open Olmo 3 model
             to operate at the byte level. According to the announcement, Bolmo is the first fully open byte-level language
@@ -252,7 +252,7 @@ newsletter:
         url: https://x.com/NVIDIAAIDev/status/2000603340137435257
         assets:
         - type: image
-          source: nemotron-3-nano-leads-artificial-analysis-leaderboard-nvidia.png
+          source: nemotron-3-nano-leads-artificial-analysis-leaderboard-nvidia.webp
           url: https://x.com/NVIDIAAIDev/status/2000603340137435257
           alt: Nemotron 3 Nano, part of NVIDIA's Nemotron 3 family, now leads its size class on Artificial Analysis leaderboards.
             It offers strong intelligence, high openness, and fast output speed in a compact model.The model utilizes advanced
@@ -262,7 +262,7 @@ newsletter:
         url: https://x.com/ctnzr/status/2000567572065091791
         assets:
         - type: image
-          source: nemotron-3-model-family-launch-nvidia.png
+          source: nemotron-3-model-family-launch-nvidia.webp
           url: https://x.com/ctnzr/status/2000567572065091791
           alt: NVIDIA has introduced the open Nemotron 3 model family, beginning with the Nano (30B-3A) model. This model
             features a new hybrid SSM Mixture of Experts architecture designed to enhance accuracy and inference efficiency.Additional
@@ -276,7 +276,7 @@ newsletter:
           source: sam-audio-first-unified-sound-isolation-model-1.mp4
           url: https://x.com/AIatMeta/status/2000980784425931067
         - type: image
-          source: sam-audio-first-unified-sound-isolation-model.png
+          source: sam-audio-first-unified-sound-isolation-model.webp
           url: https://x.com/AIatMeta/status/2000980784425931067
           alt: SAM Audio is a new unified model capable of isolating specific sounds from complex audio mixtures using text,
             visual, or span prompts. It enables advanced audio separation and manipulation through flexible input methods.The
@@ -286,7 +286,7 @@ newsletter:
         url: https://ai.meta.com/samaudio/
         assets:
         - type: image
-          source: introducing-segment-anything-model-audio-sam-audio-meta.png
+          source: introducing-segment-anything-model-audio-sam-audio-meta.webp
           url: https://ai.meta.com/samaudio/
           alt: Meta has introduced the Segment Anything Model Audio (SAM Audio), a state-of-the-art, open-source model for
             audio separation. SAM Audio allows users to isolate and extract specific sounds—including general sounds, music,
@@ -313,7 +313,7 @@ newsletter:
         url: https://apple.github.io/ml-sharp/
         assets:
         - type: image
-          source: sharp-monocular-view-synthesis-in-less-than-a-second-apple-1.png
+          source: sharp-monocular-view-synthesis-in-less-than-a-second-apple-1.webp
           url: https://apple.github.io/ml-sharp/
           alt: Apple presents SHARP, a neural network-based method for photorealistic view synthesis from a single image.
             SHARP quickly regresses a 3D Gaussian representation of a scene in less than a second on a standard GPU, enabling
@@ -330,7 +330,7 @@ newsletter:
         url: https://arxiv.org/pdf/2512.14856
         assets:
         - type: image
-          source: t5gemma-2-seeing-reading-and-understanding-longer-google.png
+          source: t5gemma-2-seeing-reading-and-understanding-longer-google.webp
           url: https://arxiv.org/pdf/2512.14856
           alt: 'T5Gemma 2 is the latest generation in the T5Gemma family of lightweight, open encoder-decoder models, designed
             with strong multilingual, multimodal, and long-context understanding capabilities. It builds on a unique adaptation
@@ -347,7 +347,7 @@ newsletter:
         url: https://blog.google/technology/developers/t5gemma-2/
         assets:
         - type: image
-          source: t5gemma-2-the-next-generation-of-encoder-decoder-models-google.png
+          source: t5gemma-2-the-next-generation-of-encoder-decoder-models-google.webp
           url: https://blog.google/technology/developers/t5gemma-2/
           alt: T5Gemma 2 is Google's next-generation encoder-decoder model, incorporating significant architectural improvements
             and advanced features from the Gemma 3 family. Key innovations include tied word embeddings between encoder and
@@ -362,7 +362,7 @@ newsletter:
       url: https://praeclarumjj3.github.io/sage/
       assets:
       - type: image
-        source: sage-training-smart-any-horizon-agents-for-long-video-reasoning-with-reinforcement-learning-georgia-.png
+        source: sage-training-smart-any-horizon-agents-for-long-video-reasoning-with-reinforcement-learning-georgia-.webp
         url: https://praeclarumjj3.github.io/sage/
         alt: '**SAGE** is a framework for training intelligent agents capable of "any-horizon" video reasoning—that is, adapting
           their reasoning strategies to both short and long videos—using reinforcement learning. Unlike traditional DIRECT
@@ -386,7 +386,7 @@ newsletter:
           source: copilotkit-ag-ui-launch-partnership-google-1.mp4
           url: https://x.com/ataiiam/status/2000647120433664016
         - type: image
-          source: copilotkit-ag-ui-launch-partnership-google.png
+          source: copilotkit-ag-ui-launch-partnership-google.webp
           url: https://x.com/ataiiam/status/2000647120433664016
           alt: CopilotKit and AG-UI have partnered to launch support for Google's new A2UI protocol, addressing the growing
             demand for an open, declarative UI specification in generative UI development. This collaboration aims to streamline
@@ -397,7 +397,7 @@ newsletter:
         url: https://developers.googleblog.com/introducing-a2ui-an-open-project-for-agent-driven-interfaces/
         assets:
         - type: image
-          source: introducing-a2ui-an-open-project-for-agent-driven-interfaces-google.png
+          source: introducing-a2ui-an-open-project-for-agent-driven-interfaces-google.webp
           url: https://developers.googleblog.com/introducing-a2ui-an-open-project-for-agent-driven-interfaces/
           alt: Google has announced the public release of **A2UI**, an open-source project designed to enable agents (such
             as LLMs) to generate rich, contextually relevant user interfaces as structured data, rather than executable code.
@@ -414,7 +414,7 @@ newsletter:
         url: https://dev.to/copilotkit/a2ui-in-practice-build-agent-to-user-interfaces-using-a2a-ag-ui-3ng5
         assets:
         - type: image
-          source: build-with-googles-new-a2ui-spec-agent-user-interfaces-with-a2ui-ag-ui-google.png
+          source: build-with-googles-new-a2ui-spec-agent-user-interfaces-with-a2ui-ag-ui-google.webp
           url: https://dev.to/copilotkit/a2ui-in-practice-build-agent-to-user-interfaces-using-a2a-ag-ui-3ng5
           alt: This guide explains how to build full-stack agent-to-user interfaces (A2UI) using Google's new A2UI spec, the
             A2A protocol, AG-UI, and CopilotKit. It covers backend setup for an AI agent capable of generating dynamic UIs
@@ -429,7 +429,7 @@ newsletter:
       url: https://huggingface.co/blog/nvidia/nemotron-3-nano-efficient-open-intelligent-models
       assets:
       - type: image
-        source: nemotron-3-nano-efficient-open-intelligent-agentic-models-nvidia.png
+        source: nemotron-3-nano-efficient-open-intelligent-agentic-models-nvidia.webp
         url: https://huggingface.co/blog/nvidia/nemotron-3-nano-efficient-open-intelligent-models
         alt: NVIDIA has released Nemotron 3 Nano, a 31.6B-parameter open-source language model designed for efficient, high-throughput
           agentic and reasoning tasks. Leveraging a hybrid Mamba-Transformer Mixture-of-Experts (MoE) architecture, Nemotron
@@ -447,7 +447,7 @@ newsletter:
         url: https://astral.sh/blog/ty
         assets:
         - type: image
-          source: ty-an-extremely-fast-python-type-checker-and-lsp-astral.png
+          source: ty-an-extremely-fast-python-type-checker-and-lsp-astral.webp
           url: https://astral.sh/blog/ty
           alt: Astral has announced the Beta release of **ty**, an extremely fast Python type checker and language server
             (LSP) written in Rust. Designed as a high-performance alternative to tools like mypy, Pyright, and Pylance, ty
@@ -464,7 +464,7 @@ newsletter:
         url: https://x.com/charliermarsh/status/2001038023434047623
         assets:
         - type: image
-          source: ty-extremely-fast-python-type-checker-language-server-beta-release.png
+          source: ty-extremely-fast-python-type-checker-language-server-beta-release.webp
           url: https://x.com/charliermarsh/status/2001038023434047623
           alt: A new tool called "ty" has been released in beta, offering an extremely fast type checker and language server
             for Python, implemented in Rust. The developers report significant speed improvements—10x to 100x faster—over
@@ -482,7 +482,7 @@ newsletter:
         url: https://www.anthropic.com/research/project-vend-2
         assets:
         - type: image
-          source: project-vend-phase-two-anthropic.png
+          source: project-vend-phase-two-anthropic.webp
           url: https://www.anthropic.com/research/project-vend-2
           alt: 'Project Vend is Anthropic’s ongoing experiment to evaluate how well AI agents can autonomously run real-world
             businesses. In phase two, the AI shopkeeper Claudius was upgraded to newer models (Claude Sonnet 4.0/4.5), provided
@@ -499,7 +499,7 @@ newsletter:
       url: https://research.google/blog/gemini-provides-automated-feedback-for-theoretical-computer-scientists-at-stoc-2026/
       assets:
       - type: image
-        source: gemini-provides-automated-feedback-for-theoretical-computer-scientists-at-stoc-2026-google.png
+        source: gemini-provides-automated-feedback-for-theoretical-computer-scientists-at-stoc-2026-google.webp
         url: https://research.google/blog/gemini-provides-automated-feedback-for-theoretical-computer-scientists-at-stoc-2026/
         alt: 'Google Research developed an AI tool based on Gemini to provide automated, pre-submission feedback for theoretical
           computer science papers submitted to STOC 2026. The tool analyzes papers for calculation and logic errors, inconsistent
@@ -513,7 +513,7 @@ newsletter:
       url: https://developers.openai.com/apps-sdk/build/monetization
       assets:
       - type: image
-        source: monetize-chatgpt-apps-openai.png
+        source: monetize-chatgpt-apps-openai.webp
         url: https://developers.openai.com/apps-sdk/build/monetization
         alt: The page explains how to monetize ChatGPT apps, emphasizing the use of **external checkout** as the recommended
           and currently available method. In this approach, users are directed from ChatGPT to the developer’s own website
@@ -529,7 +529,7 @@ newsletter:
       url: https://openai.com/index/evaluating-chain-of-thought-monitorability/
       assets:
       - type: image
-        source: evaluating-chain-of-thought-monitorability-openai.png
+        source: evaluating-chain-of-thought-monitorability-openai.webp
         url: https://openai.com/index/evaluating-chain-of-thought-monitorability/
         alt: 'OpenAI introduces a new framework and suite of 13 evaluations to systematically measure "chain-of-thought" (CoT)
           monitorability in advanced AI reasoning models. Chain-of-thought monitorability refers to how well a monitor can
@@ -549,7 +549,7 @@ newsletter:
       url: https://openai.com/index/frontierscience/
       assets:
       - type: image
-        source: evaluating-ais-ability-to-perform-scientific-research-tasks-openai.png
+        source: evaluating-ais-ability-to-perform-scientific-research-tasks-openai.webp
         url: https://openai.com/index/frontierscience/
         alt: 'OpenAI has introduced FrontierScience, a new benchmark designed to evaluate AI models'' expert-level scientific
           reasoning in physics, chemistry, and biology. The benchmark includes over 700 questions, split into Olympiad-style
@@ -572,7 +572,7 @@ newsletter:
         url: https://elevenlabs.io/blog/elevenlabs-agents-whatsapp-support
         assets:
         - type: image
-          source: elevenlabs-agents-whatsapp-support-elevenlabs.png
+          source: elevenlabs-agents-whatsapp-support-elevenlabs.webp
           url: https://elevenlabs.io/blog/elevenlabs-agents-whatsapp-support
           alt: ElevenLabs has expanded its omnichannel conversational agents platform to support WhatsApp, allowing businesses
             to deploy AI-powered voice and chat agents directly within the world’s most popular messaging app. This enables
@@ -586,7 +586,7 @@ newsletter:
       url: https://huggingface.co/blog/tokenizers
       assets:
       - type: image
-        source: tokenization-in-transformers-v5-huggingface.png
+        source: tokenization-in-transformers-v5-huggingface.webp
         url: https://huggingface.co/blog/tokenizers
         alt: Transformers v5 introduces a major redesign of the Hugging Face tokenizer system, making it simpler, clearer,
           and more modular. Tokenizer architecture is now separated from trained vocabulary, mirroring deep learning frameworks
@@ -602,7 +602,7 @@ newsletter:
       url: https://www.langchain.com/state-of-agent-engineering
       assets:
       - type: image
-        source: state-of-agent-engineering-langchain.png
+        source: state-of-agent-engineering-langchain.webp
         url: https://www.langchain.com/state-of-agent-engineering
         alt: '## SummaryThis report presents insights from a survey of over 1,300 professionals on the state of AI agent engineering
           as of 2026. It highlights that 57% of respondents have agents in production, with large enterprises leading adoption.
@@ -622,7 +622,7 @@ newsletter:
       url: https://x.com/karpathy/status/2002118205729562949
       assets:
       - type: image
-        source: lb6t42n5jl.png
+        source: lb6t42n5jl.webp
         url: https://x.com/karpathy/status/2002118205729562949
         alt: Based on the provided image transcription link, no direct content is available for summary. If you supply the
           actual transcribed text from the image, I can generate a concise summary as per your rules.
@@ -630,7 +630,7 @@ newsletter:
       url: https://simonwillison.net/2025/Dec/18/code-proven-to-work/
       assets:
       - type: image
-        source: your-job-is-to-deliver-code-you-have-proven-to-work-simon-willison.png
+        source: your-job-is-to-deliver-code-you-have-proven-to-work-simon-willison.webp
         url: https://simonwillison.net/2025/Dec/18/code-proven-to-work/
         alt: Simon Willison argues that software engineers have a duty to deliver code that is proven to work, not just code
           that compiles or passes a superficial review. He criticizes the practice of submitting large, untested pull requests—especially
@@ -644,7 +644,7 @@ newsletter:
       url: https://elite-ai-assisted-coding.dev/p/uv-for-portable-python-in-agent-skills
       assets:
       - type: image
-        source: uv-for-portable-python-in-agent-skills.png
+        source: uv-for-portable-python-in-agent-skills.webp
         url: https://elite-ai-assisted-coding.dev/p/uv-for-portable-python-in-agent-skills
         alt: The article discusses how UV, a modern Python package manager, enhances the portability and reliability of Python
           scripts used as agent skills in AI workflows. Traditional Python environment and package management can be inconsistent
@@ -659,7 +659,7 @@ newsletter:
       url: https://timdettmers.com/2025/12/10/why-agi-will-not-happen/
       assets:
       - type: image
-        source: why-agi-will-not-happen-tim-dettmers.png
+        source: why-agi-will-not-happen-tim-dettmers.webp
         url: https://timdettmers.com/2025/12/10/why-agi-will-not-happen/
         alt: '**Summary**The article argues that Artificial General Intelligence (AGI) and superintelligence are unlikely
           to materialize due to fundamental physical and economic constraints. It emphasizes that computation is inherently
@@ -676,7 +676,7 @@ newsletter:
       url: https://addyo.substack.com/p/my-llm-coding-workflow-going-into
       assets:
       - type: image
-        source: my-llm-coding-workflow-going-into-2026-elevate.png
+        source: my-llm-coding-workflow-going-into-2026-elevate.webp
         url: https://addyo.substack.com/p/my-llm-coding-workflow-going-into
         alt: 'Addy Osmani shares his best practices for coding with AI (LLMs) going into 2026, emphasizing a disciplined,
           “AI-assisted engineering” workflow where the human developer remains in control. Key strategies include starting
@@ -692,7 +692,7 @@ newsletter:
       url: https://x.com/MikeZaccardi/status/2000942765606150251
       assets:
       - type: image
-        source: lmarena-leaderboard-days-gemini-google.png
+        source: lmarena-leaderboard-days-gemini-google.webp
         url: https://x.com/MikeZaccardi/status/2000942765606150251
         alt: Gemini, developed by Google ($GOOGL), has recently achieved a notable streak by spending several days at the
           top of the LMArena scores, which benchmark the performance of language models. The post highlights Gemini's strong
@@ -708,7 +708,7 @@ newsletter:
         tags: &id001
         - thread
       - type: image
-        source: google-attack-on-nvidia-software-moat-google.png
+        source: google-attack-on-nvidia-software-moat-google.webp
         url: https://x.com/Ric_RTP/status/2001658339667619995
         alt: Google is developing "TorchTPU," a project that enables PyTorch—the most widely used AI framework, traditionally
           tied to Nvidia's CUDA ecosystem—to run natively on Google's TPU chips without code rewrites or performance loss.
@@ -723,7 +723,7 @@ newsletter:
       url: https://x.com/ben_burtenshaw/status/2001231021107503586
       assets:
       - type: image
-        source: efficient-fine-tuning-approach-for-new-model-releases.png
+        source: efficient-fine-tuning-approach-for-new-model-releases.webp
         url: https://x.com/ben_burtenshaw/status/2001231021107503586
         alt: The author outlines their preferred workflow for fine-tuning new software releases. They begin by using a guided
           setup (option 1) to resolve dependencies and establish initial runs, often with help from Claude. Next, they manually
@@ -734,7 +734,7 @@ newsletter:
       url: https://cocoindex.io/blogs/meeting-notes-graph
       assets:
       - type: image
-        source: building-a-knowledge-graph-from-meeting-notes-that-automatically-updates.png
+        source: building-a-knowledge-graph-from-meeting-notes-that-automatically-updates.webp
         url: https://cocoindex.io/blogs/meeting-notes-graph
         alt: This article demonstrates how to build a real-time, automatically updating knowledge graph from unstructured
           meeting notes using CocoIndex, LLM-based extraction (OpenAI), and Neo4j. The pipeline connects to Google Drive to
@@ -750,7 +750,7 @@ newsletter:
       url: https://x.com/NielsRogge/status/2000991077549961342
       assets:
       - type: image
-        source: interleaved-thinking-ai-agents.png
+        source: interleaved-thinking-ai-agents.webp
         url: https://x.com/NielsRogge/status/2000991077549961342
         alt: OpenAI and Google DeepMind have introduced new APIs—the Responses API and Interactions API, respectively—due
           to the benefits of interleaved thinking. This approach, first pioneered by MiniMax AI within the open-source community,
@@ -765,7 +765,7 @@ newsletter:
         source: tnkr-github-for-robots-robotics-collaboration-platform-1.mp4
         url: https://x.com/theonlyAyo/status/1999636232880415149
       - type: image
-        source: tnkr-github-for-robots-robotics-collaboration-platform.png
+        source: tnkr-github-for-robots-robotics-collaboration-platform.webp
         url: https://x.com/theonlyAyo/status/1999636232880415149
         alt: Tnkr aims to simplify robotics development by providing a collaborative platform akin to GitHub, tailored for
           robot builders. Their mission is to make designing and working together on robotics projects easy and intuitive.By
@@ -778,7 +778,7 @@ newsletter:
         source: robot-self-conscious-surprise-shock-evil-planning-1.mp4
         url: https://x.com/ClementDelangue/status/2001418288081846664
       - type: image
-        source: robot-self-conscious-surprise-shock-evil-planning.png
+        source: robot-self-conscious-surprise-shock-evil-planning.webp
         url: https://x.com/ClementDelangue/status/2001418288081846664
         alt: The post raises a thought-provoking question about the nature of a robot's response upon gaining self-consciousness,
           speculating whether it would be characterized by surprise, shock, or malicious intent.It prompts reflection on the
@@ -790,7 +790,7 @@ newsletter:
         source: modular-robot-limx-dynamics-1.mp4
         url: https://x.com/kimmonismus/status/2001765922776760619
       - type: image
-        source: modular-robot-limx-dynamics.png
+        source: modular-robot-limx-dynamics.webp
         url: https://x.com/kimmonismus/status/2001765922776760619
         alt: A Chinese company, LimX Dynamics, has developed a modular robot, showcasing the innovative capabilities of Chinese
           tech developers. The concept highlights ongoing creativity in robotics design.Additionally, limitations in AI chip

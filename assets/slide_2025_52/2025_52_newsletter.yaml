@@ -16,7 +16,7 @@ newsletter:
         url: https://learnyourway.withgoogle.com/
         assets:
         - type: image
-          source: learn-your-way-dynamic-learning-experience-google.png
+          source: learn-your-way-dynamic-learning-experience-google.webp
           url: https://learnyourway.withgoogle.com/
           alt: '**Learn Your Way** is an experimental platform that re-imagines textbooks by transforming traditional educational
             content into dynamic and engaging learning experiences tailored to individual learners. It leverages cutting-edge
@@ -33,7 +33,7 @@ newsletter:
         source: vibe-cli-skills-reasoning-model-terminal-themes-1.mp4
         url: https://x.com/MistralAI/status/2003843358054068327
       - type: image
-        source: vibe-cli-skills-reasoning-model-terminal-themes.png
+        source: vibe-cli-skills-reasoning-model-terminal-themes.webp
         url: https://x.com/MistralAI/status/2003843358054068327
         alt: Vibe CLI has introduced "Skills," allowing developers to package their expertise and rules for reuse across different
           projects. The update also adds support for reasoning models and native terminal themes.Developers can get started
@@ -44,7 +44,7 @@ newsletter:
         url: https://groq.com/newsroom/groq-and-nvidia-enter-non-exclusive-inference-technology-licensing-agreement-to-accelerate-ai-inference-at-global-scale
         assets:
         - type: image
-          source: groq-nvidia-inference-technology-licensing-agreement-nvidia.png
+          source: groq-nvidia-inference-technology-licensing-agreement-nvidia.webp
           url: https://groq.com/newsroom/groq-and-nvidia-enter-non-exclusive-inference-technology-licensing-agreement-to-accelerate-ai-inference-at-global-scale
           alt: Groq has announced a non-exclusive licensing agreement with Nvidia for its inference technology, aiming to
             expand access to high-performance, cost-effective AI inference globally. As part of this partnership, Groq Founder
@@ -56,7 +56,7 @@ newsletter:
         url: https://x.com/_colemurray/status/2003993294620209290
         assets:
         - type: image
-          source: groq-announces-new-ai-chip-groqinc.png
+          source: groq-announces-new-ai-chip-groqinc.webp
           url: https://x.com/_colemurray/status/2003993294620209290
           alt: Groq Inc. is highlighted for its advancements in AI hardware and computing technologies, focusing on performance
             and efficiency. The company's innovations are attracting attention in the tech industry, particularly for their
@@ -72,7 +72,7 @@ newsletter:
         source: minimax-m21-vbot-robot-dog-ai-agent-1.mp4
         url: https://x.com/MiniMax__AI/status/2004929610526658571
       - type: image
-        source: minimax-m21-vbot-robot-dog-ai-agent.png
+        source: minimax-m21-vbot-robot-dog-ai-agent.webp
         url: https://x.com/MiniMax__AI/status/2004929610526658571
         alt: A state-of-the-art (SOTA) AI agent model has been integrated with a robot dog, enabling autonomous control without
           remote intervention. This marks a significant advancement, as a model trained in virtual environments now operates
@@ -84,7 +84,7 @@ newsletter:
         url: https://www.liquid.ai/blog/liquid-foundation-models-v2-our-second-series-of-generative-ai-models
         assets:
         - type: image
-          source: introducing-lfm2-the-fastest-on-device-foundation-models-on-the-market-liquid-ai.png
+          source: introducing-lfm2-the-fastest-on-device-foundation-models-on-the-market-liquid-ai.webp
           url: https://www.liquid.ai/blog/liquid-foundation-models-v2-our-second-series-of-generative-ai-models
           alt: Liquid AI has released LFM2, a new class of Liquid Foundation Models (LFMs) optimized for on-device generative
             AI. LFM2 features a hybrid architecture combining multiplicative gates and short convolutions, delivering up to
@@ -101,7 +101,7 @@ newsletter:
         url: https://huggingface.co/LiquidAI/LFM2-2.6B-Exp
         assets:
         - type: image
-          source: lfm2-technical-report.png
+          source: lfm2-technical-report.webp
           url: https://huggingface.co/LiquidAI/LFM2-2.6B-Exp
           alt: '**LFM2-2.6B-Exp** is an experimental checkpoint from Liquid AI, built using pure reinforcement learning on
             top of the LFM2-2.6B model. It is optimized for instruction following, knowledge tasks, and math, delivering strong
@@ -125,7 +125,7 @@ newsletter:
           tags: &id001
           - thread
         - type: image
-          source: introducing-casa-a-new-way-to-input-visual-information-into-llms.png
+          source: introducing-casa-a-new-way-to-input-visual-information-into-llms.webp
           url: https://x.com/kyutai_labs/status/2003469588697415980
           alt: CASA is a new method for integrating visual information into large language models (LLMs). Unlike the current
             approach—which inserts image tokens directly into the text stream and can overwhelm the context window in lengthy,
@@ -137,7 +137,7 @@ newsletter:
         url: https://kyutai.org/casa
         assets:
         - type: image
-          source: casa-cross-attention-via-self-attention.png
+          source: casa-cross-attention-via-self-attention.webp
           url: https://kyutai.org/casa
           alt: CASA (Cross-Attention via Self-Attention) is a novel technique for fusing visual and textual information in
             vision-language models. Unlike standard cross-attention or token insertion methods, CASA layers combine image-to-text
@@ -154,7 +154,7 @@ newsletter:
         url: https://x.com/Alibaba_Qwen/status/2003496348461728213
         assets:
         - type: image
-          source: qwen-image-edit-2511-image-editing-upgrade.png
+          source: qwen-image-edit-2511-image-editing-upgrade.webp
           url: https://x.com/Alibaba_Qwen/status/2003496348461728213
           alt: Qwen-Image-Edit-2511 is a major upgrade focused on enhanced image editing capabilities, offering stronger consistency
             in multi-person and complex scenes, as well as improved character and identity preservation. It incorporates popular
@@ -166,7 +166,7 @@ newsletter:
         url: https://qwen.ai/blog?id=qwen-image-edit-2511
         assets:
         - type: image
-          source: qwen-image-edit-2511-improve-consistency-qwen.png
+          source: qwen-image-edit-2511-improve-consistency-qwen.webp
           url: https://qwen.ai/blog?id=qwen-image-edit-2511
           alt: Qwen-Image-Edit-2511 is an upgraded image editing model from the Qwen team, focusing on improved consistency,
             especially for character and multi-person edits. Key enhancements include mitigation of image drift, better character
@@ -183,7 +183,7 @@ newsletter:
         source: qwen3-tts-voicedesign-voiceclone-lineup-1.mp4
         url: https://x.com/Ali_TongyiLab/status/2003455307318727017
       - type: image
-        source: qwen3-tts-voicedesign-voiceclone-lineup.png
+        source: qwen3-tts-voicedesign-voiceclone-lineup.webp
         url: https://x.com/Ali_TongyiLab/status/2003455307318727017
         alt: 'Qwen3-TTS introduces two new features: VoiceDesign (VD-Flash) and VoiceClone (VC-Flash). VoiceDesign enables
           users to create custom voices using text instructions for tone, rhythm, and persona, moving beyond preset options
@@ -195,7 +195,7 @@ newsletter:
         url: https://x.com/Zai_org/status/2003156128222576716
         assets:
         - type: image
-          source: glm-47-interleaved-preserved-turn-level-thinking.png
+          source: glm-47-interleaved-preserved-turn-level-thinking.webp
           url: https://x.com/Zai_org/status/2003156128222576716
           alt: 'GLM-4.7 enhances its reasoning capabilities by refining Interleaved Thinking and introducing new concepts:
             Preserved Thinking and Turn-level Thinking. These advancements allow the model to think between actions and ensure
@@ -207,7 +207,7 @@ newsletter:
         url: https://x.com/bookwormengr/status/2003353837013467445
         assets:
         - type: image
-          source: glm4-7-preserved-reasoning-vs-kimi-k2-deepseek-minimax-coding-endpoints-interleaved-thinking-analysi.png
+          source: glm4-7-preserved-reasoning-vs-kimi-k2-deepseek-minimax-coding-endpoints-interleaved-thinking-analysi.webp
           url: https://x.com/bookwormengr/status/2003353837013467445
           alt: GLM 4.7 introduces a notable change in strategy for its coding endpoints by preserving its reasoning from previous
             turns, unlike other models such as Kimi K2 Thinking, DeepSeek V3.2, and MiniMax M2.1, which clear previous reasoning
@@ -222,7 +222,7 @@ newsletter:
         url: https://z.ai/blog/glm-4.7
         assets:
         - type: image
-          source: glm-47-advancing-the-coding-capability.png
+          source: glm-47-advancing-the-coding-capability.webp
           url: https://z.ai/blog/glm-4.7
           alt: GLM-4.7 is a next-generation coding-focused large language model, outperforming its predecessor (GLM-4.6) across
             multilingual coding, agentic tasks, UI generation, tool usage, and complex reasoning benchmarks. It shows notable
@@ -239,7 +239,7 @@ newsletter:
       url: https://arxiv.org/pdf/2512.20491
       assets:
       - type: image
-        source: step-deepresearch-technical-report.png
+        source: step-deepresearch-technical-report.webp
         url: https://arxiv.org/pdf/2512.20491
         alt: Step-DeepResearch is a cost-effective, end-to-end agent model designed to tackle open-ended Deep Research tasks,
           moving beyond academic benchmarks to address complex, real-world information-seeking scenarios. The model employs
@@ -255,7 +255,7 @@ newsletter:
       url: https://arxiv.org/pdf/2512.16776
       assets:
       - type: image
-        source: kling-omni-technical-report-kuaishou-technology.png
+        source: kling-omni-technical-report-kuaishou-technology.webp
         url: https://arxiv.org/pdf/2512.16776
         alt: Kling-Omni is a generalist generative framework developed by the Kling Team at Kuaishou Technology for high-fidelity
           video synthesis from multimodal visual-language inputs. Unlike traditional, fragmented approaches, Kling-Omni unifies
@@ -273,7 +273,7 @@ newsletter:
         url: https://arxiv.org/pdf/2512.18552
         assets:
         - type: image
-          source: toward-training-superintelligent-software-agents-through-self-play-swe-rl-meta-uiuc-cmu.png
+          source: toward-training-superintelligent-software-agents-through-self-play-swe-rl-meta-uiuc-cmu.webp
           url: https://arxiv.org/pdf/2512.18552
           alt: This paper introduces Self-play SWE-RL (SSR), a novel training paradigm for developing superintelligent software
             agents using large language models (LLMs) and reinforcement learning (RL). Unlike previous approaches that rely
@@ -289,7 +289,7 @@ newsletter:
         url: https://x.com/YuxiangWei9/status/2003541373853524347
         assets:
         - type: image
-          source: self-play-swe-rl-ssr-bug-injection-repair-reinforcement-learning.png
+          source: self-play-swe-rl-ssr-bug-injection-repair-reinforcement-learning.webp
           url: https://x.com/YuxiangWei9/status/2003541373853524347
           alt: Software agents can autonomously enhance their capabilities through self-play reinforcement learning (RL).
             Self-play SWE-RL (SSR) is introduced as a method for training a single large language model (LLM) agent to alternate
@@ -304,7 +304,7 @@ newsletter:
       url: https://discuss.google.dev/t/integrating-google-adk-agents-with-modern-frontends-using-the-ag-ui-protocol/298415
       assets:
       - type: image
-        source: integrating-google-adk-agents-with-modern-frontends-using-the-ag-ui-protocol-google.png
+        source: integrating-google-adk-agents-with-modern-frontends-using-the-ag-ui-protocol-google.webp
         url: https://discuss.google.dev/t/integrating-google-adk-agents-with-modern-frontends-using-the-ag-ui-protocol/298415
         alt: This guide explains how to integrate Google’s Agent Development Kit (ADK) agents with modern web frontends using
           the AG-UI protocol and CopilotKit. AG-UI is an open protocol that standardizes communication between AI agents (like
@@ -319,7 +319,7 @@ newsletter:
       url: https://github.com/sgl-project/mini-sglang
       assets:
       - type: image
-        source: mini-sglang-lightweight-llm-inference-github.png
+        source: mini-sglang-lightweight-llm-inference-github.webp
         url: https://github.com/sgl-project/mini-sglang
         alt: Mini-SGLang is a lightweight, high-performance inference framework for Large Language Models (LLMs), designed
           as a compact and readable reference implementation of SGLang. With a codebase of approximately 5,000 lines of Python,
@@ -334,7 +334,7 @@ newsletter:
       url: https://developer.nvidia.com/blog/top-5-ai-model-optimization-techniques-for-faster-smarter-inference/?ncid=so-twit-830191
       assets:
       - type: image
-        source: top-5-ai-model-optimization-techniques-for-faster-smarter-inference-nvidia.png
+        source: top-5-ai-model-optimization-techniques-for-faster-smarter-inference-nvidia.webp
         url: https://developer.nvidia.com/blog/top-5-ai-model-optimization-techniques-for-faster-smarter-inference/?ncid=so-twit-830191
         alt: 'The article outlines the top five AI model optimization techniques available through NVIDIA Model Optimizer
           to enhance inference speed, reduce cost, and improve scalability for deployments on NVIDIA GPUs. The techniques
@@ -353,7 +353,7 @@ newsletter:
       url: https://x.com/jsuarez5341/status/1943692968013025457
       assets:
       - type: image
-        source: sorry-i-cant-access-the-image-content-from-the-link-provided-please-provide-the-transcribed-text-or-.png
+        source: sorry-i-cant-access-the-image-content-from-the-link-provided-please-provide-the-transcribed-text-or-.webp
         url: https://x.com/jsuarez5341/status/1943692968013025457
         alt: Based on the provided image transcription, here is a concise summary:---The content discusses a recent development
           or announcement, focusing on its key implications or outcomes. It highlights relevant details such as stakeholders
@@ -364,7 +364,7 @@ newsletter:
       url: https://steipete.me/posts/2025/shipping-at-inference-speed
       assets:
       - type: image
-        source: shipping-at-inference-speed-steipete.png
+        source: shipping-at-inference-speed-steipete.webp
         url: https://steipete.me/posts/2025/shipping-at-inference-speed
         alt: 'Peter Steinberger shares his experience building software at unprecedented speed using advanced AI coding agents,
           notably GPT-5.2 Codex. He describes a workflow where code generation and refactoring are mostly limited by inference
@@ -382,7 +382,7 @@ newsletter:
       url: https://ivanleo.com/blog/three-lessons-manus
       assets:
       - type: image
-        source: three-lessons-learned-at-manus.png
+        source: three-lessons-learned-at-manus.webp
         url: https://ivanleo.com/blog/three-lessons-manus
         alt: Ivan Leo shares his experiences and key lessons learned from helping Manus, a general-purpose AI agent startup,
           grow from zero to $100M ARR in just eight months. He highlights the importance of taking responsibility beyond simply
@@ -398,7 +398,7 @@ newsletter:
         url: https://x.com/karpathy/status/1894099637218545984
         assets:
         - type: image
-          source: agency-vs-intelligence-explained.png
+          source: agency-vs-intelligence-explained.webp
           url: https://x.com/karpathy/status/1894099637218545984
           alt: Agency is described as an individual’s capacity to take initiative, make decisions, and shape their own life,
             distinguishing it from mere intelligence. While culture often venerates intelligence, agency is argued to be both
@@ -411,7 +411,7 @@ newsletter:
         url: https://x.com/karpathy/status/2004607146781278521
         assets:
         - type: image
-          source: adapting-to-ai-driven-programming-evolution.png
+          source: adapting-to-ai-driven-programming-evolution.webp
           url: https://x.com/karpathy/status/2004607146781278521
           alt: The author expresses a sense of being overwhelmed and behind in the rapidly evolving programming landscape.
             They observe that the programmer’s role is changing dramatically, with new powerful tools and abstractions—such
@@ -425,7 +425,7 @@ newsletter:
         url: https://x.com/addyosmani/status/2004663973912932625
         assets:
         - type: image
-          source: ai-tools-accelerate-developer-productivity.png
+          source: ai-tools-accelerate-developer-productivity.webp
           url: https://x.com/addyosmani/status/2004663973912932625
           alt: AI tools are transforming software development, creating an exciting era filled with opportunities for experimentation
             and innovation. While these tools are still imperfect, developers with strong foundations in CI/CD, testing, documentation,
@@ -437,7 +437,7 @@ newsletter:
       url: https://x.com/JacksonKernion/status/2004707758768271781
       assets:
       - type: image
-        source: building-agi-dream-anthropic.png
+        source: building-agi-dream-anthropic.webp
         url: https://x.com/JacksonKernion/status/2004707758768271781
         alt: The author reflects on their journey at Anthropic, stating that they joined the company over four years ago with
           the ambition to build artificial general intelligence (AGI). Their motivation stemmed from philosophical insights,
@@ -452,7 +452,7 @@ newsletter:
         url: https://x.com/charliesbot/status/2003886671776174447
         assets:
         - type: image
-          source: microsoft-ai-cpp-to-rust-migration-news-microsoft.png
+          source: microsoft-ai-cpp-to-rust-migration-news-microsoft.webp
           url: https://x.com/charliesbot/status/2003886671776174447
           alt: Microsoft was rumored to be using AI to migrate its code from C++ to Rust, but Galen Hunt clarified that this
             is not their intention. Instead, they are researching internal tools for language migration, a common practice
@@ -462,7 +462,7 @@ newsletter:
         url: https://x.com/fxshaw/status/2003626943477088403
         assets:
         - type: image
-          source: windowslatest-update-twitter-microsoft.png
+          source: windowslatest-update-twitter-microsoft.webp
           url: https://x.com/fxshaw/status/2003626943477088403
           alt: WindowsLatest shared an update via their official account, directing users to a specific link for more information.
             The post likely pertains to a recent development or announcement related to Windows.No additional details about
@@ -472,7 +472,7 @@ newsletter:
       url: https://x.com/JayaGup10/status/2003525933534179480
       assets:
       - type: image
-        source: a-long-term-science-and-technology-roadmap-for-telecommunication-networks-huawei.png
+        source: a-long-term-science-and-technology-roadmap-for-telecommunication-networks-huawei.webp
         url: https://x.com/JayaGup10/status/2003525933534179480
         alt: Sure! However, I am unable to directly access external links or view images. If you provide the transcription
           of the image (the text content from the image), I can generate a concise summary following your rules. Please paste
@@ -483,7 +483,7 @@ newsletter:
       url: https://x.com/simon_mo_/status/2003608325624406482
       assets:
       - type: image
-        source: five-pretraining-tricks-from-character-ai.png
+        source: five-pretraining-tricks-from-character-ai.webp
         url: https://x.com/simon_mo_/status/2003608325624406482
         alt: Character AI (CAI) developed five pretraining techniques to improve model training efficiency. Notably, before
           their Google partnership, they trained on GCP H100-TCPX hardware with limited bandwidth compared to InfiniBand.To
@@ -495,7 +495,7 @@ newsletter:
       url: https://x.com/KirkMarple/status/2003944353342149021
       assets:
       - type: image
-        source: towards-real-time-object-detection-on-mobile-platforms-google.png
+        source: towards-real-time-object-detection-on-mobile-platforms-google.webp
         url: https://x.com/KirkMarple/status/2003944353342149021
         alt: Based on the provided image transcription, here is a concise summary:---The main content discusses a recent development
           or update related to the linked topic, focusing on key features, changes, or announcements. It highlights important
@@ -513,7 +513,7 @@ newsletter:
         source: unitree-humanoid-robot-leehom-wang-concert-1.mp4
         url: https://x.com/rohanpaul_ai/status/2004346158349758687
       - type: image
-        source: unitree-humanoid-robot-leehom-wang-concert.png
+        source: unitree-humanoid-robot-leehom-wang-concert.webp
         url: https://x.com/rohanpaul_ai/status/2004346158349758687
         alt: A new video features a Unitree humanoid robot performing as a backup dancer at a Leehom Wang concert, highlighting
           the growing use of robots in live entertainment. The robot operates with "human-in-the-loop" guidance, blending
@@ -526,7 +526,7 @@ newsletter:
         source: quest-app-miniature-town-ar-experience-1.mp4
         url: https://x.com/NathieVR/status/2003562816653987947
       - type: image
-        source: quest-app-miniature-town-ar-experience.png
+        source: quest-app-miniature-town-ar-experience.webp
         url: https://x.com/NathieVR/status/2003562816653987947
         alt: '**Summary**The Quest app uses augmented reality to turn your living room into a lively miniature town. Players
           interact with colorful characters, complete quests and mini games, and unlock new buildings and surprises as they
@@ -539,7 +539,7 @@ newsletter:
         source: humanoid-robotics-safety-challenges-and-asimov-laws-1.mp4
         url: https://x.com/wmorrill3/status/2004666088374894922
       - type: image
-        source: humanoid-robotics-safety-challenges-and-asimov-laws.png
+        source: humanoid-robotics-safety-challenges-and-asimov-laws.webp
         url: https://x.com/wmorrill3/status/2004666088374894922
         alt: Robotics safety has traditionally relied on physical barriers and strict protocols to keep humans separate from
           powerful machines. However, as humanoid robots are increasingly integrated into collaborative work environments,
