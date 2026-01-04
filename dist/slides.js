@@ -48,33 +48,35 @@ const VISUAL_PRIMITIVES = {
   // Duration primitives (ms)
   durations: {
     withinPost: 150,
-    betweenPosts: 180,
-    betweenGroups: 180,
-    betweenSections: 280,
+    betweenPosts: 150,
+    betweenGroups: 250,   // Bundle transitions
+    betweenSections: 400, // Section transitions
     microSettle: 25,      // Hold at end of post transition
     edgeFlash: 200,
-    sheen: 120,           // Directional sheen for group boundaries
-    axisHint: 50,         // Micro-drift for section hints
-    depthSwap: 280,       // Contrast normalization for vertical transitions
+    sheen: 250,           // Directional sheen for group boundaries
+    axisHint: 400,        // Micro-drift for section hints
+    depthSwap: 400,       // Scale normalization for vertical transitions
+    overlay: 400,         // Section overlay duration
   },
 
   // Brightness primitives
   brightness: {
     neutral: 1.0,
-    dimmed: 0.95,         // For post/group transitions
-    groupDimmed: 0.92,    // Slightly more pronounced for groups
+    postDimmed: 0.9,      // For post transitions
+    bundleDimmed: 0.8,    // For bundle/group transitions
+    sectionDimmed: 0.6,   // For section transitions
+  },
+
+  // Scale primitives
+  scale: {
+    bundleStart: 0.98,    // Bundle entrance scale
+    sectionStart: 0.96,   // Section entrance scale
   },
 
   // Motion primitives (px)
   motion: {
-    axisHintDrift: 2,     // Upward micro-drift for section hints
-    sheenWidth: 3,        // Width of directional sheen effect
-  },
-
-  // Contrast primitives
-  contrast: {
-    depthSwapStart: 0.98, // Starting contrast for depth swap
-    depthSwapEnd: 1.0,    // Final contrast
+    axisHintDrift: 3,     // Upward micro-drift for section hints
+    sheenWidth: 120,      // Width of directional sheen effect
   },
 
   // Easing primitives
@@ -93,7 +95,7 @@ function getTransitionDuration(type) {
     betweenPosts: VISUAL_PRIMITIVES.durations.betweenPosts,
     betweenGroups: VISUAL_PRIMITIVES.durations.betweenGroups,
     section: VISUAL_PRIMITIVES.durations.betweenSections,
-    sectionHorizontal: 220, // Slightly faster than vertical section transition
+    sectionHorizontal: VISUAL_PRIMITIVES.durations.betweenSections,
   };
   return durationMap[type] || VISUAL_PRIMITIVES.durations.withinPost;
 }
@@ -130,6 +132,10 @@ const state = {
   // Currently active video (playing in foreground or background)
   activeVideoIndex: null,
 
+  // Bundle stack state
+  bundleStack: [],          // Array of slide indices in current stack
+  currentBundleId: null,    // Current bundle identifier (sectionIndex + groupIndex)
+
   // Touch tracking
   touchStartX: 0,
   touchStartY: 0,
@@ -159,6 +165,7 @@ const dom = {
   edgeFlashRight: null,
   sheenLeft: null,      // Directional sheen for group transitions
   sheenRight: null,
+  sectionOverlay: null, // Dark overlay for section transitions
   topTrigger: null,
   onboarding: null,
   errorState: null,
@@ -210,6 +217,7 @@ function cacheDOMReferences() {
   dom.navNext = document.getElementById('nav-next');
   dom.edgeFlashLeft = document.getElementById('edge-flash-left');
   dom.edgeFlashRight = document.getElementById('edge-flash-right');
+  dom.sectionOverlay = document.getElementById('section-overlay');
   dom.topTrigger = document.getElementById('top-trigger');
   dom.onboarding = document.getElementById('onboarding');
   dom.errorState = document.getElementById('error-state');
@@ -709,6 +717,9 @@ function closeTagPanel() {
  * Apply tag filter to visible slides (for personalized mode).
  */
 function applyTagFilter() {
+  // Clear bundle stack when applying filter
+  clearBundleStack();
+
   // Remember current position
   const currentGlobalIndex = state.visibleSlides[state.currentSlideIndex]?.globalIndex;
 
@@ -935,6 +946,125 @@ function renderProgressSections() {
 }
 
 // ==========================================================================
+// Bundle Stack Management
+// ==========================================================================
+
+/**
+ * Get unique bundle identifier for a slide.
+ * Returns null if slide is not in a bundle (standalone post).
+ */
+function getBundleId(slide) {
+  if (!slide || slide.groupIndex === null) {
+    return null;
+  }
+  return `${slide.sectionIndex}-${slide.groupIndex}`;
+}
+
+/**
+ * Check if two slides are in the same bundle.
+ */
+function isInSameBundle(slide1, slide2) {
+  if (!slide1 || !slide2) return false;
+  const id1 = getBundleId(slide1);
+  const id2 = getBundleId(slide2);
+  return id1 !== null && id1 === id2;
+}
+
+/**
+ * Check if a slide is in a bundle.
+ */
+function isInBundle(slide) {
+  return slide && slide.groupIndex !== null;
+}
+
+/**
+ * Clear the bundle stack and fade out all stacked slides.
+ */
+function clearBundleStack() {
+  // Fade out all stacked slides
+  state.bundleStack.forEach(slideIndex => {
+    const slideEl = dom.slideTrack.querySelector(`[data-index="${slideIndex}"]`);
+    if (slideEl) {
+      slideEl.classList.add('stack-fade-out');
+      // Clean up after fade animation
+      setTimeout(() => {
+        slideEl.classList.remove('stacked', 'stack-fade-out',
+          'stack-depth-2', 'stack-depth-3', 'stack-depth-4');
+      }, 200);
+    }
+  });
+
+  state.bundleStack = [];
+  state.currentBundleId = null;
+}
+
+/**
+ * Push a slide onto the bundle stack.
+ */
+function pushToStack(slideIndex) {
+  // Add to stack
+  state.bundleStack.push(slideIndex);
+
+  // Update all stack depths
+  updateStackDepths();
+}
+
+/**
+ * Pop the top slide from the stack and return it.
+ */
+function popFromStack() {
+  if (state.bundleStack.length === 0) return null;
+
+  const poppedIndex = state.bundleStack.pop();
+  const slideEl = dom.slideTrack.querySelector(`[data-index="${poppedIndex}"]`);
+
+  if (slideEl) {
+    // Remove stacked classes - it will become active
+    slideEl.classList.remove('stacked', 'stack-depth-2', 'stack-depth-3', 'stack-depth-4');
+  }
+
+  // Update remaining stack depths
+  updateStackDepths();
+
+  return poppedIndex;
+}
+
+/**
+ * Update depth classes on all stacked slides.
+ * Most recent (top of stack) gets no depth class, older ones get increasing depth.
+ */
+function updateStackDepths() {
+  const stackLength = state.bundleStack.length;
+
+  state.bundleStack.forEach((slideIndex, i) => {
+    const slideEl = dom.slideTrack.querySelector(`[data-index="${slideIndex}"]`);
+    if (!slideEl) return;
+
+    // Calculate depth from top of stack (0 = just below active, 1 = next, etc.)
+    const depthFromTop = stackLength - 1 - i;
+
+    // Add stacked class and appropriate depth
+    slideEl.classList.add('stacked');
+    slideEl.classList.remove('stack-depth-2', 'stack-depth-3', 'stack-depth-4', 'prev', 'next');
+
+    if (depthFromTop === 1) {
+      slideEl.classList.add('stack-depth-2');
+    } else if (depthFromTop === 2) {
+      slideEl.classList.add('stack-depth-3');
+    } else if (depthFromTop >= 3) {
+      slideEl.classList.add('stack-depth-4');
+    }
+  });
+}
+
+/**
+ * Check if the target slide is in our current stack (for backward navigation).
+ */
+function isInCurrentStack(slideIndex) {
+  return state.bundleStack.includes(slideIndex);
+}
+
+// ==========================================================================
 // Navigation
 // ==========================================================================
 
@@ -953,17 +1083,45 @@ function navigateHorizontal(direction) {
 
   // Determine transition type based on hierarchy boundary crossed
   let transitionType = 'withinPost';
+  let stackAction = null; // 'push', 'pop', 'clear', or null
+
   if (current.sectionIndex !== target.sectionIndex) {
-    // Section boundary crossed via horizontal navigation
-    // Uses "sectionHorizontal" for axis hint effect
+    // Section boundary crossed - clear stack
     transitionType = 'sectionHorizontal';
+    stackAction = 'clear';
   } else if (current.groupIndex !== target.groupIndex) {
+    // Bundle boundary crossed - clear stack
     transitionType = 'betweenGroups';
+    stackAction = 'clear';
   } else if (current.postIndex !== target.postIndex) {
+    // Post boundary within same bundle
     transitionType = 'betweenPosts';
+
+    // Check if we're in a bundle
+    if (isInBundle(current)) {
+      if (isInCurrentStack(targetIndex)) {
+        // Target is already in stack - pop it (un-dim in place)
+        stackAction = 'pop';
+      } else {
+        // Target not in stack - push current and slide in target
+        // Works for both directions: forward builds stack left-to-right,
+        // backward (re-entering from end) builds stack right-to-left
+        stackAction = 'push';
+      }
+    }
   }
 
-  goToSlide(targetIndex, direction, transitionType);
+  // Initialize bundle tracking if entering a bundle
+  const targetBundleId = getBundleId(target);
+  if (targetBundleId && state.currentBundleId !== targetBundleId) {
+    // Entering a new bundle - start fresh stack
+    if (state.bundleStack.length > 0) {
+      clearBundleStack();
+    }
+    state.currentBundleId = targetBundleId;
+  }
+
+  goToSlide(targetIndex, direction, transitionType, stackAction);
 }
 
 function navigateVertical(direction) {
@@ -1010,7 +1168,8 @@ function navigateVertical(direction) {
 
   if (targetIndex === -1) return;
 
-  goToSlide(targetIndex, direction, 'section');
+  // Clear stack when changing sections
+  goToSlide(targetIndex, direction, 'section', 'clear');
 }
 
 function goToSection(sectionKey) {
@@ -1023,10 +1182,11 @@ function goToSection(sectionKey) {
   if (targetIndex === -1 || targetIndex === state.currentSlideIndex) return;
 
   const direction = targetIndex > state.currentSlideIndex ? 'next' : 'prev';
-  goToSlide(targetIndex, direction, 'section');
+  // Clear stack when changing sections
+  goToSlide(targetIndex, direction, 'section', 'clear');
 }
 
-function goToSlide(targetIndex, direction, transitionType = 'withinPost') {
+function goToSlide(targetIndex, direction, transitionType = 'withinPost', stackAction = null) {
   if (targetIndex < 0 || targetIndex >= state.visibleSlides.length) return;
   if (state.isAnimating) return;
 
@@ -1047,25 +1207,38 @@ function goToSlide(targetIndex, direction, transitionType = 'withinPost') {
     return;
   }
 
+  // Handle stack actions before transition
+  if (stackAction === 'clear') {
+    clearBundleStack();
+  }
+
   // Get duration and apply transition effects based on type
   const duration = getTransitionDuration(transitionType);
-
-  // Apply visual effects based on transition type
-  applyTransitionEffects(currentSlideEl, targetSlideEl, transitionType, direction);
 
   // Handle video activation states
   updateVideoStates(targetIndex);
 
-  // Execute the transition based on type
-  if (transitionType === 'section') {
-    // Vertical transition with depth swap
-    executeVerticalTransition(currentSlideEl, targetSlideEl, direction, bgVideoSlideEl);
-  } else if (transitionType === 'sectionHorizontal') {
-    // Horizontal transition with axis hint (section crossed via left/right)
-    executeHorizontalSectionTransition(currentSlideEl, targetSlideEl, direction, bgVideoSlideEl);
+  // Execute transition based on stack action
+  if (stackAction === 'pop') {
+    // Backward navigation within bundle - pop from stack (no slide for target)
+    executeStackPopTransition(currentSlideEl, targetSlideEl, direction, duration);
+  } else if (stackAction === 'push') {
+    // Forward navigation within bundle - push current to stack
+    executeStackPushTransition(currentSlideEl, targetSlideEl, direction, duration);
   } else {
-    // Standard horizontal transitions (within post, between posts, between groups)
-    executeHorizontalTransition(currentSlideEl, targetSlideEl, transitionType, direction, bgVideoSlideEl);
+    // Standard transitions
+    applyTransitionEffects(currentSlideEl, targetSlideEl, transitionType, direction);
+
+    if (transitionType === 'section') {
+      // Vertical transition with depth swap
+      executeVerticalTransition(currentSlideEl, targetSlideEl, direction, bgVideoSlideEl);
+    } else if (transitionType === 'sectionHorizontal') {
+      // Horizontal transition with axis hint (section crossed via left/right)
+      executeHorizontalSectionTransition(currentSlideEl, targetSlideEl, direction, bgVideoSlideEl);
+    } else {
+      // Standard horizontal transitions (within post, between posts, between groups)
+      executeHorizontalTransition(currentSlideEl, targetSlideEl, transitionType, direction, bgVideoSlideEl);
+    }
   }
 
   // Update state
@@ -1091,7 +1264,7 @@ function applyTransitionEffects(currentEl, targetEl, transitionType, direction) 
     'transition-within-post', 'transition-posts', 'transition-groups',
     'transition-section', 'transition-section-horizontal',
     'direction-backward', 'transitioning-out', 'micro-settle',
-    'depth-swap', 'axis-hint-up', 'axis-hint-down'
+    'depth-swap', 'axis-hint-up', 'axis-hint-down', 'scale-enter'
   ];
 
   currentEl.classList.remove(...allTransitionClasses);
@@ -1107,27 +1280,33 @@ function applyTransitionEffects(currentEl, targetEl, transitionType, direction) 
     case 'betweenPosts':
       currentEl.classList.add('transition-posts', 'transitioning-out');
       targetEl.classList.add('transition-posts', 'micro-settle');
+      // Trigger thin edge flash for post transitions
+      flashEdge(direction);
       break;
 
     case 'betweenGroups':
       currentEl.classList.add('transition-groups', 'transitioning-out');
-      targetEl.classList.add('transition-groups');
-      // Trigger edge flash and sheen effect
+      targetEl.classList.add('transition-groups', 'scale-enter');
+      // Trigger thick edge glow and sheen effect
       triggerGroupTransitionEffects(direction);
       break;
 
     case 'sectionHorizontal':
       currentEl.classList.add('transition-section-horizontal', 'transitioning-out');
       targetEl.classList.add('transition-section-horizontal');
-      // Apply axis hint (micro-drift)
+      // Apply axis hint (micro-drift) with scale
       targetEl.classList.add(direction === 'next' ? 'axis-hint-up' : 'axis-hint-down');
-      showTabBar(true);
+      // Trigger section transition effects
+      triggerSectionTransitionEffects();
+      showTabBar(false);
       break;
 
     case 'section':
-      currentEl.classList.add('transition-section');
+      currentEl.classList.add('transition-section', 'transitioning-out');
       targetEl.classList.add('transition-section', 'depth-swap');
-      showTabBar(true);
+      // Trigger section transition effects
+      triggerSectionTransitionEffects();
+      showTabBar(false);
       break;
   }
 
@@ -1135,6 +1314,40 @@ function applyTransitionEffects(currentEl, targetEl, transitionType, direction) 
   if (direction === 'prev') {
     currentEl.classList.add('direction-backward');
     targetEl.classList.add('direction-backward');
+  }
+}
+
+/**
+ * Trigger section transition visual effects (overlay + tab pulse)
+ */
+function triggerSectionTransitionEffects() {
+  // Show dark overlay
+  if (dom.sectionOverlay) {
+    dom.sectionOverlay.classList.add('active');
+    setTimeout(() => {
+      dom.sectionOverlay.classList.remove('active');
+    }, VISUAL_PRIMITIVES.durations.overlay);
+  }
+
+  // Pulse the active tab after a short delay (when new section is visible)
+  setTimeout(() => {
+    pulseActiveTab();
+  }, VISUAL_PRIMITIVES.durations.overlay * 0.3);
+}
+
+/**
+ * Pulse the currently active tab to draw attention
+ */
+function pulseActiveTab() {
+  const activeTab = document.querySelector('.tab.active');
+  if (activeTab) {
+    activeTab.classList.remove('transitioning');
+    void activeTab.offsetWidth; // Force reflow
+    activeTab.classList.add('transitioning');
+    // Remove class after animation
+    setTimeout(() => {
+      activeTab.classList.remove('transitioning');
+    }, 400);
   }
 }
 
@@ -1210,6 +1423,59 @@ function executeHorizontalTransition(currentEl, targetEl, transitionType, direct
 }
 
 /**
+ * Execute stack push transition (navigation within bundle).
+ * Current slide gets pushed to stack, target slides in from the navigation direction.
+ * Works for both forward (→) and backward (←) navigation.
+ */
+function executeStackPushTransition(currentEl, targetEl, direction, duration) {
+  const currentIndex = parseInt(currentEl.dataset.index);
+
+  // Push current slide to stack (it will stay visible but dimmed)
+  pushToStack(currentIndex);
+
+  // Current slide loses 'active' but stays visible as 'stacked'
+  currentEl.classList.remove('active');
+  currentEl.classList.add('stack-top'); // Temporarily higher z-index during transition
+
+  // Target slide enters from the appropriate side based on direction
+  targetEl.classList.remove('prev', 'next', 'stacked');
+  targetEl.classList.add('active', 'stack-top');
+
+  // Trigger edge flash for the transition
+  flashEdge(direction);
+
+  // Clean up stack-top class after transition
+  setTimeout(() => {
+    currentEl.classList.remove('stack-top');
+    targetEl.classList.remove('stack-top');
+  }, duration);
+}
+
+/**
+ * Execute stack pop transition (returning to a stacked slide).
+ * Current slide slides out, target (already in stack) un-dims in place.
+ * Works for both directions: popping when going backward or forward.
+ */
+function executeStackPopTransition(currentEl, targetEl, direction, duration) {
+  // Pop target from stack (removes stacked classes)
+  popFromStack();
+
+  // Current slide exits in the direction we're navigating FROM
+  // (opposite to where we're going)
+  currentEl.classList.remove('active');
+  currentEl.classList.add(direction === 'next' ? 'prev' : 'next');
+
+  // Target slide is already visible (was stacked) - just make it active
+  targetEl.classList.remove('stacked', 'stack-depth-2', 'stack-depth-3', 'stack-depth-4', 'prev', 'next');
+  targetEl.classList.add('active', 'unstacking');
+
+  // Clean up unstacking class after transition
+  setTimeout(() => {
+    targetEl.classList.remove('unstacking');
+  }, duration);
+}
+
+/**
  * Trigger group transition visual effects (edge flash + directional sheen)
  */
 function triggerGroupTransitionEffects(direction) {
@@ -1249,7 +1515,8 @@ function scheduleTransitionCleanup(currentEl, targetEl, duration) {
       'transition-within-post', 'transition-posts', 'transition-groups',
       'transition-section', 'transition-section-horizontal',
       'direction-backward', 'micro-settle', 'depth-swap',
-      'axis-hint-up', 'axis-hint-down'
+      'axis-hint-up', 'axis-hint-down', 'scale-enter',
+      'stack-top', 'unstacking'
     ];
 
     if (!currentEl.classList.contains('video-background')) {
@@ -1367,6 +1634,9 @@ function setMode(newMode) {
 
   state.mode = newMode;
   saveMode();
+
+  // Clear bundle stack when changing modes
+  clearBundleStack();
 
   // Remember current position in global index
   const currentGlobalIndex = state.visibleSlides[state.currentSlideIndex]?.globalIndex;

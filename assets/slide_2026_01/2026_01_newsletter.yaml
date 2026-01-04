@@ -1,0 +1,432 @@
+newsletter:
+  title: Newsletter
+  year: 2026
+  sections:
+  - name: News
+    items:
+    - id: adobe-and-runway-ai-video-partnership-adobe
+      url: https://news.adobe.com/news/2025/12/adobe-and-runway-partner
+      assets:
+      - type: image
+        source: adobe-and-runway-ai-video-partnership-adobe.webp
+        url: https://news.adobe.com/news/2025/12/adobe-and-runway-partner
+        alt: Adobe announced a multi-year strategic partnership with Runway to advance the next generation of AI-driven video
+          creation for creators, studios, brands, and enterprises. This collaboration integrates Runway’s innovative generative
+          video models, starting with Gen-4.5, into Adobe’s Firefly app and creative ecosystem, giving Adobe users exclusive
+          early access to new Runway models. The partnership aims to co-develop specialized AI capabilities for professional
+          video workflows that will be available exclusively through Adobe tools like Firefly, Premiere, and After Effects.Adobe
+          emphasizes a creator-first approach to AI, allowing users to choose from a variety of top generative models—including
+          those from Runway, Black Forest Labs, ElevenLabs, Google, Luma AI, OpenAI, and Topaz Labs—within Firefly, while
+          ensuring user content is not used to train generative AI. Runway’s Gen-4.5 is now available in Adobe Firefly and
+          on Runway’s platform, with unlimited access for Firefly Pro plan users until December 22.
+    - id: bundle-1767525178861-ma9w86pxq
+      items:
+      - id: manus-joins-meta-next-era-of-innovation-meta
+        url: https://manus.im/blog/manus-joins-meta-for-next-era-of-innovation
+        assets:
+        - type: image
+          source: manus-joins-meta-next-era-of-innovation-meta.webp
+          url: https://manus.im/blog/manus-joins-meta-for-next-era-of-innovation
+          alt: Manus has announced that it is joining Meta, marking a major milestone for the company known for its work with
+            general-purpose AI agents. Manus's AI agent has already processed over 147 trillion tokens and enabled the creation
+            of more than 80 million virtual computers, demonstrating its impact in research, automation, and complex task
+            execution. The company emphasizes its commitment to maintaining uninterrupted service for existing customers and
+            will continue operating from Singapore.With this acquisition, Manus aims to leverage Meta’s resources to expand
+            its subscription service to a much wider audience, including the vast user base on Meta’s platforms. The leadership
+            at Manus assures that the core product and decision-making processes will remain unchanged, and they look forward
+            to further innovating and delivering value alongside Meta.
+      - id: meta-ai-acquisition-makes-money-meta
+        url: https://x.com/Ric_RTP/status/2006396925675811143
+        assets:
+        - type: image
+          source: meta-ai-acquisition-makes-money-meta.webp
+          url: https://x.com/Ric_RTP/status/2006396925675811143
+          alt: Meta spent $72 billion building AI infrastructure without generating any direct revenue, offering free AI services
+            and open-source models that failed to produce profit or satisfy investors. In contrast, a Chinese-founded startup
+            named Manus launched an AI agent, rapidly reached $125 million in annual recurring revenue within eight months,
+            and was acquired by Meta for $2 billion—four times its previous valuation—after demonstrating a simple, profitable
+            SaaS business model.Meta's acquisition of Manus, following other major AI purchases this year, highlights its
+            shift to a "pay-to-win" strategy, buying companies that have figured out how to monetize AI rather than building
+            profitable products in-house. The deal involved severing Manus's Chinese ties due to geopolitical concerns, underscoring
+            that the real race in AI is not just about technology, but about building businesses that make money—a challenge
+            Meta has yet to solve on its own.
+          tags:
+          - thread
+  - name: Models
+    items:
+    - id: bundle-ec03f517ddb6
+      items:
+      - id: qwen-image-2512-release-ai-image-model-qwen
+        url: https://x.com/Alibaba_Qwen/status/2006294325240668255
+        assets:
+        - type: video
+          source: qwen-image-2512-release-ai-image-model-qwen-1.mp4
+          url: https://x.com/Alibaba_Qwen/status/2006294325240668255
+        - type: image
+          source: qwen-image-2512-release-ai-image-model-qwen.webp
+          url: https://x.com/Alibaba_Qwen/status/2006294325240668255
+          alt: Qwen has released Qwen-Image-2512, a major upgrade to their open-source image generation model. The update
+            features more realistic human renderings with richer facial details, improved natural textures, and significantly
+            enhanced text rendering for better accuracy and layout in text–image compositions.Tested in over 10,000 blind
+            rounds on AI Arena, Qwen-Image-2512 ranks as the strongest open-source image model and remains competitive with
+            closed-source alternatives. The model is available to try and download via Qwen Chat, Hugging Face, ModelScope,
+            GitHub, and corresponding demos and APIs.
+      - id: qwen-image-2512-finer-details-greater-realism-qwen
+        url: https://qwen.ai/blog?id=qwen-image-2512
+        assets:
+        - type: image
+          source: qwen-image-2512-finer-details-greater-realism-qwen.webp
+          url: https://qwen.ai/blog?id=qwen-image-2512
+          alt: Qwen-Image-2512 is the December 2025 update to the Qwen-Image text-to-image foundational model, offering significant
+            improvements in image realism, especially for human subjects, finer natural detail in elements like landscapes
+            and animal fur, and more accurate, high-quality text rendering. Extensive blind model evaluations show that Qwen-Image-2512
+            is currently the strongest open-source model for text-to-image generation, outperforming its predecessor and remaining
+            competitive with leading closed-source alternatives.Key enhancements include lifelike depiction of humans with
+            improved facial features, better adherence to prompt semantics, and more realistic backgrounds. The model also
+            demonstrates notable advances in rendering natural textures—such as water, fur, and rugged wildlife—and in integrating
+            complex text elements within generated images, including slides, infographics, and posters. Qwen-Image-2512 is
+            available for use and research, with resources accessible via Qwen Chat, GitHub, Hugging Face, and ModelScope.
+    - id: wan26-ai-storytelling-image-consistency
+      url: https://x.com/Alibaba_Wan/status/2005907382359265403
+      assets:
+      - type: video
+        source: wan26-ai-storytelling-image-consistency-1.mp4
+        url: https://x.com/Alibaba_Wan/status/2005907382359265403
+      - type: image
+        source: wan26-ai-storytelling-image-consistency.webp
+        url: https://x.com/Alibaba_Wan/status/2005907382359265403
+        alt: WAN2.6 introduces advanced AI-driven tools for storytelling, enabling creators to generate intelligent multi-shot
+          scenes using natural language storyboarding. It supports synchronized audio and visuals, stable multi-character
+          dialogue, and produces 15-second 1080p videos for more complete narratives.Additionally, WAN2.6 ensures commercial-grade
+          image consistency, maintaining high fidelity in characters, styles, and visual elements to meet professional creative
+          requirements.
+    - id: mai-ui-foundation-gui-agents
+      url: https://x.com/Ali_TongyiLab/status/2005789039719550988
+      assets:
+      - type: video
+        source: mai-ui-foundation-gui-agents-1.mp4
+        url: https://x.com/Ali_TongyiLab/status/2005789039719550988
+        tags: &id001
+        - thread
+      - type: image
+        source: mai-ui-foundation-gui-agents.webp
+        url: https://x.com/Ali_TongyiLab/status/2005789039719550988
+        alt: MAI-UI is a new family of foundation GUI agents designed for advanced mobile and general GUI navigation tasks.
+          It integrates MCP tool use, agent interaction, device–cloud collaboration, and online reinforcement learning, achieving
+          state-of-the-art performance and outperforming models like Gemini-2.5-Pro, Seed1.8, and UI-Tars-2 on the AndroidWorld
+          benchmark.To support diverse deployment needs, MAI-UI is available in multiple model sizes (2B, 8B, 32B, and 235B-A22B).
+          The 2B and 8B models are being released publicly.
+        tags: *id001
+  - name: Papers
+    items:
+    - id: manifold-constrained-hyper-connections-deepseek-ai
+      url: https://arxiv.org/abs/2512.24880
+      assets:
+      - type: image
+        source: manifold-constrained-hyper-connections-deepseek-ai.webp
+        url: https://arxiv.org/abs/2512.24880
+        alt: The paper introduces Manifold-Constrained Hyper-Connections (mHC), a new framework designed to improve upon Hyper-Connections
+          (HC) in deep neural networks. HC extends traditional residual connections by widening the residual stream and diversifying
+          connection patterns, which boosts performance but undermines the identity mapping property, leading to instability,
+          poor scalability, and memory inefficiency.mHC addresses these issues by projecting the residual connection space
+          onto a specific manifold, thereby restoring the identity mapping property and optimizing computational efficiency.
+          Empirical results show that mHC enables more stable and scalable training with improved performance, making it a
+          practical and flexible extension of HC. The authors suggest that mHC can inform better topological architecture
+          design and advance foundational model development.
+    - id: bundle-1767456423791-r28sz5mc1
+      items:
+      - id: dynamic-large-concept-models-latent-reasoning-in-an-adaptive-semantic-space-bytedance-university-of-
+        url: https://arxiv.org/abs/2512.24617
+        assets:
+        - type: image
+          source: dynamic-large-concept-models-latent-reasoning-in-an-adaptive-semantic-space-bytedance-university-of-.webp
+          url: https://arxiv.org/abs/2512.24617
+          alt: The paper introduces Dynamic Large Concept Models (DLCM), a new hierarchical language modeling framework that
+            addresses inefficiencies in current Large Language Models (LLMs). Traditional LLMs apply the same amount of computation
+            to every token, despite the fact that language is not uniformly informative—some parts are predictable, while
+            others require complex reasoning. DLCM learns to identify semantic boundaries and reallocates computational resources
+            from a uniform token-level approach to a more efficient, compressed concept space, allowing for better reasoning
+            and improved use of resources.DLCM does not rely on predefined linguistic units; instead, it discovers variable-length
+            concepts end-to-end. The framework introduces the first compression-aware scaling law, which separates token capacity,
+            concept-level reasoning capacity, and compression ratio, making compute allocation more effective under fixed
+            resource constraints. Using a novel parametrization for stable training, DLCM achieves significant performance
+            gains (+2.69% on average across 12 benchmarks) while keeping inference costs constant.
+      - id: dynamic-large-concept-models
+        url: https://x.com/GeZhang86038849/status/2006910008013860995
+        assets:
+        - type: image
+          source: dynamic-large-concept-models.webp
+          url: https://x.com/GeZhang86038849/status/2006910008013860995
+          alt: Dynamic Large Concept Models (DLCM) present a hierarchical architecture designed to improve upon traditional
+            LLMs by moving beyond inefficient, uniform token-level processing. Instead of predicting the next subword token
+            or a fixed number of tokens, DLCM dynamically generates the next concepts using adaptive boundaries and an end-to-end
+            training approach.This dynamic and rational allocation of computational resources enables DLCM to reduce inference
+            FLOPs by 34% compared to standard dense transformer architectures. The efficiency gains become more pronounced
+            as model size and context length increase.
+          tags:
+          - thread
+    - id: bundle-1767456430061-sgmot9ifn
+      items:
+      - id: evaluating-parameter-efficient-methods-for-rlvr-zhejiang-university
+        url: https://www.alphaxiv.org/abs/2512.23165
+        assets:
+        - type: image
+          source: evaluating-parameter-efficient-methods-for-rlvr-zhejiang-university.webp
+          url: https://www.alphaxiv.org/abs/2512.23165
+          alt: This paper systematically evaluates over 12 Parameter-Efficient Fine-Tuning (PEFT) methods for Reinforcement
+            Learning with Verifiable Rewards (RLVR) on mathematical reasoning benchmarks using DeepSeek-R1-Distill models.
+            The study questions the default use of LoRA, showing that structural variants like DoRA, AdaLoRA, and MiSS consistently
+            outperform it. The research also identifies a "spectral collapse" in SVD-informed methods (e.g., PiSSA, MiLoRA)
+            due to misalignment between principal-component updates and RL optimization, and reveals that extreme parameter
+            reduction (e.g., VeRA, Rank-1) significantly harms reasoning performance.Through ablation and scaling experiments,
+            the authors provide guidance for selecting PEFT methods in RLVR, advocating for exploration beyond established
+            defaults. The paper offers code (PeRL), checkpoints, and experiment logs for reproducibility and further research.
+      - id: evaluating-parameter-efficient-methods-for-rlvr
+        url: https://x.com/MikaStars39/status/2006264256795464108
+        assets:
+        - type: image
+          source: evaluating-parameter-efficient-methods-for-rlvr.webp
+          url: https://x.com/MikaStars39/status/2006264256795464108
+          alt: Standard LoRA is not the optimal parameter-efficient fine-tuning (PEFT) method for Reinforcement Learning via
+            Reward (RLVR) tasks. In a large-scale evaluation using the DeepSeek-R1-Distill models on complex mathematical
+            reasoning, structural variants such as DoRA, AdaLoRA, and MiSS consistently outperform standard LoRA, with DoRA
+            achieving even higher accuracy than full-parameter fine-tuning. Methods relying on SVD-based initialization (e.g.,
+            PiSSA, MiLORA) suffer from performance drops or training collapse due to "spectral misalignment," as RLVR operates
+            outside principal components.The study also finds that while RLVR tolerates some parameter reduction, excessive
+            compression (e.g., VeRA, IA³, Rank-1 adapters) harms performance due to limited model capacity. The authors recommend
+            moving beyond default LoRA usage, favoring geometry-aware adapters like DoRA, and avoiding SVD-initialized methods
+            for RL tasks.
+    - id: bundle-125b237e0d66
+      items:
+      - id: recursive-language-models-mit-csail
+        url: https://arxiv.org/pdf/2512.24601
+        assets:
+        - type: image
+          source: recursive-language-models-mit-csail.webp
+          url: https://arxiv.org/pdf/2512.24601
+          alt: The paper introduces Recursive Language Models (RLMs), a novel inference strategy that enables large language
+            models (LLMs) to process prompts far longer than their native context windows by recursively decomposing and processing
+            input snippets. RLMs treat long prompts as an external environment, allowing the model to programmatically examine
+            and call itself over sections of the input, thus overcoming limitations like context rot and finite context length.Empirical
+            results show that RLMs can handle inputs up to two orders of magnitude larger than standard LLMs, maintaining
+            strong performance even as input length and task complexity increase. Across four diverse long-context tasks,
+            RLMs significantly outperform standard LLMs and common long-context methods, with comparable or lower per-query
+            costs.
+      - id: recursive-language-models-rlms-full-paper
+        url: https://x.com/a1zhang/status/2007198916073136152
+        assets:
+        - type: image
+          source: recursive-language-models-rlms-full-paper.webp
+          url: https://x.com/a1zhang/status/2007198916073136152
+          alt: Recursive Language Models (RLMs) represent a significant advancement anticipated for 2026, building on the
+            shift from traditional language models to reasoning models in 2025. RLMs enhance model capabilities by enabling
+            them to treat their own prompts as manipulable objects within an external environment, allowing for dynamic code
+            generation that invokes LLMs.A comprehensive paper detailing RLMs and presenting expanded experimental results
+            is now available, offering deeper insights beyond the initial announcement made in October 2025.
+          tags:
+          - thread
+  - name: Blogs
+    items:
+    - id: recursive-language-models-the-paradigm-of-2026
+      url: https://www.primeintellect.ai/blog/rlm
+      assets:
+      - type: image
+        source: recursive-language-models-the-paradigm-of-2026.webp
+        url: https://www.primeintellect.ai/blog/rlm
+        alt: Prime Intellect introduces Recursive Language Models (RLMs) as a new paradigm for handling extremely long contexts
+          in LLM agents, enabling them to autonomously manage, compress, and reason over vast input data through scaffolding
+          and context folding. Unlike traditional approaches that rely on external summaries or file-based scaffolding, RLMs
+          leverage a persistent Python REPL and sub-LLMs to actively manipulate context, delegate tasks, and avoid information
+          loss, demonstrating improved performance and efficiency in long-horizon reasoning tasks across various benchmarks
+          and environments.Extensive experiments comparing RLMs to standard LLMs show that RLM scaffolding significantly boosts
+          performance and token efficiency, especially in long-context and tool-intensive tasks, though results vary by domain
+          and model. The article concludes that while RLMs do not universally outperform baseline models, their true potential
+          will be unlocked with further reinforcement learning-based training. Future work includes deeper recursion, user-defined
+          tools, multimodal support, and direct training of models to natively use the RLM framework.
+    - id: welcome-to-gas-town
+      url: https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04
+      assets:
+      - type: image
+        source: welcome-to-gas-town.webp
+        url: https://steve-yegge.medium.com/welcome-to-gas-town-4f25ee16dd04
+        alt: '**Summary**Steve Yegge introduces "Gas Town," a new AI agent orchestrator designed to manage swarms of coding
+          agents (like Claude Code and similar tools) for large-scale, high-velocity software development. Gas Town builds
+          on his earlier "Beads" project (a Git-backed issue tracker) and uses a tmux-based UI to coordinate up to 20–30 agents
+          simultaneously, each playing specific roles (Mayor, Polecats, Refinery, Witness, Deacon, Dogs, Crew) in a town/rig
+          structure. The system centers on molecular workflows ("MEOW stack": Beads, Epics, Molecules, Protomolecules, and
+          Formulas) to break down and track work, ensure durability across agent crashes, and enable continuous, autonomous
+          progress—even if the process is chaotic and expensive.Yegge warns that Gas Town is experimental, complex, and intended
+          only for highly advanced users already comfortable juggling multiple agent instances. Key innovations include the
+          Gastown Universal Propulsion Principle (GUPP) for persistent workflow execution, "wisps" for ephemeral orchestration,
+          and a plugin architecture for extensibility. Comparisons are drawn to Kubernetes and Temporal, but Gas Town focuses
+          on completion rather than uptime. The project aims to redefine how coding agents collaborate, with future plans
+          for federation, GUIs, and a marketplace for workflow templates.'
+    - id: qwen-code-v0-6-0-release
+      url: https://x.com/Alibaba_Qwen/status/2006025958055346222
+      assets:
+      - type: video
+        source: qwen-code-v0-6-0-release-1.mp4
+        url: https://x.com/Alibaba_Qwen/status/2006025958055346222
+      - type: image
+        source: qwen-code-v0-6-0-release.webp
+        url: https://x.com/Alibaba_Qwen/status/2006025958055346222
+        alt: Qwen Code v0.6.0 introduces several major updates, including the new experimental Skills feature for enhanced
+          capabilities, improved VS Code extension descriptions, and support for /compress and /summary commands for non-interactive
+          use. The release also adds multi-provider support with Gemini and Anthropic integration, along with normalized authentication
+          configuration.Additional enhancements focus on reliability and usability, such as fixing flaky integration tests,
+          improving Windows compatibility, updating OAuth for Figma MCP server, and streamlining SDK release workflows. Documentation
+          has been clarified for quicker onboarding. To get started, install via npm with `npm install -g @qwen-code/qwen-code@latest`.
+    - id: warpgrep-github-repo-search
+      url: https://x.com/morphllm/status/2005421077728772269
+      assets:
+      - type: image
+        source: warpgrep-github-repo-search.webp
+        url: https://x.com/morphllm/status/2005421077728772269
+        alt: WarpGrep has eliminated authentication requirements, allowing users to freely inquire about any GitHub repository
+          using its service. The WarpGrep playground provides an interactive space for users to experiment and engage with
+          repository queries without restrictions.This update emphasizes increased accessibility and ease of use, enabling
+          broader participation and exploration of GitHub repositories through WarpGrep’s platform.
+  - name: Opinion
+    items:
+    - id: a-guide-to-claude-code-2-0-and-coding-agents-bearblog
+      url: https://sankalp.bearblog.dev/my-experience-with-claude-code-20-and-how-to-get-better-at-using-coding-agents/
+      assets:
+      - type: image
+        source: a-guide-to-claude-code-2-0-and-coding-agents-bearblog.webp
+        url: https://sankalp.bearblog.dev/my-experience-with-claude-code-20-and-how-to-get-better-at-using-coding-agents/
+        alt: This blog post provides an in-depth guide to using Claude Code 2.0, focusing on best practices for leveraging
+          coding agents and managing context effectively. It covers the evolution of Claude Code, key features (such as commands,
+          sub-agents, syntax highlighting, checkpointing, and prompt suggestions), and compares Claude Code with other tools
+          like OpenAI Codex. The author shares personal workflows, emphasizing the importance of context engineering, tool
+          calling, and agentic capabilities for achieving efficient coding and automation tasks. The post also explains advanced
+          concepts such as hooks, skills, plugins, and MCP servers, offering tips on how to customize and optimize agent behavior.Throughout,
+          the author discusses how rapid advancements in LLMs and coding agents are transforming developer workflows, highlighting
+          strategies for staying up-to-date, augmenting skills, and building intuition through experimentation. The guide
+          is intended for both technical and "technically-lite" users, aiming to demystify agent architecture, context management,
+          and collaborative AI-powered development.
+    - id: hyperengineering-ai-agents-meme
+      url: https://x.com/jefftangx/status/2007230663553151281
+      assets:
+      - type: image
+        source: hyperengineering-ai-agents-meme.webp
+        url: https://x.com/jefftangx/status/2007230663553151281
+        alt: A group of developers humorously discuss their rapid adoption of cutting-edge AI agent orchestration tools, referencing
+          fictional and real technologies like Beads, Gas Town, and advanced coding agents. They describe automating complex
+          tasks—such as setting up businesses and sending messages—using a comically elaborate stack of SSH, Tailscale, Tmux,
+          and multiple programming languages, with increasingly absurd levels of engineering and token consumption.The text
+          satirizes the fast-paced, often convoluted nature of AI and software development, exaggerating the competition to
+          push technological limits. It suggests that staying ahead requires constant innovation and massive computational
+          resources, playfully warning that the field will become even more intense by 2026.
+    - id: vibe-coding-jupyter-extension-experiment
+      url: https://x.com/HamelHusain/status/2006440720001835135
+      assets:
+      - type: image
+        source: vibe-coding-jupyter-extension-experiment.webp
+        url: https://x.com/HamelHusain/status/2006440720001835135
+        alt: The author shares their experience experimenting with "vibe coding"—developing software with minimal direct code
+          interaction—using AI agents to replicate features from the Solve-It platform as a Jupyter extension. They highlight
+          the importance of providing the AI with custom testing tools and workflows, using AI to create and maintain a comprehensive
+          test suite, and actively monitoring the AI's output for problematic coding patterns.Despite initial skepticism,
+          the author was impressed by the rapid progress enabled by these techniques but emphasizes that this approach does
+          not make SaaS (Software as a Service) obsolete. They argue that the complexity and ongoing maintenance of feature-rich
+          software are better handled by dedicated teams, rather than individuals constantly managing and tuning AI-generated
+          solutions.
+        tags:
+        - thread
+    - id: boris-shows-claude-code-setup
+      url: https://x.com/bcherny/status/2007179832300581177
+      assets:
+      - type: image
+        source: boris-shows-claude-code-setup.webp
+        url: https://x.com/bcherny/status/2007179832300581177
+        alt: Boris, the creator of Claude Code, shares insights into his personal setup and usage of the tool. He emphasizes
+          that his approach is fairly standard, as Claude Code is effective without significant customization.He highlights
+          the flexibility of Claude Code, noting that it is designed for users to adapt and personalize as they wish. Each
+          team member has their own unique workflow, and there is no single correct way to use the tool.
+        tags:
+        - thread
+    - id: 10x-claude-code-lsp-hooks-subagents-voice-loops
+      url: https://x.com/EricBuess/status/2006132522468454681
+      assets:
+      - type: image
+        source: 10x-claude-code-lsp-hooks-subagents-voice-loops.webp
+        url: https://x.com/EricBuess/status/2006132522468454681
+        alt: The text highlights an advanced approach to using Claude Code by integrating features such as Language Server
+          Protocol (LSP), hooks, subagents, adversarial validations, Ralph Wiggum loops, and two-way voice (speech-to-text/text-to-speech)
+          loops. This combination is described as delivering a significantly enhanced ("10x") coding experience.It encourages
+          users to go beyond the default Claude Code harness, suggesting that more powerful capabilities are possible if users
+          actively expand and customize their setup.
+    - id: deepspeedzeroredundancyoptimizerimprovingmemoryefficiencyforlargescaledeeplearningmicrosoft
+      url: https://x.com/manthanguptaa/status/2006948885898617116
+      assets:
+      - type: image
+        source: deepspeedzeroredundancyoptimizerimprovingmemoryefficiencyforlargescaledeeplearningmicrosoft.webp
+        url: https://x.com/manthanguptaa/status/2006948885898617116
+        alt: Sure! However, I am unable to access external links directly, including the one you provided. If you paste the
+          transcribed text from the image here, I'll be happy to generate a concise summary following your rules.
+    - id: google-deepmind-alphago-parallel-verification-loops
+      url: https://x.com/aiwithjainam/status/2005629090943193552
+      assets:
+      - type: image
+        source: google-deepmind-alphago-parallel-verification-loops.webp
+        url: https://x.com/aiwithjainam/status/2005629090943193552
+        alt: Google DeepMind has revealed that their AlphaGo team achieves superior AI reasoning not by using traditional
+          chain-of-thought methods but through parallel verification loops. This approach challenges and outperforms many
+          established "advanced reasoning" techniques commonly used in AI development.The discovery suggests a fundamental
+          shift in how AI reasoning should be approached, emphasizing the effectiveness of parallel processes over sequential
+          thought chains. This insight may prompt a reevaluation of current strategies in the field.
+        tags:
+        - thread
+    - id: towards-real-time-object-detection-on-mobile-platforms-google
+      url: https://x.com/andruyeung/status/2006857903542775980
+      assets:
+      - type: image
+        source: towards-real-time-object-detection-on-mobile-platforms-google.webp
+        url: https://x.com/andruyeung/status/2006857903542775980
+        alt: The main content discusses the recent developments and highlights in a particular field or event, focusing on
+          significant achievements, updates, or announcements. It provides an overview of key points, emphasizing the impact
+          and relevance of these updates for the intended audience.Additionally, the content offers insights into future directions,
+          upcoming opportunities, or related resources, encouraging readers to stay informed and engaged with ongoing trends
+          and advancements.
+    - id: on-the-interplay-of-pre-training-mid-training-and-rl-on-reasoning-language-models
+      url: https://x.com/rasbt/status/2007122635507880251
+      assets:
+      - type: image
+        source: on-the-interplay-of-pre-training-mid-training-and-rl-on-reasoning-language-models.webp
+        url: https://x.com/rasbt/status/2007122635507880251
+        alt: A recent paper explores how reinforcement learning (RL) interacts with pre-training and mid-training in reasoning
+          language models. It finds that RL is most beneficial when applied to data that is moderately different from the
+          pre-training distribution—neither too similar nor too dissimilar.If RL is used on data very similar to the pre-training
+          set, it offers minimal improvements over supervised training. Conversely, if applied to data that is too different,
+          RL becomes ineffective due to insufficient model priors. The study formalizes these insights with empirical results
+          and visualizations.
+    - id: deeplearningmodelsfornaturallanguageunderstanding-stanford
+      url: https://x.com/rasbt/status/2006015301717028989
+      assets:
+      - type: image
+        source: deeplearningmodelsfornaturallanguageunderstanding-stanford.webp
+        url: https://x.com/rasbt/status/2006015301717028989
+        alt: Sure! However, the link provided ([https://t.co/GV9DTkesul](https://t.co/GV9DTkesul)) appears to be a URL shortener
+          and does not contain direct transcription text. If you have the transcribed content or specific text from the image,
+          please provide it so I can generate a concise summary following your rules.If you paste the transcription, I’ll
+          be happy to help!
+    - id: 2025-the-year-in-llms-simon-willison
+      url: https://simonwillison.net/2025/Dec/31/the-year-in-llms/
+      assets:
+      - type: image
+        source: 2025-the-year-in-llms-simon-willison.webp
+        url: https://simonwillison.net/2025/Dec/31/the-year-in-llms/
+        alt: 'Simon Willison’s “2025: The year in LLMs” reviews major trends and milestones in the world of large language
+          models (LLMs) over the past year. Key developments include the widespread adoption of “reasoning” models using Reinforcement
+          Learning from Verifiable Rewards (RLVR), the practical arrival of coding and general-purpose agents, the rise of
+          advanced command-line LLM tools (notably Claude Code and Codex CLI), and the normalization of high-priced AI subscriptions.
+          Notably, Chinese open weight models surged to the top of benchmark charts, while local models improved but still
+          lagged behind cloud-based frontier models in multi-step tasks and tool use. Other highlights include the explosion
+          of prompt-driven image editing (especially Google’s “Nano Banana”), LLMs achieving gold medals in academic competitions,
+          and the solidifying of “vibe coding” as a new AI-assisted workflow.The review also documents shifting leadership
+          among AI labs, with OpenAI losing its clear lead to competitors like Google’s Gemini and Chinese labs, and Meta’s
+          Llama losing relevance. Simon discusses evolving security concerns—such as prompt injection and the “lethal trifecta”—and
+          the growing backlash against the environmental impact of data centers. He shares reflections on his own work, including
+          building 110 AI-assisted tools, programming increasingly on mobile devices, and the emergence of new terminology
+          like “slop” and “context rot.” The piece closes with optimism about the potential of conformance suites for new
+          technologies and continued rapid innovation in the LLM space.'

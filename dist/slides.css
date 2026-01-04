@@ -29,7 +29,8 @@
   --duration-fast: 150ms;
   --duration-normal: 200ms;
   --duration-slow: 300ms;
-  --duration-section: 280ms;
+  --duration-section: 400ms;
+  --duration-bundle: 250ms;
 
   /* Spacing */
   --tab-bar-height: 56px;
@@ -585,16 +586,16 @@ html, body {
   /* No brightness or filter changes - keep it "flat" */
 }
 
-/* Between Posts: 95% dim with micro-settle */
+/* Between Posts: 90% dim with micro-settle + thin edge flash */
 .slide.transition-posts {
   transition:
-    opacity var(--duration-normal) var(--ease-out),
-    transform var(--duration-normal) var(--ease-out),
-    filter var(--duration-normal) var(--ease-out);
+    opacity var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out),
+    filter var(--duration-fast) var(--ease-out);
 }
 
 .slide.transition-posts.transitioning-out {
-  filter: brightness(0.95);
+  filter: brightness(0.9);
 }
 
 .slide.transition-posts.active {
@@ -606,64 +607,155 @@ html, body {
   transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Between Groups: Same as posts + edge flash + sheen handled in JS */
-.slide.transition-groups {
+/* ==========================================================================
+   Bundle Stack Effect - Posts stack behind current
+   ========================================================================== */
+
+/* Stacked post: visible behind current, dimmed + scaled + offset */
+.slide.stacked {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0) scale(0.94) translateY(8px);
+  filter: brightness(0.5);
+  z-index: 5;
   transition:
     opacity var(--duration-normal) var(--ease-out),
     transform var(--duration-normal) var(--ease-out),
     filter var(--duration-normal) var(--ease-out);
 }
 
-.slide.transition-groups.transitioning-out {
-  filter: brightness(0.95);
+/* Multiple stacked posts get progressively more dimmed/scaled */
+.slide.stacked.stack-depth-2 {
+  transform: translateX(0) scale(0.90) translateY(14px);
+  filter: brightness(0.35);
+  z-index: 4;
 }
 
-/* Section via Horizontal: Keep horizontal motion + axis hint */
+.slide.stacked.stack-depth-3 {
+  transform: translateX(0) scale(0.86) translateY(20px);
+  filter: brightness(0.25);
+  z-index: 3;
+}
+
+.slide.stacked.stack-depth-4 {
+  transform: translateX(0) scale(0.82) translateY(26px);
+  filter: brightness(0.15);
+  z-index: 2;
+}
+
+/* Un-stacking animation: slide rises up and brightens */
+.slide.unstacking {
+  transition:
+    opacity var(--duration-normal) var(--ease-out),
+    transform var(--duration-normal) var(--ease-out),
+    filter var(--duration-normal) var(--ease-out);
+}
+
+/* Stack fade out: all stacked posts fade together when leaving bundle */
+.slide.stack-fade-out {
+  opacity: 0;
+  filter: brightness(0.3);
+  transition:
+    opacity var(--duration-normal) var(--ease-out),
+    filter var(--duration-normal) var(--ease-out);
+}
+
+/* Active slide in stack context has higher z-index */
+.slide.active.stack-top {
+  z-index: 15;
+}
+
+/* Between Groups/Bundles: 80% dim + thick edge glow + micro-zoom */
+.slide.transition-groups {
+  transition:
+    opacity var(--duration-bundle) var(--ease-out),
+    transform var(--duration-bundle) var(--ease-out),
+    filter var(--duration-bundle) var(--ease-out);
+}
+
+.slide.transition-groups.transitioning-out {
+  filter: brightness(0.8);
+}
+
+.slide.transition-groups.active {
+  transform: translateX(0) scale(1);
+}
+
+.slide.transition-groups.scale-enter {
+  transform: translateX(0) scale(0.98);
+  animation: bundleScaleSettle var(--duration-bundle) var(--ease-out) forwards;
+}
+
+@keyframes bundleScaleSettle {
+  from {
+    transform: translateX(0) scale(0.98);
+  }
+  to {
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* Section via Horizontal: Keep horizontal motion + overlay + scale */
 .slide.transition-section-horizontal {
   transition:
-    opacity 220ms var(--ease-out),
-    transform 220ms var(--ease-out),
-    filter 220ms var(--ease-out);
+    opacity var(--duration-section) var(--ease-in-out),
+    transform var(--duration-section) var(--ease-in-out),
+    filter var(--duration-section) var(--ease-in-out);
 }
 
 .slide.transition-section-horizontal.transitioning-out {
-  filter: brightness(0.95);
+  filter: brightness(0.6);
+}
+
+/* Section horizontal with scale entrance */
+.slide.transition-section-horizontal.scale-enter {
+  transform: translateX(0) scale(0.96);
+  animation: sectionScaleSettle var(--duration-section) var(--ease-in-out) forwards;
+}
+
+@keyframes sectionScaleSettle {
+  from {
+    transform: translateX(0) scale(0.96);
+  }
+  to {
+    transform: translateX(0) scale(1);
+  }
 }
 
 /* Axis hint: Micro-drift to foreshadow section boundary */
 .slide.axis-hint-up {
-  animation: axisHintUp 220ms var(--ease-out) forwards;
+  animation: axisHintUp var(--duration-section) var(--ease-in-out) forwards;
 }
 
 .slide.axis-hint-down {
-  animation: axisHintDown 220ms var(--ease-out) forwards;
+  animation: axisHintDown var(--duration-section) var(--ease-in-out) forwards;
 }
 
 @keyframes axisHintUp {
   0% {
-    transform: translateX(100%) translateY(0);
+    transform: translateX(100%) translateY(0) scale(0.96);
   }
-  70% {
-    transform: translateX(0) translateY(0);
+  60% {
+    transform: translateX(0) translateY(0) scale(0.96);
   }
   100% {
-    transform: translateX(0) translateY(-2px);
+    transform: translateX(0) translateY(-3px) scale(1);
   }
 }
 
 @keyframes axisHintDown {
   0% {
-    transform: translateX(-100%) translateY(0);
+    transform: translateX(-100%) translateY(0) scale(0.96);
   }
-  70% {
-    transform: translateX(0) translateY(0);
+  60% {
+    transform: translateX(0) translateY(0) scale(0.96);
   }
   100% {
-    transform: translateX(0) translateY(2px);
+    transform: translateX(0) translateY(3px) scale(1);
   }
 }
 
-/* Section transition (vertical) - slowest with ease-in-out + depth swap */
+/* Section transition (vertical) - slowest with ease-in-out + scale + overlay */
 .slide.transition-section {
   transition:
     opacity var(--duration-section) var(--ease-in-out),
@@ -671,17 +763,23 @@ html, body {
     filter var(--duration-section) var(--ease-in-out);
 }
 
-/* Depth swap: Incoming slide starts with slightly lower contrast */
-.slide.depth-swap {
-  animation: depthSwap var(--duration-section) var(--ease-in-out) forwards;
+.slide.transition-section.transitioning-out {
+  filter: brightness(0.6);
 }
 
-@keyframes depthSwap {
+/* Depth swap: Incoming slide starts scaled down and settles */
+.slide.depth-swap {
+  animation: depthSwapScale var(--duration-section) var(--ease-in-out) forwards;
+}
+
+@keyframes depthSwapScale {
   0% {
-    filter: contrast(0.98) brightness(0.98);
+    transform: translateY(0) scale(0.96);
+    filter: brightness(0.9);
   }
   100% {
-    filter: contrast(1) brightness(1);
+    transform: translateY(0) scale(1);
+    filter: brightness(1);
   }
 }
 
@@ -841,10 +939,52 @@ html, body {
 
 @keyframes edgeFlash {
   0% {
-    opacity: 0.8;
+    opacity: 1;
   }
   100% {
     opacity: 0;
+  }
+}
+
+/* ==========================================================================
+   Section Transition Overlay
+   ========================================================================== */
+
+.section-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-primary);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 50;
+  transition: opacity var(--duration-section) var(--ease-in-out);
+}
+
+.section-overlay.active {
+  opacity: 0.4;
+}
+
+/* ==========================================================================
+   Active Tab Pulse Animation
+   ========================================================================== */
+
+.tab.transitioning {
+  animation: tabPulse 400ms var(--ease-out);
+}
+
+@keyframes tabPulse {
+  0% {
+    background: rgba(255, 255, 255, 0.08);
+  }
+  50% {
+    background: rgba(255, 255, 255, 0.25);
+    color: var(--text-primary);
+  }
+  100% {
+    background: rgba(255, 255, 255, 0.08);
   }
 }
 
@@ -856,7 +996,7 @@ html, body {
   position: fixed;
   top: 0;
   bottom: 0;
-  width: 60px;
+  width: 120px;
   pointer-events: none;
   z-index: 799;
   opacity: 0;
@@ -864,30 +1004,30 @@ html, body {
 
 .sheen.left {
   left: 0;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
 }
 
 .sheen.right {
   right: 0;
-  background: linear-gradient(-90deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
+  background: linear-gradient(-90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
 }
 
 .sheen.flash {
-  animation: sheenFlash 120ms ease-out forwards;
+  animation: sheenFlash 250ms ease-out forwards;
 }
 
 @keyframes sheenFlash {
   0% {
     opacity: 0;
-    transform: scaleX(0.5);
+    transform: scaleX(0.3);
   }
-  30% {
+  40% {
     opacity: 1;
     transform: scaleX(1);
   }
   100% {
     opacity: 0;
-    transform: scaleX(1.2);
+    transform: scaleX(1.3);
   }
 }
 
