@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+  <meta name="description" content="" />
+  <meta property="og:title" content="" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="" />
+
+  <title>ML NEWS / 2026 / 4th week</title>
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="dist/slides.css">
+</head>
+<body>
+  <!-- Top Edge Trigger Zone -->
+  <div id="top-trigger" aria-hidden="true"></div>
+
+  <!-- Tab Bar -->
+  <header id="tab-bar" class="collapsed">
+    <nav class="tab-bar-content">
+      <div class="tabs" id="tabs-container">
+        <!-- Tabs will be generated dynamically based on sections with content -->
+      </div>
+      <div class="slide-counter">
+        <span id="current-slide">0</span>
+        <span class="counter-separator">/</span>
+        <span id="total-slides">0</span>
+      </div>
+      <div class="tab-bar-controls">
+        <button id="filter-button" class="filter-button" title="Filter by tags" aria-label="Open tag filter">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="6" x2="20" y2="6"/>
+            <circle cx="8" cy="6" r="2" fill="currentColor"/>
+            <line x1="4" y1="12" x2="20" y2="12"/>
+            <circle cx="14" cy="12" r="2" fill="currentColor"/>
+            <line x1="4" y1="18" x2="20" y2="18"/>
+            <circle cx="10" cy="18" r="2" fill="currentColor"/>
+          </svg>
+        </button>
+        <div id="mode-toggle" class="segmented-toggle" role="group" aria-label="View mode">
+          <button id="mode-all" class="active" data-mode="all">All</button>
+          <button id="mode-personalized" data-mode="personalized">Personalized</button>
+        </div>
+        <button id="help-button" class="help-button" title="Show help" aria-label="Show navigation help">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4"/>
+            <path d="M12 8h.01"/>
+          </svg>
+        </button>
+      </div>
+    </nav>
+    <div id="progress-bar" class="progress-bar">
+      <div class="progress-fill"></div>
+      <div class="progress-sections"></div>
+    </div>
+  </header>
+
+  <!-- Tag Panel -->
+  <div id="tag-panel" aria-label="Tag filter panel">
+    <div class="tag-panel-content">
+      <div id="tag-cloud" class="tag-cloud">
+        <!-- Tag chips will be generated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Edge Flash Effects -->
+  <div id="edge-flash-left" class="edge-flash left"></div>
+  <div id="edge-flash-right" class="edge-flash right"></div>
+
+  <!-- Section Transition Overlay -->
+  <div id="section-overlay" class="section-overlay"></div>
+
+  <!-- Main Slide Container -->
+  <main id="slide-container" class="slide-container">
+    <div id="slide-track" class="slide-track">
+      <!-- Slides will be injected here -->
+    </div>
+  </main>
+
+  <!-- Navigation Arrows (optional visual cues) -->
+  <button id="nav-prev" class="nav-arrow prev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </button>
+  <button id="nav-next" class="nav-arrow next" aria-label="Next slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 6 15 12 9 18"/>
+    </svg>
+  </button>
+
+  <!-- Onboarding Overlay -->
+  <div id="onboarding" class="onboarding hidden">
+    <div class="onboarding-hints">
+      <p class="hint">Swipe <span class="arrow">←→</span> to navigate</p>
+      <p class="hint">Swipe <span class="arrow">↑↓</span> to change sections</p>
+      <p class="hint">Tap top edge to show navigation bar</p>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div id="error-state" class="error-state hidden">
+    <div class="error-content">
+      <p class="error-title">Failed to load newsletter</p>
+      <p class="error-message"></p>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div id="loading-state" class="loading-state">
+    <div class="loader"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script>
+    // Configuration can be overridden here before slides.js loads
+    window.SLIDE_CONFIG = {
+      dataUrl: 'https://pub-a487484fbe344fe49a0e3237a2c1fafc.r2.dev/slide_2026_04/2026_04_newsletter.yaml',
+      assetBasePath: 'https://pub-a487484fbe344fe49a0e3237a2c1fafc.r2.dev/slide_2026_04/'
+    };
+  </script>
+  <script type="module" src="dist/slides.min.js"></script>
+</body>
+</html>
