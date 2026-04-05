@@ -953,6 +953,30 @@ html, body {
   margin: 0 auto;
 }
 
+.youtube-subtitle-text {
+  font-family: var(--font-ui);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-align: left;
+  max-width: 800px;
+  margin: 12px auto 0;
+}
+
+.youtube-subtitle-text a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(255, 255, 255, 0.35);
+  transition: text-decoration-color 0.2s;
+}
+
+.youtube-subtitle-text a:hover {
+  text-decoration-color: rgba(255, 255, 255, 0.8);
+}
+
 /* Compact variant for smaller titles */
 .youtube-title.compact {
   padding: 24px 40px;
@@ -960,6 +984,11 @@ html, body {
 
 .youtube-title.compact .youtube-title-text {
   font-size: 22px;
+}
+
+.youtube-title.compact .youtube-subtitle-text {
+  font-size: 14px;
+  margin-top: 8px;
 }
 
 /* Centered variant */
@@ -979,6 +1008,11 @@ html, body {
 .youtube-title.centered .youtube-title-text {
   text-align: center;
   font-size: 36px;
+}
+
+.youtube-title.centered .youtube-subtitle-text {
+  text-align: center;
+  font-size: 16px;
 }
 
 /* Asset placeholder for loading/error */
