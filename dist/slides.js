@@ -114,6 +114,7 @@ const state = {
 
   // View mode: 'all' | 'personalized'
   mode: 'all',
+  customView: null,
 
   // Track if user has interacted (for autoplay unmute)
   userHasInteracted: false,
@@ -546,6 +547,11 @@ function buildSlideIndex() {
 }
 
 function updateVisibleSlides() {
+  if (state.customView) {
+    state.visibleSlides = [...state.customView.slides];
+    return;
+  }
+
   if (state.mode === 'personalized' && state.selectedTags.size > 0) {
     // Filter slides that have at least one selected tag (OR logic)
     state.visibleSlides = state.allSlides.filter(slide => {
@@ -1231,11 +1237,12 @@ function navigateHorizontal(direction) {
   let transitionType = 'betweenPosts';
   let stackAction = null; // 'push', 'pop', 'clear', or null
 
-  if (current.sectionIndex !== target.sectionIndex) {
+  if (!state.customView && current.sectionIndex !== target.sectionIndex) {
     // Section boundary crossed - clear stack
     transitionType = 'sectionHorizontal';
     stackAction = 'clear';
-  } else if (current.groupIndex !== target.groupIndex) {
+  } else if (!isInSameBundle(current, target)
+    && (isInBundle(current) || isInBundle(target))) {
     // Bundle boundary crossed - clear stack
     transitionType = 'betweenGroups';
     stackAction = 'clear';
@@ -1335,6 +1342,9 @@ function goToSection(sectionKey) {
 function goToSlide(targetIndex, direction, transitionType = 'betweenPosts', stackAction = null) {
   if (targetIndex < 0 || targetIndex >= state.visibleSlides.length) return;
   if (state.isAnimating) return;
+  if (state.customView && (transitionType === 'section' || transitionType === 'sectionHorizontal')) {
+    transitionType = 'betweenPosts';
+  }
 
   state.isAnimating = true;
 
@@ -1806,6 +1816,7 @@ function flashEdge(direction) {
  * Set the viewing mode (all or personalized).
  */
 function setMode(newMode) {
+  if (state.customView) return;
   if (newMode === state.mode) return;
   if (newMode !== 'all' && newMode !== 'personalized') return;
 
@@ -2208,7 +2219,8 @@ window.newsletterWebMCPAdapter = {
     newsletter: state.newsletter,
     currentSlide: state.visibleSlides[state.currentSlideIndex] ?? null,
     currentSlideIndex: state.currentSlideIndex,
-    isAnimating: state.isAnimating
+    isAnimating: state.isAnimating,
+    customViewActive: state.customView !== null
   }),
 
   getItem(id) {
@@ -2230,6 +2242,92 @@ window.newsletterWebMCPAdapter = {
     return null;
   },
 
+  activateCustomView(ids) {
+    if (!Array.isArray(ids) || ids.length === 0) {
+      throw new Error('At least one item ID is required');
+    }
+
+    const customSlides = [];
+    const ignoredIds = [];
+    const addedUnits = new Set();
+
+    ids.forEach(rawId => {
+      const itemId = String(rawId);
+      const matchingSlide = state.allSlides.find(
+        slide => slide.postId !== 'exit' && String(slide.postId) === itemId
+      );
+
+      if (!matchingSlide) {
+        ignoredIds.push(itemId);
+        return;
+      }
+
+      const isBundled = matchingSlide.groupIndex !== null;
+      const unitKey = isBundled
+        ? `bundle:${matchingSlide.sectionIndex}:${matchingSlide.groupIndex}`
+        : `item:${itemId}`;
+      if (addedUnits.has(unitKey)) return;
+      addedUnits.add(unitKey);
+
+      const unitSlides = state.allSlides.filter(slide => {
+        if (slide.postId === 'exit') return false;
+        if (!isBundled) return String(slide.postId) === itemId;
+        return slide.sectionIndex === matchingSlide.sectionIndex
+          && slide.groupIndex === matchingSlide.groupIndex;
+      });
+      customSlides.push(...unitSlides);
+    });
+
+    if (customSlides.length === 0) {
+      throw new Error('None of the requested item IDs exist');
+    }
+
+    const regularView = state.customView?.regularView ?? {
+      mode: state.mode,
+      selectedTags: new Set(state.selectedTags),
+      globalIndex: state.visibleSlides[state.currentSlideIndex]?.globalIndex
+    };
+    state.customView = { slides: customSlides, regularView };
+    state.currentSlideIndex = 0;
+    clearBundleStack();
+    updateVisibleSlides();
+    renderSlides();
+    updateUI();
+
+    const itemIds = [...new Set(customSlides.map(slide => String(slide.postId)))];
+    return {
+      active: true,
+      total: itemIds.length,
+      ids: itemIds,
+      ignoredIds
+    };
+  },
+
+  deactivateCustomView() {
+    if (!state.customView) {
+      return { active: false };
+    }
+
+    const { regularView } = state.customView;
+    state.customView = null;
+    state.mode = regularView.mode;
+    state.selectedTags = new Set(regularView.selectedTags);
+    updateVisibleSlides();
+
+    const restoredIndex = state.visibleSlides.findIndex(
+      slide => slide.globalIndex === regularView.globalIndex
+    );
+    state.currentSlideIndex = restoredIndex === -1 ? 0 : restoredIndex;
+    saveMode();
+    saveSelectedTags();
+    clearBundleStack();
+    renderSlides();
+    renderTagCloud();
+    updateUI();
+
+    return { active: false };
+  },
+
   next() {
     const currentIndex = state.currentSlideIndex;
     navigateHorizontal('next');
@@ -2243,6 +2341,10 @@ window.newsletterWebMCPAdapter = {
   },
 
   filter(tag) {
+    if (state.customView) {
+      throw new Error('Filtering is unavailable in custom view');
+    }
+
     const countVisibleItems = () => new Set(
       state.visibleSlides
         .filter(slide => slide.postId !== 'exit')
@@ -2289,6 +2391,7 @@ window.newsletterWebMCPAdapter = {
     );
 
     if (targetIndex === -1) {
+      if (state.customView) return false;
       if (!this.getItem(itemId)) return false;
 
       // Search covers the full issue, so reveal a result hidden by filtering.
@@ -2307,9 +2410,11 @@ window.newsletterWebMCPAdapter = {
       const currentSlide = state.visibleSlides[state.currentSlideIndex];
       const targetSlide = state.visibleSlides[targetIndex];
       const direction = targetIndex > state.currentSlideIndex ? 'next' : 'prev';
-      const transitionType = currentSlide?.sectionIndex !== targetSlide.sectionIndex
+      const transitionType = !state.customView
+        && currentSlide?.sectionIndex !== targetSlide.sectionIndex
         ? 'sectionHorizontal'
-        : currentSlide?.groupIndex !== targetSlide.groupIndex
+        : !isInSameBundle(currentSlide, targetSlide)
+          && (isInBundle(currentSlide) || isInBundle(targetSlide))
           ? 'betweenGroups'
           : 'betweenPosts';
 

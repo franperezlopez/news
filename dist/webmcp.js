@@ -269,6 +269,62 @@ export async function registerWebMCP(modelContext, adapter) {
     }),
 
     modelContext.registerTool({
+      name: "activateCustomView",
+      title: "Activate a custom ML news view",
+      description:
+        "Build and show a special issue from an ordered list of item IDs. Selecting any item in a bundle includes the complete bundle in its original order. Repeated items and bundles are deduplicated at their first requested position; unknown IDs are ignored unless none are valid.",
+      inputSchema: {
+        type: "object",
+        properties: {
+          ids: {
+            type: "array",
+            minItems: 1,
+            items: {
+              type: "string",
+              minLength: 1,
+            },
+            description:
+              "Ordered newsletter item IDs used to compose the custom view.",
+          },
+        },
+        required: ["ids"],
+        additionalProperties: false,
+      },
+      annotations: {
+        readOnlyHint: false,
+        untrustedContentHint: true,
+      },
+      execute: async ({ ids }, { signal } = {}) => {
+        await waitUntilIdle(adapter, signal);
+        const result = adapter.activateCustomView(ids);
+        const item = getCurrentItem(adapter, getCatalog(adapter));
+        return textResult({ ...result, item, tags: item?.tags ?? [] });
+      },
+    }),
+
+    modelContext.registerTool({
+      name: "deactivateCustomView",
+      title: "Deactivate the custom ML news view",
+      description:
+        "Close the special issue and restore the exact regular view, filter, and slide that were active before it was opened.",
+      inputSchema: {
+        type: "object",
+        properties: {},
+        additionalProperties: false,
+      },
+      annotations: {
+        readOnlyHint: false,
+        untrustedContentHint: true,
+      },
+      execute: async (_, { signal } = {}) => {
+        await waitUntilIdle(adapter, signal);
+        const result = adapter.deactivateCustomView();
+        const item = getCurrentItem(adapter, getCatalog(adapter));
+        return textResult({ ...result, item, tags: item?.tags ?? [] });
+      },
+    }),
+
+    modelContext.registerTool({
       name: "show",
       title: "Show an ML news item",
       description:
