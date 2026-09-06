@@ -47,7 +47,6 @@ if (window.SLIDE_CONFIG) {
 const VISUAL_PRIMITIVES = {
   // Duration primitives (ms)
   durations: {
-    withinPost: 150,
     betweenPosts: 150,
     betweenGroups: 250,   // Bundle transitions
     betweenSections: 400, // Section transitions
@@ -91,13 +90,12 @@ const VISUAL_PRIMITIVES = {
 // Helper to get duration for transition type
 function getTransitionDuration(type) {
   const durationMap = {
-    withinPost: VISUAL_PRIMITIVES.durations.withinPost,
     betweenPosts: VISUAL_PRIMITIVES.durations.betweenPosts,
     betweenGroups: VISUAL_PRIMITIVES.durations.betweenGroups,
     section: VISUAL_PRIMITIVES.durations.betweenSections,
     sectionHorizontal: VISUAL_PRIMITIVES.durations.betweenSections,
   };
-  return durationMap[type] || VISUAL_PRIMITIVES.durations.withinPost;
+  return durationMap[type] || VISUAL_PRIMITIVES.durations.betweenPosts;
 }
 
 // ==========================================================================
@@ -116,6 +114,9 @@ const state = {
 
   // View mode: 'all' | 'personalized'
   mode: 'all',
+
+  // Track if user has interacted (for autoplay unmute)
+  userHasInteracted: false,
 
   // Tag system
   allTags: new Set(),       // All unique tags in the newsletter
@@ -152,6 +153,7 @@ const dom = {
   modeToggle: null,
   modeAllBtn: null,
   modePersonalizedBtn: null,
+  helpButton: null,
   filterButton: null,
   tagPanel: null,
   tagCloud: null,
@@ -206,6 +208,7 @@ function cacheDOMReferences() {
   dom.modeToggle = document.getElementById('mode-toggle');
   dom.modeAllBtn = document.getElementById('mode-all');
   dom.modePersonalizedBtn = document.getElementById('mode-personalized');
+  dom.helpButton = document.getElementById('help-button');
   dom.filterButton = document.getElementById('filter-button');
   dom.tagPanel = document.getElementById('tag-panel');
   dom.tagCloud = document.getElementById('tag-cloud');
@@ -326,17 +329,40 @@ function buildSlideIndex() {
 
       if (isPost) {
         // Non-bundled post at section level
-        const postStartIndex = globalIndex;
-        const postAssetCount = item.assets?.length || 0;
-
-        item.assets?.forEach((asset, assetIndex) => {
+        const processedAssets = item.assets?.map((asset) => {
           // Handle source path - strip 'assets/' prefix if present since files
           // are directly in the base directory
-          let sourcePath = asset.source;
-          if (sourcePath.startsWith('assets/')) {
-            sourcePath = sourcePath.slice(7); // Remove 'assets/' prefix
+          // Note: HTML assets don't have a source field
+          let processedAsset = { ...asset };
+
+          // Normalize asset type to lowercase for consistent comparison
+          if (processedAsset.type) {
+            processedAsset.type = processedAsset.type.toLowerCase();
           }
 
+          if (asset.source) {
+            let sourcePath = asset.source;
+            if (sourcePath.startsWith('assets/')) {
+              sourcePath = sourcePath.slice(7); // Remove 'assets/' prefix
+            }
+            processedAsset.source = CONFIG.assetBasePath + sourcePath;
+          }
+          return processedAsset;
+        }) || [];
+
+        // Separate video and non-video assets
+        const videoAssets = processedAssets.filter(a => a.type === 'video');
+        const nonVideoAssets = processedAssets.filter(a => a.type !== 'video');
+
+        const postStartIndex = globalIndex;
+
+        // If we have both videos and non-video assets, create separate slides
+        if (videoAssets.length > 0 && nonVideoAssets.length > 0) {
+          // Total slides = 1 (for all videos) + number of non-video assets
+          const totalSlides = 1 + nonVideoAssets.length;
+          const postEndIndex = postStartIndex + totalSlides - 1;
+
+          // First slide: all video assets
           slides.push({
             sectionIndex,
             sectionName: section.name,
@@ -344,37 +370,90 @@ function buildSlideIndex() {
             groupIndex: null,  // Not in a group
             postIndex: itemIndex,
             postId: item.id,
-            postUrl: asset.url || item.url,  // Use asset.url if available, fallback to post.url
-            assetIndex,
-            asset: {
-              ...asset,
-              source: CONFIG.assetBasePath + sourcePath
-            },
+            postUrl: item.url,
+            assets: videoAssets,
             globalIndex: globalIndex,
-            // Store post boundaries for video activation range
             postStartIndex: postStartIndex,
-            postEndIndex: postStartIndex + postAssetCount - 1,
-            isHighlight: asset.tags?.includes('highlight') ?? false
+            postEndIndex: postEndIndex,
+            isHighlight: videoAssets.some(a => a.tags?.includes('highlight')) ?? false
           });
-
           globalIndex++;
-        });
+
+          // Subsequent slides: one per non-video asset
+          nonVideoAssets.forEach((asset, idx) => {
+            slides.push({
+              sectionIndex,
+              sectionName: section.name,
+              sectionKey: sectionName,
+              groupIndex: null,
+              postIndex: itemIndex,
+              postId: item.id,
+              postUrl: item.url,
+              assets: [asset],
+              globalIndex: globalIndex,
+              postStartIndex: postStartIndex,
+              postEndIndex: postEndIndex,
+              isHighlight: asset.tags?.includes('highlight') ?? false
+            });
+            globalIndex++;
+          });
+        } else {
+          // No mix of videos and non-videos: create one slide with all assets
+          slides.push({
+            sectionIndex,
+            sectionName: section.name,
+            sectionKey: sectionName,
+            groupIndex: null,  // Not in a group
+            postIndex: itemIndex,
+            postId: item.id,
+            postUrl: item.url,
+            assets: processedAssets,
+            globalIndex: globalIndex,
+            postStartIndex: globalIndex,
+            postEndIndex: globalIndex,
+            isHighlight: processedAssets.some(a => a.tags?.includes('highlight')) ?? false
+          });
+          globalIndex++;
+        }
       } else if (isGroup) {
-        // Bundled group
+        // Bundled group - create slides for each post
         const groupIndex = itemIndex;
 
         item.items?.forEach((post, postIndex) => {
-          const postStartIndex = globalIndex;
-          const postAssetCount = post.assets?.length || 0;
-
-          post.assets?.forEach((asset, assetIndex) => {
+          const processedAssets = post.assets?.map((asset) => {
             // Handle source path - strip 'assets/' prefix if present since files
             // are directly in the base directory
-            let sourcePath = asset.source;
-            if (sourcePath.startsWith('assets/')) {
-              sourcePath = sourcePath.slice(7); // Remove 'assets/' prefix
+            // Note: HTML assets don't have a source field
+            let processedAsset = { ...asset };
+
+            // Normalize asset type to lowercase for consistent comparison
+            if (processedAsset.type) {
+              processedAsset.type = processedAsset.type.toLowerCase();
             }
 
+            if (asset.source) {
+              let sourcePath = asset.source;
+              if (sourcePath.startsWith('assets/')) {
+                sourcePath = sourcePath.slice(7); // Remove 'assets/' prefix
+              }
+              processedAsset.source = CONFIG.assetBasePath + sourcePath;
+            }
+            return processedAsset;
+          }) || [];
+
+          // Separate video and non-video assets
+          const videoAssets = processedAssets.filter(a => a.type === 'video');
+          const nonVideoAssets = processedAssets.filter(a => a.type !== 'video');
+
+          const postStartIndex = globalIndex;
+
+          // If we have both videos and non-video assets, create separate slides
+          if (videoAssets.length > 0 && nonVideoAssets.length > 0) {
+            // Total slides = 1 (for all videos) + number of non-video assets
+            const totalSlides = 1 + nonVideoAssets.length;
+            const postEndIndex = postStartIndex + totalSlides - 1;
+
+            // First slide: all video assets
             slides.push({
               sectionIndex,
               sectionName: section.name,
@@ -382,21 +461,51 @@ function buildSlideIndex() {
               groupIndex,
               postIndex,
               postId: post.id,
-              postUrl: asset.url || post.url,  // Use asset.url if available, fallback to post.url
-              assetIndex,
-              asset: {
-                ...asset,
-                source: CONFIG.assetBasePath + sourcePath
-              },
+              postUrl: post.url,
+              assets: videoAssets,
               globalIndex: globalIndex,
-              // Store post boundaries for video activation range
               postStartIndex: postStartIndex,
-              postEndIndex: postStartIndex + postAssetCount - 1,
-              isHighlight: asset.tags?.includes('highlight') ?? false
+              postEndIndex: postEndIndex,
+              isHighlight: videoAssets.some(a => a.tags?.includes('highlight')) ?? false
             });
-
             globalIndex++;
-          });
+
+            // Subsequent slides: one per non-video asset
+            nonVideoAssets.forEach((asset, idx) => {
+              slides.push({
+                sectionIndex,
+                sectionName: section.name,
+                sectionKey: sectionName,
+                groupIndex,
+                postIndex,
+                postId: post.id,
+                postUrl: post.url,
+                assets: [asset],
+                globalIndex: globalIndex,
+                postStartIndex: postStartIndex,
+                postEndIndex: postEndIndex,
+                isHighlight: asset.tags?.includes('highlight') ?? false
+              });
+              globalIndex++;
+            });
+          } else {
+            // No mix of videos and non-videos: create one slide with all assets
+            slides.push({
+              sectionIndex,
+              sectionName: section.name,
+              sectionKey: sectionName,
+              groupIndex,
+              postIndex,
+              postId: post.id,
+              postUrl: post.url,
+              assets: processedAssets,
+              globalIndex: globalIndex,
+              postStartIndex: globalIndex,
+              postEndIndex: globalIndex,
+              isHighlight: processedAssets.some(a => a.tags?.includes('highlight')) ?? false
+            });
+            globalIndex++;
+          }
         });
       }
     });
@@ -412,8 +521,7 @@ function buildSlideIndex() {
     postIndex: 0,
     postId: 'exit',
     postUrl: null,
-    assetIndex: 0,
-    asset: {
+    assets: [{
       type: 'html',
       html: `
         <div class="exit-slide-content">
@@ -426,7 +534,7 @@ function buildSlideIndex() {
           </div>
         </div>
       `
-    },
+    }],
     globalIndex: globalIndex,
     postStartIndex: globalIndex,
     postEndIndex: globalIndex,
@@ -441,11 +549,14 @@ function updateVisibleSlides() {
   if (state.mode === 'personalized' && state.selectedTags.size > 0) {
     // Filter slides that have at least one selected tag (OR logic)
     state.visibleSlides = state.allSlides.filter(slide => {
-      const slideTags = getSlideTagsSet(slide);
-      // Check if any selected tag is present in slide's tags
-      for (const tag of state.selectedTags) {
-        if (slideTags.has(tag)) {
-          return true;
+      // Check if any asset in the slide has a selected tag
+      for (const asset of slide.assets) {
+        if (asset.tags && Array.isArray(asset.tags)) {
+          for (const tag of state.selectedTags) {
+            if (asset.tags.map(t => t.toLowerCase()).includes(tag)) {
+              return true;
+            }
+          }
         }
       }
       return false;
@@ -466,31 +577,38 @@ function updateVisibleSlides() {
 // ==========================================================================
 
 /**
- * Check if a video is the last video in its group.
+ * Check if a slide contains any video assets.
  */
-function isLastVideoInGroup(videoSlide, videoIndex) {
+function slideHasVideo(slide) {
+  return slide.assets.some(asset => asset.type === 'video');
+}
+
+/**
+ * Check if a slide is the last slide with video in its group.
+ */
+function isLastVideoSlideInGroup(slide, slideIndex) {
   // Standalone posts (not in a group) don't have this concept
-  if (videoSlide.groupIndex === null) {
+  if (slide.groupIndex === null) {
     return false;
   }
 
-  // Look ahead for any more videos in the same group
-  for (let i = videoIndex + 1; i < state.visibleSlides.length; i++) {
-    const slide = state.visibleSlides[i];
+  // Look ahead for any more slides with video in the same group
+  for (let i = slideIndex + 1; i < state.visibleSlides.length; i++) {
+    const nextSlide = state.visibleSlides[i];
 
     // Left the group
-    if (slide.sectionIndex !== videoSlide.sectionIndex ||
-        slide.groupIndex !== videoSlide.groupIndex) {
+    if (nextSlide.sectionIndex !== slide.sectionIndex ||
+        nextSlide.groupIndex !== slide.groupIndex) {
       break;
     }
 
-    // Found another video in the group
-    if (slide.asset.type === 'video') {
+    // Found another slide with video in the group
+    if (slideHasVideo(nextSlide)) {
       return false;
     }
   }
 
-  return true; // No more videos found in this group
+  return true; // No more video slides found in this group
 }
 
 /**
@@ -518,15 +636,15 @@ function findGroupEndIndex(slide, startIndex) {
  * Returns the end index where this video should stop being active.
  *
  * Rules:
- * - Videos extend to the end of their post
- * - If a video is the LAST video in a group, it extends to the END of the group
+ * - Videos extend to the end of their post (all slides from same post)
+ * - If a slide is the LAST video slide in a group, it extends to the END of the group
  */
 function calculateVideoEndIndex(videoSlide, videoIndex) {
-  // Default: end of the video's post
+  // Default: extend to end of the same post (handles video + capture case)
   let endIndex = videoSlide.postEndIndex;
 
-  // If this is the last video in a group, extend to end of group
-  if (isLastVideoInGroup(videoSlide, videoIndex)) {
+  // If this is the last video slide in a group, extend to end of group
+  if (isLastVideoSlideInGroup(videoSlide, videoIndex)) {
     endIndex = findGroupEndIndex(videoSlide, videoIndex);
   }
 
@@ -541,21 +659,21 @@ function findActiveVideoForSlide(slideIndex) {
   const currentSlide = state.visibleSlides[slideIndex];
   if (!currentSlide) return null;
 
-  // If current slide is itself a video, return it
-  if (currentSlide.asset.type === 'video') {
+  // If current slide has video, return it
+  if (slideHasVideo(currentSlide)) {
     return slideIndex;
   }
 
-  // Look backwards for the most recent video
+  // Look backwards for the most recent slide with video
   for (let i = slideIndex - 1; i >= 0; i--) {
     const slide = state.visibleSlides[i];
 
-    if (slide.asset.type === 'video') {
+    if (slideHasVideo(slide)) {
       // Check if current slide is within this video's range
       const videoEndIndex = calculateVideoEndIndex(slide, i);
 
       if (slideIndex >= i && slideIndex <= videoEndIndex) {
-        return i; // This video covers the current slide
+        return i; // This video slide covers the current slide
       }
 
       // Video found but doesn't cover current slide - no video is active
@@ -585,13 +703,15 @@ function buildTagIndex() {
     });
   }
 
-  // Extract all tags from assets
+  // Extract all tags from all assets in all slides
   state.allSlides.forEach(slide => {
-    if (slide.asset.tags && Array.isArray(slide.asset.tags)) {
-      slide.asset.tags.forEach(tag => {
-        state.allTags.add(tag.toLowerCase());
-      });
-    }
+    slide.assets.forEach(asset => {
+      if (asset.tags && Array.isArray(asset.tags)) {
+        asset.tags.forEach(tag => {
+          state.allTags.add(tag.toLowerCase());
+        });
+      }
+    });
   });
 }
 
@@ -643,8 +763,13 @@ function updateTagChipPresentState() {
   const currentSlide = state.visibleSlides[state.currentSlideIndex];
   const currentTags = new Set();
 
-  if (currentSlide?.asset?.tags) {
-    currentSlide.asset.tags.forEach(tag => currentTags.add(tag.toLowerCase()));
+  // Collect tags from all assets in the current slide
+  if (currentSlide?.assets) {
+    currentSlide.assets.forEach(asset => {
+      if (asset.tags && Array.isArray(asset.tags)) {
+        asset.tags.forEach(tag => currentTags.add(tag.toLowerCase()));
+      }
+    });
   }
 
   const chips = dom.tagCloud.querySelectorAll('.tag-chip');
@@ -752,12 +877,16 @@ function applyTagFilter() {
 }
 
 /**
- * Get tags for a slide's asset.
+ * Get tags for a slide's assets.
  */
 function getSlideTagsSet(slide) {
   const tags = new Set();
-  if (slide?.asset?.tags) {
-    slide.asset.tags.forEach(tag => tags.add(tag.toLowerCase()));
+  if (slide?.assets) {
+    slide.assets.forEach(asset => {
+      if (asset.tags && Array.isArray(asset.tags)) {
+        asset.tags.forEach(tag => tags.add(tag.toLowerCase()));
+      }
+    });
   }
   return tags;
 }
@@ -872,45 +1001,61 @@ function createSlideElement(slide, index) {
   div.className = 'slide';
   div.dataset.index = index;
 
-  if (slide.asset.type === 'html') {
-    // Custom HTML content (can come from YAML or programmatically created)
-    const container = document.createElement('div');
-    container.innerHTML = slide.asset.html;
-    div.appendChild(container);
-  } else if (slide.asset.type === 'video') {
-    const video = document.createElement('video');
-    video.src = slide.asset.source;
-    video.loop = true;
-    video.muted = false;
-    video.playsInline = true;
-    video.preload = 'metadata';
-    video.addEventListener('click', () => openPostUrl(slide.postUrl));
-    div.appendChild(video);
-  } else {
-    const img = document.createElement('img');
-    img.src = slide.asset.source;
-    img.alt = slide.asset.alt || '';
-    img.loading = 'lazy';
-    img.addEventListener('click', () => openPostUrl(slide.postUrl));
+  // Create a vertical container for all assets
+  const container = document.createElement('div');
+  container.className = 'slide-assets-container';
 
-    img.onerror = () => {
-      img.style.display = 'none';
-      const placeholder = document.createElement('div');
-      placeholder.className = 'slide-placeholder';
-      placeholder.innerHTML = `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-          <circle cx="8.5" cy="8.5" r="1.5"/>
-          <polyline points="21 15 16 10 5 21"/>
-        </svg>
-        <span>Asset not found</span>
-      `;
-      div.appendChild(placeholder);
-    };
+  // Render each asset in the slide
+  slide.assets.forEach((asset, assetIndex) => {
+    const assetWrapper = document.createElement('div');
+    assetWrapper.className = 'slide-asset';
+    assetWrapper.dataset.assetIndex = assetIndex;
 
-    div.appendChild(img);
-  }
+    if (asset.type === 'html') {
+      // Custom HTML content (can come from YAML or programmatically created)
+      const htmlContainer = document.createElement('div');
+      htmlContainer.className = 'html-overlay';
+      htmlContainer.innerHTML = asset.html;
+      assetWrapper.appendChild(htmlContainer);
+    } else if (asset.type === 'video') {
+      const video = document.createElement('video');
+      video.dataset.src = asset.source;  // Store source in data attribute for lazy loading
+      video.loop = true;
+      video.muted = false;
+      video.playsInline = true;
+      video.preload = 'none';  // Don't preload anything
+      video.addEventListener('click', () => openPostUrl(asset.url || slide.postUrl));
+      assetWrapper.appendChild(video);
+    } else {
+      // Image asset
+      const img = document.createElement('img');
+      img.src = asset.source;
+      img.alt = asset.alt || '';
+      img.loading = 'lazy';
+      img.addEventListener('click', () => openPostUrl(asset.url || slide.postUrl));
 
+      img.onerror = () => {
+        img.style.display = 'none';
+        const placeholder = document.createElement('div');
+        placeholder.className = 'slide-placeholder';
+        placeholder.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span>Asset not found</span>
+        `;
+        assetWrapper.appendChild(placeholder);
+      };
+
+      assetWrapper.appendChild(img);
+    }
+
+    container.appendChild(assetWrapper);
+  });
+
+  div.appendChild(container);
   return div;
 }
 
@@ -923,7 +1068,7 @@ function openPostUrl(url) {
 function renderProgressSections() {
   dom.progressSections.innerHTML = '';
 
-  // Calculate section proportions
+  // Calculate section proportions (counts posts/slides, not assets)
   const sectionCounts = {};
   state.visibleSlides.forEach(slide => {
     const key = slide.sectionKey;
@@ -1082,7 +1227,8 @@ function navigateHorizontal(direction) {
   const target = state.visibleSlides[targetIndex];
 
   // Determine transition type based on hierarchy boundary crossed
-  let transitionType = 'withinPost';
+  // Since one slide = one post, we're always moving between posts
+  let transitionType = 'betweenPosts';
   let stackAction = null; // 'push', 'pop', 'clear', or null
 
   if (current.sectionIndex !== target.sectionIndex) {
@@ -1093,8 +1239,8 @@ function navigateHorizontal(direction) {
     // Bundle boundary crossed - clear stack
     transitionType = 'betweenGroups';
     stackAction = 'clear';
-  } else if (current.postIndex !== target.postIndex) {
-    // Post boundary within same bundle
+  } else {
+    // Moving between posts within same bundle (or same section if not in bundle)
     transitionType = 'betweenPosts';
 
     // Check if we're in a bundle
@@ -1186,14 +1332,13 @@ function goToSection(sectionKey) {
   goToSlide(targetIndex, direction, 'section', 'clear');
 }
 
-function goToSlide(targetIndex, direction, transitionType = 'withinPost', stackAction = null) {
+function goToSlide(targetIndex, direction, transitionType = 'betweenPosts', stackAction = null) {
   if (targetIndex < 0 || targetIndex >= state.visibleSlides.length) return;
   if (state.isAnimating) return;
 
   state.isAnimating = true;
 
   // Find the current foreground slide (active but not video-background)
-  // If we're on a video slide, use the current slide index
   const currentSlideEl = dom.slideTrack.querySelector(`[data-index="${state.currentSlideIndex}"]`);
   const targetSlideEl = dom.slideTrack.querySelector(`[data-index="${targetIndex}"]`);
 
@@ -1236,7 +1381,7 @@ function goToSlide(targetIndex, direction, transitionType = 'withinPost', stackA
       // Horizontal transition with axis hint (section crossed via left/right)
       executeHorizontalSectionTransition(currentSlideEl, targetSlideEl, direction, bgVideoSlideEl);
     } else {
-      // Standard horizontal transitions (within post, between posts, between groups)
+      // Standard horizontal transitions (between posts, between groups)
       executeHorizontalTransition(currentSlideEl, targetSlideEl, transitionType, direction, bgVideoSlideEl);
     }
   }
@@ -1261,7 +1406,7 @@ function goToSlide(targetIndex, direction, transitionType = 'withinPost', stackA
 function applyTransitionEffects(currentEl, targetEl, transitionType, direction) {
   // Remove any previous transition classes
   const allTransitionClasses = [
-    'transition-within-post', 'transition-posts', 'transition-groups',
+    'transition-posts', 'transition-groups',
     'transition-section', 'transition-section-horizontal',
     'direction-backward', 'transitioning-out', 'micro-settle',
     'depth-swap', 'axis-hint-up', 'axis-hint-down', 'scale-enter'
@@ -1272,11 +1417,6 @@ function applyTransitionEffects(currentEl, targetEl, transitionType, direction) 
 
   // Apply appropriate transition class
   switch (transitionType) {
-    case 'withinPost':
-      currentEl.classList.add('transition-within-post');
-      targetEl.classList.add('transition-within-post');
-      break;
-
     case 'betweenPosts':
       currentEl.classList.add('transition-posts', 'transitioning-out');
       targetEl.classList.add('transition-posts', 'micro-settle');
@@ -1397,7 +1537,7 @@ function executeHorizontalSectionTransition(currentEl, targetEl, direction, bgVi
 }
 
 /**
- * Execute standard horizontal transition (within post, between posts, between groups)
+ * Execute standard horizontal transition (between posts, between groups)
  */
 function executeHorizontalTransition(currentEl, targetEl, transitionType, direction, bgVideoEl) {
   // Check if we're returning to a background video
@@ -1512,7 +1652,7 @@ function scheduleTransitionCleanup(currentEl, targetEl, duration) {
     const cleanupClasses = [
       'section-exit-up', 'section-exit-down',
       'transitioning-out', 'transitioning-in',
-      'transition-within-post', 'transition-posts', 'transition-groups',
+      'transition-posts', 'transition-groups',
       'transition-section', 'transition-section-horizontal',
       'direction-backward', 'micro-settle', 'depth-swap',
       'axis-hint-up', 'axis-hint-down', 'scale-enter',
@@ -1548,8 +1688,10 @@ function updateActiveSlide() {
     }
   });
 
-  // Initialize video states
-  updateVideoStates(state.currentSlideIndex);
+  // Initialize video states - defer to next frame to ensure DOM is fully ready
+  requestAnimationFrame(() => {
+    updateVideoStates(state.currentSlideIndex);
+  });
 }
 
 /**
@@ -1571,30 +1713,65 @@ function updateVideoStates(targetIndex) {
   // Start/continue the active video
   if (newActiveVideoIndex !== null) {
     const videoSlideEl = dom.slideTrack.querySelector(`[data-index="${newActiveVideoIndex}"]`);
-    const video = videoSlideEl?.querySelector('video');
+    const videos = videoSlideEl?.querySelectorAll('video');
 
-    if (video) {
+    if (videos && videos.length > 0) {
       if (targetIndex === newActiveVideoIndex) {
         // Video is in foreground - show as active slide
         videoSlideEl.classList.remove('video-background');
-        if (video.paused) {
-          video.muted = false;
-          video.play().catch(() => {});
-        }
+        videos.forEach(video => {
+          // Lazy load the video source if not already loaded
+          if (!video.src && video.dataset.src) {
+            video.src = video.dataset.src;
+          }
+          if (video.paused) {
+            // Mute for autoplay if no user interaction yet
+            video.muted = !state.userHasInteracted;
+            video.play().catch(() => {});
+          } else if (state.userHasInteracted && video.muted) {
+            // User has interacted - unmute if still muted
+            video.muted = false;
+          }
+        });
       } else {
         // Video is in background - keep playing but layer behind current slide
         videoSlideEl.classList.add('video-background', 'active');
-        if (video.paused) {
-          video.muted = false;
-          video.play().catch(() => {});
-        }
+        videos.forEach(video => {
+          // Lazy load the video source if not already loaded
+          if (!video.src && video.dataset.src) {
+            video.src = video.dataset.src;
+          }
+          if (video.paused) {
+            // Mute for autoplay if no user interaction yet
+            video.muted = !state.userHasInteracted;
+            video.play().catch(() => {});
+          } else if (state.userHasInteracted && video.muted) {
+            // User has interacted - unmute if still muted
+            video.muted = false;
+          }
+        });
       }
     }
   }
 }
 
 /**
- * Stop and reset a video at the given slide index.
+ * Unmute the currently active video (called after user interaction).
+ */
+function unmuteActiveVideo() {
+  if (state.activeVideoIndex !== null) {
+    const videoSlideEl = dom.slideTrack.querySelector(`[data-index="${state.activeVideoIndex}"]`);
+    const videos = videoSlideEl?.querySelectorAll('video');
+    videos?.forEach(video => {
+      if (video.muted) {
+        video.muted = false;
+      }
+    });
+  }
+}
+
+/**
+ * Stop and reset all videos at the given slide index.
  */
 function stopVideo(slideIndex) {
   const slideEl = dom.slideTrack.querySelector(`[data-index="${slideIndex}"]`);
@@ -1606,11 +1783,11 @@ function stopVideo(slideIndex) {
     } else if (slideIndex > state.currentSlideIndex) {
       slideEl.classList.add('next');
     }
-    const video = slideEl.querySelector('video');
-    if (video) {
+    const videos = slideEl.querySelectorAll('video');
+    videos.forEach(video => {
       video.pause();
       video.currentTime = 0;
-    }
+    });
   }
 }
 
@@ -1829,6 +2006,15 @@ function bindEvents() {
     });
   });
 
+  // Help button - show onboarding
+  if (dom.helpButton) {
+    dom.helpButton.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      showOnboarding();
+    });
+  }
+
   // Filter button - toggle tag panel
   if (dom.filterButton) {
     dom.filterButton.addEventListener('click', (e) => {
@@ -1852,8 +2038,14 @@ function bindEvents() {
     });
   }
 
-  // Close tag panel when clicking outside
+  // Close tag panel when clicking outside, and track user interaction
   document.addEventListener('click', (e) => {
+    // Mark user as having interacted (for video unmute)
+    if (!state.userHasInteracted) {
+      state.userHasInteracted = true;
+      unmuteActiveVideo();
+    }
+
     if (state.tagPanelVisible) {
       const isClickInsidePanel = dom.tagPanel.contains(e.target);
       const isClickOnFilterButton = dom.filterButton.contains(e.target);
@@ -1870,6 +2062,12 @@ function bindEvents() {
 }
 
 function handleKeydown(e) {
+  // Mark user as having interacted (for video unmute)
+  if (!state.userHasInteracted) {
+    state.userHasInteracted = true;
+    unmuteActiveVideo();
+  }
+
   switch (e.key) {
     case 'ArrowRight':
       navigateHorizontal('next');
@@ -1903,6 +2101,12 @@ function handleKeydown(e) {
 }
 
 function handleTouchStart(e) {
+  // Mark user as having interacted (for video unmute)
+  if (!state.userHasInteracted) {
+    state.userHasInteracted = true;
+    unmuteActiveVideo();
+  }
+
   state.touchStartX = e.touches[0].clientX;
   state.touchStartY = e.touches[0].clientY;
   state.touchStartTime = Date.now();
@@ -1997,6 +2201,125 @@ function showError(message) {
 // Initialize on DOM Ready
 // ==========================================================================
 
+// Narrow bridge used by dist/webmcp.js. Keep the newsletter state private and
+// expose only the operations needed by the semantic WebMCP tools.
+window.newsletterWebMCPAdapter = {
+  getSnapshot: () => ({
+    newsletter: state.newsletter,
+    currentSlide: state.visibleSlides[state.currentSlideIndex] ?? null,
+    currentSlideIndex: state.currentSlideIndex,
+    isAnimating: state.isAnimating
+  }),
+
+  getItem(id) {
+    const itemId = String(id);
+
+    for (const section of state.newsletter?.sections ?? []) {
+      for (const item of section.items ?? []) {
+        if (Array.isArray(item?.items)) {
+          const bundledItem = item.items.find(
+            post => String(post?.id) === itemId
+          );
+          if (bundledItem) return bundledItem;
+        } else if (String(item?.id) === itemId) {
+          return item;
+        }
+      }
+    }
+
+    return null;
+  },
+
+  next() {
+    const currentIndex = state.currentSlideIndex;
+    navigateHorizontal('next');
+    return state.currentSlideIndex !== currentIndex;
+  },
+
+  previous() {
+    const currentIndex = state.currentSlideIndex;
+    navigateHorizontal('prev');
+    return state.currentSlideIndex !== currentIndex;
+  },
+
+  filter(tag) {
+    const countVisibleItems = () => new Set(
+      state.visibleSlides
+        .filter(slide => slide.postId !== 'exit')
+        .map(slide => String(slide.postId))
+    ).size;
+
+    if (tag === undefined || tag === null) {
+      state.selectedTags.clear();
+      saveSelectedTags();
+      setMode('all');
+      renderTagCloud();
+      return {
+        filtered: false,
+        tag: null,
+        total: countVisibleItems()
+      };
+    }
+
+    const normalizedTag = String(tag).trim().toLowerCase();
+    if (!state.allTags.has(normalizedTag)) {
+      throw new Error(`Tag not found: ${tag}`);
+    }
+
+    state.selectedTags = new Set([normalizedTag]);
+    saveSelectedTags();
+    if (state.mode === 'personalized') {
+      applyTagFilter();
+    } else {
+      setMode('personalized');
+    }
+    renderTagCloud();
+
+    return {
+      filtered: true,
+      tag: normalizedTag,
+      total: countVisibleItems()
+    };
+  },
+
+  showItem(id) {
+    const itemId = String(id);
+    let targetIndex = state.visibleSlides.findIndex(
+      slide => String(slide.postId) === itemId
+    );
+
+    if (targetIndex === -1) {
+      if (!this.getItem(itemId)) return false;
+
+      // Search covers the full issue, so reveal a result hidden by filtering.
+      setMode('all');
+      targetIndex = state.visibleSlides.findIndex(
+        slide => String(slide.postId) === itemId
+      );
+    }
+
+    if (targetIndex === -1) return false;
+    if (state.isAnimating) {
+      throw new Error('The newsletter is still navigating');
+    }
+
+    if (targetIndex !== state.currentSlideIndex) {
+      const currentSlide = state.visibleSlides[state.currentSlideIndex];
+      const targetSlide = state.visibleSlides[targetIndex];
+      const direction = targetIndex > state.currentSlideIndex ? 'next' : 'prev';
+      const transitionType = currentSlide?.sectionIndex !== targetSlide.sectionIndex
+        ? 'sectionHorizontal'
+        : currentSlide?.groupIndex !== targetSlide.groupIndex
+          ? 'betweenGroups'
+          : 'betweenPosts';
+
+      goToSlide(targetIndex, direction, transitionType, 'clear');
+    }
+
+    return true;
+  }
+};
+
 // Expose state for debugging
 window.getSlideState = () => ({
   allTags: Array.from(state.allTags),
@@ -2004,7 +2327,7 @@ window.getSlideState = () => ({
   selectedTags: Array.from(state.selectedTags),
   mode: state.mode,
   slidesCount: state.allSlides.length,
-  firstSlideAsset: state.allSlides[0]?.asset,
+  firstSlideAssets: state.allSlides[0]?.assets,
   newsletter: state.newsletter
 });
 
