@@ -174,6 +174,19 @@ export async function registerWebMCP(modelContext, adapter) {
     }),
 
     modelContext.registerTool({
+      name: "getSelectedTags",
+      title: "Get the user's followed tags",
+      description:
+        "Return the tags the user follows (selected in the tag panel and remembered across visits), sorted; whether the view is narrowed to them; and softFilterTag, the temporary tag set by filter, which overrides the user's tags while set.",
+      inputSchema: {
+        type: "object",
+        properties: {},
+        additionalProperties: false,
+      },
+      annotations: sharedAnnotations,
+      execute: async () => textResult(adapter.getSelectedTags()),
+    }),
+    modelContext.registerTool({
       name: "listItems",
       title: "List ML news items",
       description:
@@ -246,7 +259,7 @@ export async function registerWebMCP(modelContext, adapter) {
       name: "filter",
       title: "Filter ML news by tag",
       description:
-        "Show only items associated with a tag. Omit the tag to disable filtering and show all items. An unknown tag returns an error without changing the current filter.",
+        "Temporarily show only items associated with a tag. This is a soft filter: it does not change the user's followed tags and is not remembered on the next visit; the user can dismiss it, and any tag action by the user replaces it. Omit the tag to remove the soft filter and return to the user's own view. An unknown tag returns an error without changing the current filter.",
       inputSchema: {
         type: "object",
         properties: {

@@ -42,13 +42,8 @@
   --font-display: 'Instrument Serif', Georgia, serif;
 
   /* Tag chips */
-  --chip-bg: transparent;
-  --chip-bg-selected: rgba(255, 255, 255, 0.1);
-  --chip-border: rgba(255, 255, 255, 0.12);
-  --chip-border-selected: rgba(255, 255, 255, 0.2);
-  --chip-border-new: var(--accent-dim);
-  --chip-shadow-present: 0 0 0 2px var(--accent-dim), 0 0 12px var(--accent-glow), 0 0 20px rgba(229, 161, 88, 0.15);
   --chip-radius: 16px;
+  --tag-new: #7fd1a8;
 }
 
 /* Reset & Base */
@@ -261,24 +256,24 @@ html, body {
 }
 
 /* ==========================================================================
-   Segmented Mode Toggle (All/Personalized)
+   "My tags" Switch (replaces the All/Personalized segmented toggle)
+   Off = everything; On = only slides with followed tags.
    ========================================================================== */
 
-.segmented-toggle {
+.mode-switch-wrap {
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  padding: 2px;
-  gap: 2px;
 }
 
-.segmented-toggle button {
-  padding: 6px 12px;
+.mode-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 14px 0 10px;
   background: transparent;
-  border: none;
-  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
   color: var(--text-secondary);
   font-family: var(--font-ui);
   font-size: 11px;
@@ -288,16 +283,99 @@ html, body {
   cursor: pointer;
   transition:
     color var(--duration-fast) ease,
+    background var(--duration-fast) ease,
+    border-color var(--duration-fast) ease;
+}
+
+.mode-switch:hover {
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.mode-switch-track {
+  position: relative;
+  width: 28px;
+  height: 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  transition: background var(--duration-fast) ease;
+}
+
+.mode-switch-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  transition:
+    transform var(--duration-normal) var(--ease-out),
     background var(--duration-fast) ease;
 }
 
-.segmented-toggle button:hover {
+.mode-switch.on {
+  color: var(--accent);
+  background: var(--accent-glow);
+  border-color: var(--accent-dim);
+}
+
+.mode-switch.on .mode-switch-track {
+  background: var(--accent-dim);
+}
+
+.mode-switch.on .mode-switch-thumb {
+  transform: translateX(12px);
+  background: var(--accent);
+}
+
+/* On, but no tags followed: nothing is filtered */
+.mode-switch.on.idle {
+  color: var(--text-secondary);
+  background: transparent;
+  border-style: dashed;
+}
+
+/* A temporary WebMCP filter overrides the user's view */
+.mode-switch.overridden {
+  opacity: 0.45;
+}
+
+.mode-switch:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Temporary WebMCP filter (not saved) */
+.soft-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px 0 12px;
+  background: transparent;
+  border: 1px dashed var(--accent-dim);
+  border-radius: 16px;
+  color: var(--accent);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.soft-filter-pill:hover {
+  border-color: var(--accent);
   color: var(--text-primary);
 }
 
-.segmented-toggle button.active {
-  color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.08);
+.soft-filter-pill[hidden] {
+  display: none;
+}
+
+.soft-filter-close {
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.7;
 }
 
 /* Help Button */
@@ -371,6 +449,33 @@ html, body {
   height: 18px;
 }
 
+.filter-button {
+  position: relative;
+}
+
+/* Followed-tag count */
+.filter-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: var(--bg-primary);
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: center;
+  display: none;
+}
+
+.filter-badge.visible {
+  display: block;
+}
+
 /* Tab bar controls container */
 .tab-bar-controls {
   display: flex;
@@ -420,18 +525,49 @@ html, body {
   gap: 8px;
 }
 
+/* "Clear" item at the end of the tag cloud */
+.tag-clear {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.tag-clear:hover {
+  color: var(--text-primary);
+}
+
+.tag-clear[hidden] {
+  display: none;
+}
+
 /* ==========================================================================
    Tag Chips
+   Two independent channels, never sharing a visual property:
+   - "present" (tag is on the current slide, labelled "current" in the UI):
+     brightness. Current chips are full-contrast with a light border and a
+     leading dot; the rest recede.
+   - "selected" (user follows the tag): accent fill + check icon.
+   The legend for these lives in the help overlay (.hint-legend).
    ========================================================================== */
 
 .tag-chip {
   display: inline-flex;
   align-items: center;
+  gap: 6px;
   padding: 6px 12px;
-  background: var(--chip-bg);
-  border: 1px solid var(--chip-border);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--chip-radius);
-  color: var(--text-secondary);
+  color: var(--text-muted);
   font-family: var(--font-ui);
   font-size: 12px;
   font-weight: 500;
@@ -440,67 +576,88 @@ html, body {
   transition:
     background var(--duration-fast) ease,
     border-color var(--duration-fast) ease,
-    color var(--duration-fast) ease,
-    box-shadow var(--duration-fast) ease;
+    color var(--duration-fast) ease;
 }
 
 .tag-chip:hover {
-  border-color: rgba(255, 255, 255, 0.17);
+  border-color: rgba(255, 255, 255, 0.2);
   color: var(--text-primary);
 }
 
-/* Selected state */
-.tag-chip.selected {
-  background: var(--chip-bg-selected);
-  border-color: var(--chip-border-selected);
-  color: var(--text-primary);
+/* Check icon: collapsed unless selected */
+.tag-chip-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  height: 14px;
+  margin-right: -6px; /* cancel the gap while collapsed */
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--accent);
+  color: var(--bg-primary);
+  transition:
+    width var(--duration-fast) var(--ease-out),
+    margin var(--duration-fast) var(--ease-out);
 }
 
-/* New this week state (dashed border) */
-.tag-chip.new {
-  border-style: dashed;
-  border-color: var(--chip-border-new);
+.tag-chip-check svg {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
 }
 
-.tag-chip.new.selected {
-  border-style: dashed;
-  border-color: var(--chip-border-new);
-}
-
-/* Present in current slide state (shadow/elevation) */
+/* Current (on the slide being viewed): bright + leading dot */
 .tag-chip.present {
-  box-shadow: var(--chip-shadow-present);
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.06);
 }
 
-/* Combined: selected + new */
-.tag-chip.selected.new {
-  background: var(--chip-bg-selected);
-  border-style: dashed;
-  border-color: var(--chip-border-new);
+.tag-chip.present::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-primary);
+  flex-shrink: 0;
 }
 
-/* Combined: selected + present */
+/* Selected (followed): accent fill + check */
+.tag-chip.selected {
+  color: #f3cf9f;
+  background: var(--accent-glow);
+  border-color: var(--accent-dim);
+}
+
+.tag-chip.selected .tag-chip-check {
+  width: 14px;
+  margin-right: 0;
+}
+
+.tag-chip.selected:hover {
+  border-color: var(--accent);
+}
+
+/* Followed + current: strongest */
 .tag-chip.selected.present {
-  background: var(--chip-bg-selected);
-  border-color: var(--chip-border-selected);
-  box-shadow: var(--chip-shadow-present);
+  color: var(--text-primary);
+  background: rgba(229, 161, 88, 0.3);
+  border-color: var(--accent);
 }
 
-/* Combined: new + present */
-.tag-chip.new.present {
-  border-style: dashed;
-  border-width: 2px;
-  border-color: rgba(229, 161, 88, 0.5);
-  box-shadow: var(--chip-shadow-present);
+.tag-chip.selected.present::before {
+  background: var(--text-primary);
 }
 
-/* Combined: selected + new + present */
-.tag-chip.selected.new.present {
-  background: var(--chip-bg-selected);
-  border-style: dashed;
-  border-width: 2px;
-  border-color: rgba(229, 161, 88, 0.5);
-  box-shadow: var(--chip-shadow-present);
+/* New this week */
+.tag-chip.new::after {
+  content: 'new';
+  color: var(--tag-new);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* Focus state for accessibility */
@@ -1307,6 +1464,20 @@ html, body {
 .hint:nth-child(1) { animation-delay: 200ms; }
 .hint:nth-child(2) { animation-delay: 400ms; }
 .hint:nth-child(3) { animation-delay: 600ms; }
+.hint:nth-child(4) { animation-delay: 800ms; }
+
+/* Tag chip legend: sample chips, not interactive */
+.hint-legend {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.hint-legend .tag-chip {
+  pointer-events: none;
+  cursor: default;
+}
 
 .hint .arrow {
   display: inline-block;
@@ -1442,9 +1613,10 @@ html, body {
     gap: 6px;
   }
 
-  /* Segmented toggle responsive */
-  .segmented-toggle button {
-    padding: 5px 10px;
+  /* Switch + panel header responsive */
+  .mode-switch {
+    height: 36px;
+    padding: 0 10px 0 8px;
     font-size: 10px;
   }
 

@@ -115,6 +115,9 @@ const state = {
   // View mode: 'all' | 'personalized'
   mode: 'all',
   customView: null,
+  // Temporary tag filter set through WebMCP. Overrides the user's view but is
+  // never persisted and never touches selectedTags; any user tag action clears it.
+  softFilterTag: null,
 
   // Track if user has interacted (for autoplay unmute)
   userHasInteracted: false,
@@ -152,8 +155,10 @@ const dom = {
   tabBar: null,
   tabs: null,
   modeToggle: null,
-  modeAllBtn: null,
-  modePersonalizedBtn: null,
+  modeSwitch: null,     // Single "My tags" on/off switch (replaces All/Personalized)
+  filterBadge: null,    // Selected-tag count on the filter button
+  tagClear: null,       // "Clear" item at the end of the tag cloud
+  softFilterPill: null, // Shows the temporary WebMCP tag filter
   helpButton: null,
   filterButton: null,
   tagPanel: null,
@@ -207,8 +212,6 @@ function cacheDOMReferences() {
   dom.tabBar = document.getElementById('tab-bar');
   dom.tabs = document.querySelectorAll('#tabs-container .tab'); // Query only from tabs container
   dom.modeToggle = document.getElementById('mode-toggle');
-  dom.modeAllBtn = document.getElementById('mode-all');
-  dom.modePersonalizedBtn = document.getElementById('mode-personalized');
   dom.helpButton = document.getElementById('help-button');
   dom.filterButton = document.getElementById('filter-button');
   dom.tagPanel = document.getElementById('tag-panel');
@@ -228,6 +231,9 @@ function cacheDOMReferences() {
   dom.loadingState = document.getElementById('loading-state');
   dom.currentSlideCounter = document.getElementById('current-slide');
   dom.totalSlidesCounter = document.getElementById('total-slides');
+
+  // Build the "My tags" switch, filter badge and tag panel header
+  enhanceTagControls();
 
   // Create sheen elements for group transitions (directional highlight)
   createSheenElements();
@@ -552,18 +558,16 @@ function updateVisibleSlides() {
     return;
   }
 
-  if (state.mode === 'personalized' && state.selectedTags.size > 0) {
-    // Filter slides that have at least one selected tag (OR logic)
+  const filterTags = state.softFilterTag
+    ? new Set([state.softFilterTag])
+    : (state.mode === 'personalized' ? state.selectedTags : new Set());
+
+  if (filterTags.size > 0) {
+    // Filter slides that have at least one of the tags (OR logic)
     state.visibleSlides = state.allSlides.filter(slide => {
-      // Check if any asset in the slide has a selected tag
-      for (const asset of slide.assets) {
-        if (asset.tags && Array.isArray(asset.tags)) {
-          for (const tag of state.selectedTags) {
-            if (asset.tags.map(t => t.toLowerCase()).includes(tag)) {
-              return true;
-            }
-          }
-        }
+      const slideTags = getSlideTagsSet(slide);
+      for (const tag of filterTags) {
+        if (slideTags.has(tag)) return true;
       }
       return false;
     });
@@ -694,6 +698,114 @@ function findActiveVideoForSlide(slideIndex) {
 // Tag System
 // ==========================================================================
 
+const CHECK_ICON_SVG = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="3.5 8.5 6.5 11.5 12.5 4.5"/></svg>';
+
+/**
+ * Build the tag-related controls at runtime so older generated pages
+ * (with the legacy All/Personalized segmented toggle) get the same UI:
+ * - the mode toggle container becomes a single "My tags" switch
+ * - the filter button gets a selected-count badge
+ * - the help overlay gets a legend for the tag chip states
+ * Idempotent: cacheDOMReferences() runs more than once.
+ */
+function enhanceTagControls() {
+  if (dom.modeToggle && !dom.modeToggle.dataset.enhanced) {
+    dom.modeToggle.dataset.enhanced = 'true';
+    dom.modeToggle.className = 'mode-switch-wrap';
+    dom.modeToggle.innerHTML = `
+      <button type="button" class="mode-switch" role="switch" aria-checked="false"
+              title="Show only slides with your selected tags (m)">
+        <span class="mode-switch-track" aria-hidden="true"><span class="mode-switch-thumb"></span></span>
+        <span class="mode-switch-label">My tags</span>
+      </button>`;
+  }
+  dom.modeSwitch = dom.modeToggle?.querySelector('.mode-switch') ?? null;
+
+  // Pill shown while a temporary WebMCP filter is active; click to remove it
+  if (dom.modeToggle && !dom.softFilterPill) {
+    const pill = document.createElement('button');
+    pill.type = 'button';
+    pill.className = 'soft-filter-pill';
+    pill.hidden = true;
+    pill.innerHTML = '<span class="soft-filter-label"></span><span class="soft-filter-close" aria-hidden="true">&times;</span>';
+    pill.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      clearSoftFilter();
+      applyTagFilter();
+    });
+    dom.modeToggle.before(pill);
+    dom.softFilterPill = pill;
+  }
+
+  if (dom.filterButton && !dom.filterButton.querySelector('.filter-badge')) {
+    const badge = document.createElement('span');
+    badge.className = 'filter-badge';
+    badge.setAttribute('aria-hidden', 'true');
+    dom.filterButton.appendChild(badge);
+  }
+  dom.filterBadge = dom.filterButton?.querySelector('.filter-badge') ?? null;
+
+  const hints = dom.onboarding?.querySelector('.onboarding-hints');
+  if (hints && !hints.querySelector('.hint-legend')) {
+    const legend = document.createElement('p');
+    legend.className = 'hint hint-legend';
+    legend.innerHTML = `
+      <span class="tag-chip selected" aria-hidden="true"><span class="tag-chip-check">${CHECK_ICON_SVG}</span><span class="tag-chip-label">followed</span></span>
+      <span class="tag-chip present" aria-hidden="true"><span class="tag-chip-check">${CHECK_ICON_SVG}</span><span class="tag-chip-label">current</span></span>
+      <span class="tag-chip" aria-hidden="true"><span class="tag-chip-check">${CHECK_ICON_SVG}</span><span class="tag-chip-label">other</span></span>`;
+    hints.appendChild(legend);
+  }
+}
+
+/**
+ * Sync every control that reflects the selected-tag count.
+ */
+function updateTagSelectionSummary() {
+  const count = state.selectedTags.size;
+
+  if (dom.filterBadge) {
+    dom.filterBadge.textContent = count > 0 ? String(count) : '';
+    dom.filterBadge.classList.toggle('visible', count > 0);
+  }
+  if (dom.tagClear) {
+    dom.tagClear.hidden = count === 0;
+  }
+  updateModeToggle();
+}
+
+/**
+ * Tooltip spelling out a chip's state, e.g. "anthropic · followed · current".
+ */
+function updateTagChipTitle(chip) {
+  const parts = [chip.dataset.tag];
+  if (chip.classList.contains('selected')) parts.push('followed');
+  if (chip.classList.contains('present')) parts.push('current');
+  chip.title = parts.join(' · ');
+}
+
+/**
+ * Drop the temporary WebMCP filter without re-rendering; callers that change
+ * the view afterwards (setMode, applyTagFilter) do the refresh.
+ */
+function clearSoftFilter() {
+  state.softFilterTag = null;
+}
+
+/**
+ * Unselect all tags.
+ */
+function clearSelectedTags() {
+  if (state.selectedTags.size === 0) return;
+  clearSoftFilter();
+  state.selectedTags.clear();
+  saveSelectedTags();
+  renderTagCloud();
+  if (state.mode === 'personalized') {
+    applyTagFilter();
+  }
+}
+
 /**
  * Build tag index from newsletter data.
  * Extracts all unique tags from assets and identifies "new" tags.
@@ -736,8 +848,10 @@ function renderTagCloud() {
   sortedTags.forEach(tag => {
     const chip = document.createElement('button');
     chip.className = 'tag-chip';
+    chip.type = 'button';
     chip.dataset.tag = tag;
-    chip.textContent = tag;
+    chip.innerHTML = `<span class="tag-chip-check">${CHECK_ICON_SVG}</span><span class="tag-chip-label"></span>`;
+    chip.querySelector('.tag-chip-label').textContent = tag;
     chip.setAttribute('role', 'checkbox');
     chip.setAttribute('aria-checked', 'false');
 
@@ -756,8 +870,22 @@ function renderTagCloud() {
     dom.tagCloud.appendChild(chip);
   });
 
+  // "Clear" sits at the end of the cloud; shown only while tags are followed
+  const clear = document.createElement('button');
+  clear.type = 'button';
+  clear.className = 'tag-clear';
+  clear.textContent = 'Clear';
+  clear.title = 'Unfollow all tags';
+  clear.addEventListener('click', (e) => {
+    e.preventDefault();
+    clearSelectedTags();
+  });
+  dom.tagCloud.appendChild(clear);
+  dom.tagClear = clear;
+
   // Update "present" state based on current slide
   updateTagChipPresentState();
+  updateTagSelectionSummary();
 }
 
 /**
@@ -782,6 +910,7 @@ function updateTagChipPresentState() {
   chips.forEach(chip => {
     const tag = chip.dataset.tag;
     chip.classList.toggle('present', currentTags.has(tag));
+    updateTagChipTitle(chip);
   });
 }
 
@@ -789,6 +918,7 @@ function updateTagChipPresentState() {
  * Toggle a tag's selection state.
  */
 function toggleTag(tag) {
+  clearSoftFilter();
   if (state.selectedTags.has(tag)) {
     state.selectedTags.delete(tag);
   } else {
@@ -800,7 +930,18 @@ function toggleTag(tag) {
   if (chip) {
     chip.classList.toggle('selected', state.selectedTags.has(tag));
     chip.setAttribute('aria-checked', state.selectedTags.has(tag) ? 'true' : 'false');
+    updateTagChipTitle(chip);
   }
+
+  // Selection is applied live so the slide count reacts immediately.
+  // Clicking a chip means "I care about this": switch to My tags if needed.
+  saveSelectedTags();
+  if (state.mode === 'personalized') {
+    applyTagFilter();
+  } else {
+    setMode('personalized');
+  }
+  updateTagSelectionSummary();
 }
 
 /**
@@ -813,14 +954,7 @@ function toggleTagPanel() {
   dom.filterButton.classList.toggle('active', state.tagPanelVisible);
 
   if (!state.tagPanelVisible) {
-    // Panel is closing - commit changes
-    saveSelectedTags();
-
-    // If in personalized mode, apply filter
-    if (state.mode === 'personalized') {
-      applyTagFilter();
-    }
-
+    // Panel is closing (selection is already applied live by toggleTag)
     // Resume normal tab bar auto-hide behavior
     if (!state.tabBarHovered) {
       clearTimeout(state.tabBarTimeout);
@@ -1858,6 +1992,7 @@ function setMode(newMode) {
  * Legacy toggle function for keyboard shortcut.
  */
 function toggleMode() {
+  clearSoftFilter();
   setMode(state.mode === 'all' ? 'personalized' : 'all');
 }
 
@@ -1898,10 +2033,28 @@ function updateActiveTab() {
 }
 
 function updateModeToggle() {
-  if (dom.modeAllBtn && dom.modePersonalizedBtn) {
-    dom.modeAllBtn.classList.toggle('active', state.mode === 'all');
-    dom.modePersonalizedBtn.classList.toggle('active', state.mode === 'personalized');
+  if (dom.softFilterPill) {
+    const tag = state.softFilterTag;
+    dom.softFilterPill.hidden = !tag;
+    if (tag) {
+      dom.softFilterPill.querySelector('.soft-filter-label').textContent = tag;
+      dom.softFilterPill.title = `Temporary filter "${tag}" (not saved). Click to remove.`;
+    }
   }
+  if (!dom.modeSwitch) return;
+  const on = state.mode === 'personalized';
+  const count = state.selectedTags.size;
+  dom.modeSwitch.setAttribute('aria-checked', on ? 'true' : 'false');
+  dom.modeSwitch.classList.toggle('on', on);
+  // On, but nothing to filter by: everything is shown
+  dom.modeSwitch.classList.toggle('idle', on && count === 0);
+  // A temporary WebMCP filter is driving the view instead
+  dom.modeSwitch.classList.toggle('overridden', state.softFilterTag !== null);
+  dom.modeSwitch.title = on
+    ? (count === 0
+        ? 'No tags followed yet - showing everything. Open the tag panel to pick some.'
+        : 'Showing only slides with your tags. Click to show everything (m)')
+    : 'Show only slides with your followed tags (m)';
 }
 
 function updateProgress() {
@@ -2035,17 +2188,16 @@ function bindEvents() {
     });
   }
 
-  // Mode toggle buttons
-  if (dom.modeAllBtn) {
-    dom.modeAllBtn.addEventListener('click', (e) => {
+  // "My tags" switch: toggles personalized mode.
+  // Turning it on with nothing followed opens the tag panel to pick some.
+  if (dom.modeSwitch) {
+    dom.modeSwitch.addEventListener('click', (e) => {
       e.preventDefault();
-      setMode('all');
-    });
-  }
-  if (dom.modePersonalizedBtn) {
-    dom.modePersonalizedBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      setMode('personalized');
+      e.stopPropagation();
+      toggleMode();
+      if (state.mode === 'personalized' && state.selectedTags.size === 0 && !state.tagPanelVisible) {
+        toggleTagPanel();
+      }
     });
   }
 
@@ -2223,6 +2375,17 @@ window.newsletterWebMCPAdapter = {
     customViewActive: state.customView !== null
   }),
 
+  getSelectedTags() {
+    return {
+      tags: Array.from(state.selectedTags).sort(),
+      // True when the "My tags" switch is on and actually narrowing the view
+      filtering: state.mode === 'personalized' && state.selectedTags.size > 0,
+      // Temporary filter set by the filter tool; overrides the above while set
+      softFilterTag: state.softFilterTag,
+      customViewActive: state.customView !== null
+    };
+  },
+
   getItem(id) {
     const itemId = String(id);
 
@@ -2285,6 +2448,7 @@ window.newsletterWebMCPAdapter = {
     const regularView = state.customView?.regularView ?? {
       mode: state.mode,
       selectedTags: new Set(state.selectedTags),
+      softFilterTag: state.softFilterTag,
       globalIndex: state.visibleSlides[state.currentSlideIndex]?.globalIndex
     };
     state.customView = { slides: customSlides, regularView };
@@ -2312,6 +2476,7 @@ window.newsletterWebMCPAdapter = {
     state.customView = null;
     state.mode = regularView.mode;
     state.selectedTags = new Set(regularView.selectedTags);
+    state.softFilterTag = regularView.softFilterTag ?? null;
     updateVisibleSlides();
 
     const restoredIndex = state.visibleSlides.findIndex(
@@ -2351,11 +2516,13 @@ window.newsletterWebMCPAdapter = {
         .map(slide => String(slide.postId))
     ).size;
 
+    // Soft filter: changes the view only. The user's followed tags and
+    // My tags mode are left untouched and nothing is persisted.
     if (tag === undefined || tag === null) {
-      state.selectedTags.clear();
-      saveSelectedTags();
-      setMode('all');
-      renderTagCloud();
+      if (state.softFilterTag) {
+        clearSoftFilter();
+        applyTagFilter();
+      }
       return {
         filtered: false,
         tag: null,
@@ -2368,14 +2535,8 @@ window.newsletterWebMCPAdapter = {
       throw new Error(`Tag not found: ${tag}`);
     }
 
-    state.selectedTags = new Set([normalizedTag]);
-    saveSelectedTags();
-    if (state.mode === 'personalized') {
-      applyTagFilter();
-    } else {
-      setMode('personalized');
-    }
-    renderTagCloud();
+    state.softFilterTag = normalizedTag;
+    applyTagFilter();
 
     return {
       filtered: true,
